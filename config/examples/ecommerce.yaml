@@ -1,0 +1,86 @@
+# 电商项目配置示例
+
+```yaml
+project:
+  name: "电商平台"
+  type: "web"
+  version: "2.0.0"
+
+scenarios:
+  - id: "browse"
+    name: "商品浏览"
+    priority: 1
+    description: "用户浏览商品"
+  - id: "cart"
+    name: "购物车"
+    priority: 1
+    description: "加入购物车"
+  - id: "order"
+    name: "下单流程"
+    priority: 1
+    description: "创建订单"
+  - id: "payment"
+    name: "支付流程"
+    priority: 1
+    description: "完成支付"
+  - id: "aftersales"
+    name: "售后服务"
+    priority: 2
+    description: "售后处理"
+
+boundaries:
+  # 商品相关
+  product:
+    price:
+      min: 0.01
+      max: 999999
+    stock:
+      min: 0
+      max: 999999
+    image_count:
+      min: 1
+      max: 20
+    description_length:
+      min: 0
+      max: 50000
+
+  # 购物车
+  cart:
+    max_items: 99
+    max_quantity: 99
+
+  # 订单
+  order:
+    max_amount: 999999
+    payment_timeout: 1800  # 秒
+    confirm_timeout: 172800  # 2天
+
+  # 物流
+  shipping:
+    free_shipping_threshold: 99
+    max_weight: 30  # kg
+
+roles:
+  - id: "guest"
+    name: "游客"
+    description: "未登录用户"
+  - id: "buyer"
+    name: "买家"
+    description: "购物用户"
+  - id: "seller"
+    name: "卖家"
+    description: "商家"
+  - id: "admin"
+    name: "管理员"
+    description: "平台管理员"
+
+priority:
+  moscow:
+    must: "核心交易流程"
+    should: "提升转化功能"
+    could: "增强体验功能"
+
+output:
+  user_stories: "docs/requirements/user-stories.md"
+  prd: "docs/requirements/prd.md"
+  test_cases: "docs/test/test-cases.md"

@@ -1,0 +1,86 @@
+# 产品配置 - 羽毛球约球小程序
+
+```yaml
+project:
+  name: "BMTOP 羽球营地"
+  type: "miniapp"
+  version: "1.0.0"
+
+scenarios:
+  - id: "friends"
+    name: "好友约球"
+    priority: 1
+    description: "朋友之间轻松约球"
+  - id: "club"
+    name: "俱乐部比赛"
+    priority: 2
+    description: "俱乐部内部比赛"
+  - id: "official"
+    name: "正式赛事"
+    priority: 3
+    description: "官方举办的正式比赛"
+
+boundaries:
+  participant_count:
+    min: 3
+    max: 64
+    defaults:
+      friends: 18
+      club: 32
+      official: 64
+
+  formats:
+    - random_doubles      # 随机双打
+    - random_mixed_doubles  # 随机混双
+    - round_robin        # 循环赛
+    - single_elimination  # 单淘汰
+    - double_elimination  # 双淘汰
+    - swiss              # 瑞士轮
+
+  scoring:
+    default: "21_point"
+    options:
+      - "11_point"
+      - "21_point"
+      - "25_point"
+
+roles:
+  - id: "organizer"
+    name: "比赛组织者"
+    description: "创建和管理比赛的用户"
+  - id: "participant"
+    name: "参赛者"
+    description: "参加比赛的用户"
+  - id: "viewer"
+    name: "观众"
+    description: "观看比赛的用户"
+
+priority:
+  moscow:
+    must: "上线阻塞，P0"
+    should: "重要非阻塞，P1"
+    could: "锦上添花，P2"
+    wont: "本期不实现"
+
+tech_tags:
+  - frontend
+  - backend
+  - database
+  - api
+  - third_party
+
+output:
+  user_stories: "docs/ui/USER-STORIES.md"
+  prd: "docs/PRD.md"
+  test_cases: "docs/test/测试用例.md"
+  feature_list: "docs/features/功能清单.md"
+
+performance:
+  page_load: 2
+  api_response: 500
+  concurrent_users: 1000
+
+compatibility:
+  wechat_version: "7.0.0"
+  ios_version: "12.0"
+  android_version: "8.0"

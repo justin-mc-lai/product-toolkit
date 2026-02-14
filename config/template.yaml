@@ -1,0 +1,66 @@
+# 产品项目配置模板
+
+```yaml
+project:
+  name: "项目名称"
+  type: "miniapp" | "web" | "api" | "mobile"
+  version: "1.0.0"
+  description: "项目描述"
+
+scenarios:
+  - id: "core"
+    name: "核心功能"
+    priority: 1
+    description: "核心业务场景"
+  - id: "extended"
+    name: "扩展功能"
+    priority: 2
+    description: "扩展业务场景"
+
+boundaries:
+  # 根据项目特点定义边界值
+  participant_count:
+    min: 1
+    max: 100
+
+  text_length:
+    min: 0
+    max: 500
+
+  file_size:
+    max: 10485760  # 10MB
+
+roles:
+  - id: "guest"
+    name: "游客"
+    description: "未登录用户"
+  - id: "user"
+    name: "用户"
+    description: "普通用户"
+  - id: "admin"
+    name: "管理员"
+    description: "系统管理员"
+
+priority:
+  moscow:
+    must: "上线必须有的功能"
+    should: "重要但非阻塞"
+    could: "锦上添花"
+
+  # 可选：RICE 评分配置
+  rice:
+    reach_unit: "per_quarter"
+    impact_scale: "3,2,1,0.5,0.25"
+    confidence_scale: "100%,80%,50%"
+
+output:
+  user_stories: "docs/product/user-stories.md"
+  prd: "docs/product/prd"
+  test_cases: "docs/product/test-cases"
+  backlog: "docs/product/backlog.md"
+  roadmap: "docs/product/roadmap.md"
+  personas: "docs/product/personas"
+  release: "docs/product/release"
+  retros: "docs/product/retros"
+  competitors: "docs/product/competitors"
+```

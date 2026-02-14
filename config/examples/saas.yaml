@@ -1,0 +1,86 @@
+# 产品配置 - SaaS 管理后台
+
+```yaml
+project:
+  name: "SaaS 管理后台"
+  type: "web"
+  version: "1.0.0"
+
+scenarios:
+  - id: "dashboard"
+    name: "工作台"
+    priority: 1
+    description: "数据概览和快捷操作"
+  - id: "user_management"
+    name: "用户管理"
+    priority: 1
+    description: "用户 CRUD 和权限管理"
+  - id: "content_management"
+    name: "内容管理"
+    priority: 2
+    description: "内容发布和审核"
+  - id: "analytics"
+    name: "数据分析"
+    priority: 2
+    description: "数据统计和报表"
+  - id: "settings"
+    name: "系统设置"
+    priority: 3
+    description: "系统配置和管理"
+
+boundaries:
+  user_count:
+    min: 1
+    max: 100000
+
+  file_upload:
+    max_size: 50  # MB
+    allowed_types:
+      - image/jpeg
+      - image/png
+      - application/pdf
+
+  data_range:
+    export_max: 10000  # 条
+    import_max: 5000   # 条
+
+  pagination:
+    default_page_size: 20
+    max_page_size: 100
+
+roles:
+  - id: "super_admin"
+    name: "超级管理员"
+    description: "拥有所有权限"
+  - id: "admin"
+    name: "管理员"
+    description: "部门管理员"
+  - id: "editor"
+    name: "编辑"
+    description: "内容编辑人员"
+  - id: "viewer"
+    name: "查看者"
+    description: "只读权限"
+
+priority:
+  moscow:
+    must: "核心功能"
+    should: "重要功能"
+    could: "增强功能"
+    wont: "远期规划"
+
+tech_tags:
+  - frontend
+  - backend
+  - database
+  - api
+
+output:
+  user_stories: "docs/requirements/user-stories.md"
+  prd: "docs/requirements/prd.md"
+  test_cases: "docs/test/test-cases.md"
+
+performance:
+  page_load: 1.5
+  api_response: 300
+  concurrent_users: 500
