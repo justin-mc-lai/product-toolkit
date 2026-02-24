@@ -36,7 +36,7 @@
 
 **代理**: Product PM
 **依赖**: 无
-**输出**: docs/product/user-stories/{feature}.md
+**输出**: docs/product/{version}/user-story/{feature}.md
 
 #### 详细要求
 1. 使用产品思考深入理解需求（/product-toolkit:think）
@@ -59,8 +59,8 @@
 **代理**: UI Designer
 **依赖**: 任务 1 (需求分析)
 **输出**:
-- docs/design/wireframe/{feature}.md
-- docs/design/spec/{feature}.md
+- docs/product/{version}/design/wireframe/{feature}.md
+- docs/product/{version}/design/spec/{feature}.md
 
 #### 详细要求
 1. 阅读 Product PM 的用户故事
@@ -82,7 +82,7 @@
 
 **代理**: QA Engineer
 **依赖**: 任务 1 (需求分析)
-**输出**: docs/qa/test-cases/{feature}.md
+**输出**: docs/product/{version}/qa/test-cases/{feature}.md
 
 #### 详细要求
 1. 阅读 Product PM 的用户故事和验收标准
@@ -106,8 +106,8 @@
 **代理**: Tech Lead
 **依赖**: 任务 2 (UI 设计)
 **输出**:
-- docs/tech/api/{feature}.md
-- docs/tech/data-model/{feature}.md
+- docs/product/{version}/tech/api/{feature}.md
+- docs/product/{version}/tech/data-model/{feature}.md
 
 #### 详细要求
 1. 阅读 UI Designer 的设计稿
@@ -194,7 +194,7 @@ FAILED → IN_PROGRESS: 重新执行（可选）
 | 5 | 结果整合 | Team Lead | Pending |
 
 ### 任务 1 详情
-**输出**: docs/product/user-stories/ecommerce-detail.md
+**输出**: docs/product/v1.0.0/user-story/ecommerce-detail.md
 
 #### 用户故事
 - US-v1.0-1: 作为消费者，我希望查看商品详情，以便了解商品信息

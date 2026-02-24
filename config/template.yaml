@@ -54,13 +54,13 @@ priority:
     confidence_scale: "100%,80%,50%"
 
 output:
-  user_stories: "docs/product/user-stories.md"
-  prd: "docs/product/prd"
-  test_cases: "docs/product/test-cases"
-  backlog: "docs/product/backlog.md"
-  roadmap: "docs/product/roadmap.md"
-  personas: "docs/product/personas"
-  release: "docs/product/release"
-  retros: "docs/product/retros"
-  competitors: "docs/product/competitors"
+  workflow_root: "docs/product/{version}"
+  summary: "docs/product/{version}/SUMMARY.md"
+  prd: "docs/product/{version}/prd"
+  user_story: "docs/product/{version}/user-story"
+  design_wireframe: "docs/product/{version}/design/wireframe"
+  design_spec: "docs/product/{version}/design/spec"
+  test_cases: "docs/product/{version}/qa/test-cases"
+  tech_api: "docs/product/{version}/tech/api"
+  tech_data_model: "docs/product/{version}/tech/data-model"
 ```

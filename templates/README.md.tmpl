@@ -6,16 +6,14 @@
 
 | 文件/目录 | 说明 | 最后更新 |
 |-----------|------|---------|
-| `config.yaml` | 项目配置 | {date} |
-| `user-stories.md` | 用户故事汇总 | {date} |
+| `SUMMARY.md` | 版本汇总 | {date} |
 | `prd/` | PRD 文档目录 | - |
-| `test-cases/` | 测试用例目录 | - |
-| `backlog.md` | 需求池 | {date} |
-| `personas/` | 用户画像目录 | - |
-| `roadmap.md` | 产品路线图 | {date} |
-| `release/` | 上线检查目录 | - |
-| `retros/` | 复盘报告目录 | - |
-| `competitors/` | 竞品分析目录 | - |
+| `user-story/` | 用户故事目录 | - |
+| `design/wireframe/` | 线框图目录 | - |
+| `design/spec/` | UI 规范目录 | - |
+| `qa/test-cases/` | 测试用例目录 | - |
+| `tech/api/` | API 设计目录 | - |
+| `tech/data-model/` | 数据模型目录 | - |
 
 ## 快速开始
 
@@ -23,23 +21,17 @@
 # 初始化项目配置
 /product-toolkit:init
 
-# 生成用户故事
-/product-toolkit 用户登录功能
+# 一键工作流
+/product-toolkit:workflow 用户登录功能
 
 # 生成 PRD
 /product-toolkit:prd 用户登录
 
 # 生成测试用例
-/product-toolkit:qa 用户登录
-
-# 查看需求池
-/product-toolkit:backlog
-
-# 产品复盘
-/product-toolkit:retro
+/product-toolkit:test-case 用户登录
 ```
 
 ## 版本信息
 
 - 初始版本: {date}
-- 产品工具集版本: v2.0.0
+- 产品工具集版本: v3.0.0

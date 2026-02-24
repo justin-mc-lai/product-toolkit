@@ -22,9 +22,68 @@ Product Toolkit 是一个完整的互联网产品经理工作流工具集，支�
 | 用户画像 | 完整模板 + 用户旅程 |
 | 产品路线图 | 季度/月度规划 |
 | 上线检查 | 上线前后检查清单 |
-| 产品复盘 | 目标回顾 + 数据分析 |
 | 竞品分析 | 功能矩阵 + SWOT |
 | 多代理协作 | Product PM + UI + QA + Tech Lead 团队 |
+| 一键工作流 | 智能路由自动执行完整产品包生成 |
+
+---
+
+## 一键产品工作流 (v3.0.0)
+
+### 快速开始
+
+```bash
+/product-toolkit:workflow 你的产品概念
+```
+
+### 支持场景
+
+- 全新产品 (new_product)
+- 功能迭代 (iteration)
+- 竞品分析 (competitor)
+- MVP验证 (mvp)
+
+### 支持产品形态
+
+- Web应用 (web)
+- 移动App (mobile-app)
+- 微信小程序 (mini-program)
+- 跨平台 (cross-platform)
+- SaaS产品 (saas)
+- 全栈BaaS (baas)
+
+### 使用示例
+
+```bash
+# 全新产品
+/product-toolkit:workflow 电商收藏功能
+
+# 指定场景
+/product-toolkit:workflow --scenario=mvp 用户登录功能
+
+# 指定产品形态
+/product-toolkit:workflow --platforms=baas,mini-program 社交分享功能
+```
+
+### 输出结构
+
+```
+docs/product/v1.0.0/
+├── SUMMARY.md
+├── prd/
+├── user-story/
+├── design/wireframe/
+├── design/spec/
+├── qa/test-cases/
+├── tech/api/
+└── tech/data-model/
+```
+
+### 配置文件
+
+- `config/workflow.yaml` - 工作流配置
+- `config/versions.yaml` - 版本管理
+- `config/templates/platforms.yaml` - 产品形态模板
 
 ---
 
@@ -116,6 +175,12 @@ Team Lead 整合验证
 # 生成测试用例（完整覆盖，含版本化）
 /product-toolkit:test-case 登录功能
 
+# 生成 API 设计
+/product-toolkit:api-design 登录认证
+
+# 生成数据字典
+/product-toolkit:data-dictionary 用户模块
+
 # 多代理团队协作
 /product-toolkit:team 电商详情页
 
@@ -132,7 +197,7 @@ Team Lead 整合验证
 - "编写 PRD" / "功能文档"
 - "生成测试用例"
 - "需求排序" / "MoSCoW" / "KANO"
-- "竞品分析" / "产品复盘" / "上线检查"
+- "竞品分析" / "上线检查"
 - **"产品思考" / "需求探讨"** - 苏格拉底式追问
 - **"发散思维" / "头脑风暴"** - 网状思维
 
@@ -206,24 +271,28 @@ Team Lead 整合验证
 
 ## 输出目录
 
+独立模式（单命令调用）:
 ```
 docs/product/
-├── config.yaml           # 项目配置
-├── user-stories.md      # 用户故事汇总
-├── backlog.md           # 需求池
-├── roadmap.md           # 产品路线图
-├── prd/                 # PRD 文档
-│   └── {feature}.md
-├── test-cases/          # 测试用例
-│   └── {feature}.md
-├── personas/            # 用户画像
-│   └── {name}.md
-├── release/             # 上线检查
-│   └── v{version}.md
-├── retros/              # 复盘报告
-│   └── {date}.md
-└── competitors/         # 竞品分析
-    └── {name}.md
+├── prd/{feature}.md
+├── test-cases/{feature}.md
+├── personas/{name}.md
+├── roadmap.md
+├── release/v{version}.md
+└── competitors/{name}.md
+```
+
+工作流模式（/product-toolkit:workflow）:
+```
+docs/product/{version}/
+├── SUMMARY.md
+├── prd/{feature}.md
+├── user-story/{feature}.md
+├── design/wireframe/{feature}.md
+├── design/spec/{feature}.md
+├── qa/test-cases/{feature}.md
+├── tech/api/{feature}.md
+└── tech/data-model/{feature}.md
 ```
 
 ---
@@ -232,6 +301,7 @@ docs/product/
 
 | 版本 | 日期 | 变更 |
 |------|------|------|
+| v3.0.0 | 2026-02-24 | 添加一键工作流、版本化输出配置、平台模板与版本配置 |
 | v2.6.0 | 2026-02-19 | 添加 Claude Team 多代理协作（Product PM + UI + QA + Tech Lead） |
 | v2.5.0 | 2026-02-19 | 添加 UI 设计（草稿图、线框图、UI规范） |
 | v2.4.0 | 2026-02-19 | 添加版本迭代、Design Thinking、JTBD、价值主张画布 |
@@ -249,8 +319,8 @@ docs/product/
 - `references/sprint-planning.md` - Sprint 规划与敏捷管理
 - `references/kpi-metrics.md` - KPI 与数据指标体系
 - `references/user-story-mapping.md` - 用户故事地图
-- `references/moscow.md` - MoSCoW 优先级详解
-- `references/kano.md` - KANO 模型详解
+- `references/MOSCOW.md` - MoSCoW 优先级详解
+- `references/KANO.md` - KANO 模型详解
 - `references/product-versioning.md` - 产品版本迭代规划
 - `references/design-thinking.md` - Design Thinking 设计思维
 - `references/jtbd.md` - JTBD 用户任务理论
@@ -264,4 +334,4 @@ docs/product/
 
 ---
 
-*持续迭代更新，统一输出到 docs/product/ 目录*
+*持续迭代更新，统一输出到 docs/product/{version}/ 目录*

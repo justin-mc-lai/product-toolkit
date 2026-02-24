@@ -6,7 +6,45 @@ argument-hint: "<command> [args]"
 
 # Product Toolkit
 
-提供产品经理工作流工具集，包含用户故事、PRD、测试用例、需求池、用户画像、路线图、上线检查、竞品分析、复盘等功能。支持子命令调用。
+提供产品经理工作流工具集，包含用户故事、PRD、测试用例、优先级管理、用户画像、路线图、上线检查、竞品分析、技术方案等功能。支持子命令调用。
+
+## AgentSkills 兼容结构
+
+本工具包支持两种使用方式：
+
+### 1. 主入口调用（传统方式）
+```
+/product-toolkit:think [功能]
+/product-toolkit:brainstorm [主题]
+/product-toolkit:team [功能]
+...
+```
+
+### 2. Skills 文件夹调用（AgentSkills 兼容）
+```
+skills/                          # AgentSkills 格式
+├── init/SKILL.md               # 初始化配置
+├── think/SKILL.md              # 产品思考
+├── brainstorm/SKILL.md         # 发散思维
+├── design/SKILL.md            # Design Thinking
+├── jtbd/SKILL.md              # JTBD 分析
+├── version/SKILL.md           # 版本规划
+├── wireframe/SKILL.md         # 草稿图/线框图
+├── ui-spec/SKILL.md           # UI 设计规范
+├── user-story/SKILL.md        # 用户故事
+├── prd/SKILL.md               # PRD 文档
+├── test-case/SKILL.md         # 测试用例
+├── api-design/SKILL.md        # API 设计
+├── data-dictionary/SKILL.md   # 数据字典
+├── moscow/SKILL.md            # MoSCoW 优先级
+├── kano/SKILL.md              # KANO 模型
+├── persona/SKILL.md           # 用户画像
+├── roadmap/SKILL.md           # 产品路线图
+├── release/SKILL.md           # 上线检查
+├── analyze/SKILL.md           # 竞品分析
+├── team/SKILL.md              # 多代理协作
+└── workflow/SKILL.md          # 一键工作流
+```
 
 ## 子命令
 
@@ -23,6 +61,8 @@ argument-hint: "<command> [args]"
 | `/product-toolkit:user-story` | 生成用户故事 | `/product-toolkit:user-story 电商收藏功能` |
 | `/product-toolkit:prd` | 生成 PRD | `/product-toolkit:prd 用户登录模块` |
 | `/product-toolkit:test-case` | 生成测试用例 | `/product-toolkit:test-case 登录功能` |
+| `/product-toolkit:api-design` | API 设计 | `/product-toolkit:api-design 登录认证` |
+| `/product-toolkit:data-dictionary` | 数据字典 | `/product-toolkit:data-dictionary 用户模块` |
 | `/product-toolkit:moscow` | MoSCoW 优先级排序 | `/product-toolkit:moscow` |
 | `/product-toolkit:kano` | KANO 模型分析 | `/product-toolkit:kano 社区功能` |
 | `/product-toolkit:persona` | 生成用户画像 | `/product-toolkit:persona 00后大学生` |
@@ -30,6 +70,7 @@ argument-hint: "<command> [args]"
 | `/product-toolkit:release` | 上线检查清单 | `/product-toolkit:release v1.0.0` |
 | `/product-toolkit:analyze` | 竞品分析 | `/product-toolkit:analyze 抖音` |
 | `/product-toolkit:team` | 多代理团队协作 | `/product-toolkit:team 电商详情页` |
+| `/product-toolkit:workflow` | 一键产品工作流 | `/product-toolkit:workflow 电商收藏功能` |
 
 ## 完整工作流
 
@@ -325,25 +366,36 @@ Team Lead 整合验证
 | 用户画像 | docs/product/personas/{name}.md |
 | 产品路线图 | docs/product/roadmap.md |
 | 上线检查 | docs/product/release/v{version}.md |
-| 产品复盘 | docs/product/retros/{date}.md |
+| API 设计 | docs/product/{version}/tech/api/{feature}.md |
+| 数据字典 | docs/product/{version}/tech/data-model/{feature}.md |
 | 竞品分析 | docs/product/competitors/{name}.md |
 
 ---
 
 ## 输出目录
 
+默认模式（单命令调用）：
 ```
 docs/product/
-├── config.yaml
-├── user-stories.md
-├── backlog.md
-├── roadmap.md
 ├── prd/{feature}.md
 ├── test-cases/{feature}.md
 ├── personas/{name}.md
+├── roadmap.md
 ├── release/v{version}.md
-├── retros/{date}.md
 └── competitors/{name}.md
+```
+
+工作流模式（/product-toolkit:workflow）：
+```
+docs/product/{version}/
+├── SUMMARY.md
+├── prd/{feature}.md
+├── user-story/{feature}.md
+├── design/wireframe/{feature}.md
+├── design/spec/{feature}.md
+├── qa/test-cases/{feature}.md
+├── tech/api/{feature}.md
+└── tech/data-model/{feature}.md
 ```
 
 ---
@@ -355,8 +407,8 @@ docs/product/
 - `references/sprint-planning.md` - Sprint 规划与敏捷管理
 - `references/kpi-metrics.md` - KPI 与数据指标体系
 - `references/user-story-mapping.md` - 用户故事地图
-- `references/moscow.md` - MoSCoW 优先级详解
-- `references/kano.md` - KANO 模型详解
+- `references/MOSCOW.md` - MoSCoW 优先级详解
+- `references/KANO.md` - KANO 模型详解
 - `references/product-versioning.md` - 产品版本迭代规划
 - `references/design-thinking.md` - Design Thinking 设计思维
 - `references/jtbd.md` - JTBD 用户任务理论
@@ -370,9 +422,10 @@ docs/product/
 
 ---
 
-**版本**: v2.6.0
+**版本**: v3.0.0
 
 **更新日志**:
+- v3.0.0: 添加一键工作流、版本化输出配置、AgentSkills 子技能结构
 - v2.6.0: 添加 Claude Team 多代理协作（team 命令）
 - v2.5.0: 添加 UI 设计（草稿图、线框图、UI规范）
 - v2.4.0: 添加版本迭代、Design Thinking、JTBD、价值主张画布

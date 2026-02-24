@@ -76,8 +76,8 @@
 5. 制定验收标准
 
 ## 输出
-- docs/product/user-stories/{feature}.md
-- docs/product/prd/{feature}.md
+- docs/product/{version}/user-story/{feature}.md
+- docs/product/{version}/prd/{feature}.md
 
 ## 质量标准
 - 用户故事: As a [role], I want to [feature], so that [benefit].
@@ -111,8 +111,8 @@
 5. 标注交互状态
 
 ## 输出
-- docs/design/wireframe/{feature}.md
-- docs/design/spec/{feature}.md
+- docs/product/{version}/design/wireframe/{feature}.md
+- docs/product/{version}/design/spec/{feature}.md
 
 ## 质量标准
 - 草稿图: ASCII 或文本描述，结构清晰
@@ -146,7 +146,7 @@
 6. 定义回归测试范围
 
 ## 输出
-- docs/qa/test-cases/{feature}.md
+- docs/product/{version}/qa/test-cases/{feature}.md
 
 ## 质量标准
 - 正向流程: 100% 覆盖
@@ -180,8 +180,8 @@
 5. 制定技术方案
 
 ## 输出
-- docs/tech/api/{feature}.md
-- docs/tech/data-model/{feature}.md
+- docs/product/{version}/tech/api/{feature}.md
+- docs/product/{version}/tech/data-model/{feature}.md
 
 ## 质量标准
 - API: RESTful 风格，路径清晰

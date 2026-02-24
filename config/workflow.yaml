@@ -1,0 +1,93 @@
+# Product Toolkit Workflow Configuration
+# Version: 3.0.0
+
+# Workflow templates for different scenarios
+workflows:
+  new_product:
+    name: 全新产品工作流
+    name_en: New Product Workflow
+    description: 从概念到完整产品包的完整工作流
+    commands:
+      - think
+      - brainstorm
+      - design
+      - jtbd
+      - version
+      - wireframe
+      - ui-spec
+      - user-story
+      - prd
+      - test-case
+      - team
+
+  iteration:
+    name: 功能迭代工作流
+    name_en: Feature Iteration Workflow
+    description: 现有产品新增功能的迭代工作流
+    commands:
+      - think
+      - version
+      - user-story
+      - test-case
+      - team
+
+  competitor:
+    name: 竞品分析工作流
+    name_en: Competitor Analysis Workflow
+    description: 竞品分析后输出产品方案
+    commands:
+      - analyze
+      - think
+      - prd
+
+  mvp:
+    name: MVP快速验证工作流
+    name_en: MVP Quick Validation Workflow
+    description: 最小可行产品快速验证
+    commands:
+      - think
+      - user-story
+      - prd
+      - test-case
+
+# Product platform templates
+platforms:
+  web:
+    name: Web应用
+    name_en: Web Application
+    description: 浏览器端Web应用
+
+  mobile-app:
+    name: 移动App
+    name_en: Mobile App
+    description: iOS + Android 原生应用
+
+  mini-program:
+    name: 微信小程序
+    name_en: WeChat Mini Program
+    description: 微信小程序
+
+  cross-platform:
+    name: 跨平台
+    name_en: Cross Platform
+    description: Web + 小程序 + App
+
+  saas:
+    name: SaaS产品
+    name_en: SaaS Product
+    description: Web + Admin后台
+
+  baas:
+    name: 全栈BaaS
+    name_en: Full Stack BaaS
+    description: Web + 小程序 + Supabase/Firebase
+
+# Output directory structure
+output_structure:
+  prd: prd/
+  user_story: user-story/
+  design_wireframe: design/wireframe/
+  design_spec: design/spec/
+  qa: qa/test-cases/
+  tech_api: tech/api/
+  tech_data_model: tech/data-model/

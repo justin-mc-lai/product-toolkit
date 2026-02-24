@@ -1,0 +1,64 @@
+# Product Toolkit Team Agent Configuration
+# Used by /product-toolkit:team for role routing
+version: "1.0"
+
+default_agent: claude
+
+agents:
+  claude:
+    enabled: true
+    priority: 100
+    roles:
+      - team-lead
+      - product-pm
+      - ui-designer
+      - qa-engineer
+      - tech-lead
+
+  openclaw:
+    enabled: auto
+    priority: 90
+    roles:
+      - pm
+      - designer
+
+  opencode:
+    enabled: auto
+    priority: 80
+    roles:
+      - developer
+      - reviewer
+
+  codex:
+    enabled: auto
+    priority: 70
+    roles:
+      - coder
+      - reviewer
+
+role_mapping:
+  team-lead:
+    claude: team-lead
+    openclaw: pm
+    opencode: developer
+    codex: coder
+  product-pm:
+    claude: product-pm
+    openclaw: pm
+    opencode: developer
+    codex: coder
+  ui-designer:
+    claude: ui-designer
+    openclaw: designer
+    opencode: developer
+    codex: coder
+  qa-engineer:
+    claude: qa-engineer
+    openclaw: designer
+    opencode: reviewer
+    codex: reviewer
+  tech-lead:
+    claude: tech-lead
+    openclaw: designer
+    opencode: developer
+    codex: coder

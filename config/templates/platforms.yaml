@@ -1,0 +1,94 @@
+# Product Platform Templates
+
+templates:
+  web:
+    id: web
+    name: Web应用
+    platforms:
+      - web
+    tech_stack:
+      frontend: React/Vue/Angular
+      backend: Node/Python/Go
+      database: PostgreSQL/MySQL
+    output_adaptations:
+      - responsive design
+      - browser compatibility
+
+  mobile-app:
+    id: mobile-app
+    name: 移动App
+    platforms:
+      - ios
+      - android
+    tech_stack:
+      frontend: React Native/Flutter
+      backend: Node/Python/Go
+      database: PostgreSQL/MySQL
+    output_adaptations:
+      - native UI patterns
+      - touch interactions
+      - offline support
+
+  mini-program:
+    id: mini-program
+    name: 微信小程序
+    platforms:
+      - wechat
+    tech_stack:
+      frontend: Taro/uni-app/原生
+      backend: Node/Python/Go
+      database: PostgreSQL/MySQL
+    output_adaptations:
+      - wechat design guidelines
+      - mini program specific APIs
+
+  cross-platform:
+    id: cross-platform
+    name: 跨平台
+    platforms:
+      - web
+      - ios
+      - android
+      - wechat
+    tech_stack:
+      frontend: Flutter/React Native/Taro
+      backend: Node/Python/Go
+      database: PostgreSQL/MySQL
+    output_adaptations:
+      - cross-platform UI patterns
+      - platform-specific adaptations
+      - shared business logic
+
+  saas:
+    id: saas
+    name: SaaS产品
+    platforms:
+      - web
+      - admin
+    tech_stack:
+      frontend: React/Vue
+      backend: Node/Python/Go
+      database: PostgreSQL/MySQL
+      auth: OAuth/JWT
+    output_adaptations:
+      - multi-tenancy
+      - role-based access control
+      - admin dashboard
+
+  baas:
+    id: baas
+    name: 全栈BaaS
+    platforms:
+      - web
+      - mini-program
+    tech_stack:
+      frontend: React/Vue
+      backend: Supabase/Firebase
+      database: Built-in (PostgreSQL)
+      auth: Built-in
+      storage: Built-in
+    output_adaptations:
+      - BaaS API usage
+      - serverless functions
+      - built-in auth flows
+      - realtime subscriptions

@@ -1,0 +1,23 @@
+# Product Toolkit Version Configuration
+
+current_version: "3.0.0"
+
+# Version history
+versions:
+  - version: "3.0.0"
+    date: "2026-02-24"
+    status: "planning"
+    features:
+      - name: 一键产品完善工作流
+        type: new
+        description: 智能路由自动调用子命令
+    owner: "PM"
+    changes:
+      - description: 新增 workflow 子命令
+        breaking: false
+
+# Semantic versioning rules
+semantic_versioning:
+  major: 重大架构变化
+  minor: 功能新增/修改
+  patch: 文档修正/格式调整
