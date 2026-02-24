@@ -23,7 +23,7 @@ description: 通用产品经理工具集 - 支持产品思考、PRD/用户故事
 | `/product-toolkit:ui-spec` | UI 设计规范 | `docs/product/{version}/design/spec/{feature}.md` |
 | `/product-toolkit:user-story` | 生成用户故事 | `docs/product/{version}/user-story/{feature}.md` |
 | `/product-toolkit:prd` | 生成 PRD | `docs/product/prd/{feature}.md` |
-| `/product-toolkit:test-case` | 生成测试用例 | `docs/product/{version}/qa/test-cases/{feature}.md` |
+| `/product-toolkit:test-case` | 生成测试用例（含 UI 可视化测试门槛） | `docs/product/{version}/qa/test-cases/{feature}.md` |
 | `/product-toolkit:api-design` | API 设计 | `docs/product/{version}/tech/api/{feature}.md` |
 | `/product-toolkit:data-dictionary` | 数据字典 | `docs/product/{version}/tech/data-model/{feature}.md` |
 | `/product-toolkit:moscow` | MoSCoW 优先级 | `docs/product/{version}/SUMMARY.md` |
@@ -53,9 +53,10 @@ docs/product/{version}/
 ## 功能概览
 
 - 一键工作流（场景路由 + 自动编排）
-- 用户故事生成（5维度验收标准）
+- 用户故事生成（7维度验收标准，含权限与逆向流程）
 - PRD 编写（完整/快速模板）
 - 测试用例生成（自动从验收标准产出）
+- Web UI 可视化测试门槛（agent-browser/browser-use + 登录 + 截图 + Console + API 200）
 - 技术方案（API + 数据字典）
 - 需求优先级（MoSCoW / KANO）
 - 用户画像生成
@@ -63,6 +64,18 @@ docs/product/{version}/
 - 上线检查清单
 - 竞品分析
 - 多代理协作
+
+## UI 可视化测试强制要求（适用于 Web 前端）
+
+- 使用 `agent-browser` 或 `browser-use` 执行浏览器测试。
+- 从登录流程开始验证，并记录所用测试账号/角色（仅可由用户提供）。
+- 对关键步骤截图，验证数据绑定和页面排版。
+- 检查 Console 无未处理错误。
+- 检查关键接口请求状态为 HTTP 200。
+- 输出 AC→TC 覆盖矩阵，确认用户故事验收标准全覆盖。
+- 凭据仅可由用户提供并脱敏记录，禁止在仓库中写入明文账号密码。
+
+> 任一项缺失时，测试结论必须标记为 `Blocked` 或不可交付。
 
 ## 快速开始
 

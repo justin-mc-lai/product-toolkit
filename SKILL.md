@@ -60,7 +60,7 @@ skills/                          # AgentSkills 格式
 | `/product-toolkit:ui-spec [主题]` | 生成 UI 设计规范 | `/product-toolkit:ui-spec 详情页` |
 | `/product-toolkit:user-story` | 生成用户故事 | `/product-toolkit:user-story 电商收藏功能` |
 | `/product-toolkit:prd` | 生成 PRD | `/product-toolkit:prd 用户登录模块` |
-| `/product-toolkit:test-case` | 生成测试用例 | `/product-toolkit:test-case 登录功能` |
+| `/product-toolkit:test-case` | 生成测试用例（UI 场景含可视化强制校验） | `/product-toolkit:test-case 登录功能` |
 | `/product-toolkit:api-design` | API 设计 | `/product-toolkit:api-design 登录认证` |
 | `/product-toolkit:data-dictionary` | 数据字典 | `/product-toolkit:data-dictionary 用户模块` |
 | `/product-toolkit:moscow` | MoSCoW 优先级排序 | `/product-toolkit:moscow` |
@@ -85,8 +85,22 @@ skills/                          # AgentSkills 格式
     ↓
 /product-toolkit:user-story [功能]
     ↓
-生成 QA 测试用例（完整覆盖）
+生成 QA 测试用例（完整覆盖 + UI 可视化强制校验）
 ```
+
+### UI 可视化测试交付门槛（Web 前端）
+
+对于可视化前端 UI，`/product-toolkit:test-case` 的结果必须包含并满足：
+
+1. 使用 `agent-browser` 或 `browser-use` 执行浏览器测试。
+2. 从登录流程开始（测试账号、环境地址、角色权限仅可由用户提供）。
+3. 关键步骤截图证据（验证数据绑定正确、页面排版正常）。
+4. Console 检查无未处理错误。
+5. Network/API 检查关键请求为 HTTP 200。
+6. 输出 AC→TC 覆盖矩阵，证明用户故事验收标准全覆盖。
+7. 测试凭据仅可由用户提供并脱敏记录，文档中不得存储明文账号密码。
+
+> 任一项不满足：测试结论必须标记 `Blocked`/不可交付。
 
 ### 完整版本迭代工作流
 
@@ -307,6 +321,15 @@ Team Lead 整合验证
 | 权限控制 (Q14) | 权限测试用例 |
 | 撤销处理 (Q15) | 逆向流程测试用例 |
 
+**前置补充（UI 场景，强制）**：
+
+- 使用 `agent-browser` 或 `browser-use` 启动 Web 端并执行测试。
+- 测试必须从登录页开始，测试账号/环境信息仅可由用户提供。
+- UI 用例必须附截图证据，核验数据绑定与页面排版。
+- 必须检查 Console（无未处理异常）与关键 API（HTTP 200）。
+- 必须输出 AC→TC 覆盖矩阵；覆盖不完整时结论为 `Blocked`。
+- 测试凭据仅可由用户提供并脱敏记录，禁止在文档内明文保存。
+
 **输出模板**：
 
 ```markdown
@@ -321,6 +344,7 @@ Team Lead 整合验证
 | UI测试 | X | 成功反馈 |
 | 性能测试 | X | 性能 |
 | 权限测试 | X | 权限控制 |
+| 逆向流程测试 | X | 撤销处理 |
 
 ### 1. 功能测试用例（正向流程）
 | 用例ID | 用例名称 | 前置条件 | 测试步骤 | 预期结果 |
@@ -334,6 +358,17 @@ Team Lead 整合验证
 
 ### 4. UI/提示测试用例
 | 用例ID | 场景 | 预期反馈 |
+
+### UI 可视化验证记录（Web 前端）
+| 字段 | 要求 |
+|------|------|
+| 执行框架 | agent-browser 或 browser-use |
+| 登录起点 | 从登录页开始，记录测试账号/角色（仅可由用户提供） |
+| 截图证据 | 覆盖关键步骤，验证数据绑定与排版 |
+| Console 检查 | 无未处理错误 |
+| API 状态检查 | 关键接口 HTTP 200 |
+| AC→TC 覆盖矩阵 | 用户故事验收标准全部映射 |
+| 交付结论 | 任一项失败即不可交付/Blocked |
 
 ### 5. 性能测试用例
 | 用例ID | 指标 | 目标值 | 测试方法 |

@@ -86,6 +86,20 @@ analyze → think → prd
 think → user-story → prd → test-case
 ```
 
+### Phase 3.5: UI 可视化测试 Gate（Web 前端强制）
+
+当当前功能包含可视化 Web UI 时，在 `test-case` 之后必须完成以下 Gate 才能进入 Phase 4：
+
+1. 使用 `agent-browser` 或 `browser-use` 启动并执行 Web 测试。
+2. 从登录页开始验证（账号仅可由用户提供），覆盖核心功能路径。
+3. 采集关键步骤截图，检查数据绑定正确、页面排版正常。
+4. 检查浏览器 Console 无未处理错误。
+5. 检查关键接口网络请求状态为 HTTP 200。
+6. 输出 AC→TC 覆盖矩阵并确认用户故事验收标准全覆盖。
+7. 测试凭据仅可由用户提供并脱敏记录，禁止文档明文存储。
+
+若缺少测试账号/权限映射导致无法执行，结论必须标记 `Blocked`，不可宣告工作流完成。
+
 ### Phase 4: 输出整合
 
 自动整理输出到版本目录：
@@ -156,7 +170,7 @@ docs/product/{version}/
 - `ui-spec` - UI规范
 - `user-story` - 用户故事
 - `prd` - PRD文档
-- `test-case` - 测试用例
+- `test-case` - 测试用例（UI 场景需通过可视化 Gate）
 - `api-design` - API设计
 - `data-dictionary` - 数据字典
 - `team` - 多代理整合
