@@ -2,6 +2,44 @@
 
 > 通用产品经理工具集 - 集成在 Claude Code 中使用
 
+## 安装
+
+### Claude Code（本地仓库安装）
+
+```bash
+claude plugin marketplace add /绝对路径/product-toolkit
+claude plugin install product-toolkit@product-toolkit-dev
+```
+
+示例：
+
+```bash
+claude plugin marketplace add /Users/apple/Developer/Personal/my_skill/product-toolkit
+claude plugin install product-toolkit@product-toolkit-dev
+```
+
+验证安装：
+
+```bash
+claude plugin list
+```
+
+### Codex
+
+```bash
+git clone https://github.com/justin-mc-lai/product-toolkit ~/.codex/product-toolkit
+mkdir -p ~/.agents/skills
+ln -s ~/.codex/product-toolkit ~/.agents/skills/product-toolkit
+```
+
+验证安装：
+
+```bash
+ls -la ~/.agents/skills/product-toolkit
+```
+
+详细说明见 `.codex/INSTALL.md`。
+
 ## 功能概览
 
 Product Toolkit 是一个完整的互联网产品经理工作流工具集，支持：
