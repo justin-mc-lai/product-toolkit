@@ -3,7 +3,7 @@ name: product-toolkit
 description: Product toolkit for PM workflows (think/user-story/prd/test-case/workflow etc.) with think vNext hard-switch rules.
 ---
 
-# Product Toolkit v3.1.0
+# Product Toolkit v3.1.1
 
 提供产品经理工作流工具集：需求澄清、用户故事、PRD、测试用例、技术方案与发布清单。
 
@@ -11,10 +11,32 @@ description: Product toolkit for PM workflows (think/user-story/prd/test-case/wo
 
 本版本对 `/product-toolkit:think` 执行**规则先行硬切换**：
 
-1. 旧版“固定轮次 / 固定题数 / 固定题库”语义**退场**。
+1. 旧版"固定轮次 / 固定题数 / 固定题库"语义**退场**。
 2. 采用 `think vNext`：**批量交互 + 上下文动态追问 + 冲突检测 + 每轮自动摘要 + 未决问题清单（ledger）**。
 3. 下游 `user-story / prd / test-case / workflow` 按新契约消费输出。
 4. 本次仅定义**规则与文档契约**，不包含行为引擎实现。
+
+---
+
+## 关键词触发（ptk 前缀）
+
+使用 `ptk` 前缀触发技能，避免与日常用语冲突：
+
+| 关键词 | 技能 | 说明 |
+|--------|------|------|
+| `ptk think` | `/product-toolkit:think` | 产品思考 vNext |
+| `ptk workflow` | `/product-toolkit:workflow` | 一键工作流 |
+| `ptk save` | `/product-toolkit:save` | 保存会话 |
+| `ptk resume` | `/product-toolkit:resume` | 恢复会话 |
+| `ptk gate` | `/product-toolkit:gate` | 门控检查 |
+| `ptk status` | `/product-toolkit:status` | 状态面板 |
+| `ptk remember` | `/product-toolkit:remember` | 记忆知识 |
+| `ptk recall` | `/product-toolkit:recall` | 检索记忆 |
+
+**触发规则：**
+- 显式调用 `/product-toolkit:xxx` 优先于关键词触发
+- 关键词检测不区分大小写
+- 多个关键词匹配时，使用最长匹配
 
 ---
 
@@ -293,7 +315,7 @@ docs/product/{version}/
 
 ---
 
-**版本**: v3.1.0
+**版本**: v3.1.1
 
 **更新日志**:
 - v3.1.0: 添加状态持久化系统 (.ptk/)、Soft-Gate门控、记忆系统、自动化测试
