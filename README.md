@@ -628,6 +628,7 @@ docs/product/{version}/
 
 | 版本 | 日期 | 变更 |
 |---|---|---|
+| v3.5.2 | 2026-02-26 | 版本一致性修正：统一 Claude 插件/入口文档版本标识，并强化 `/product-toolkit:work` 可见性 |
 | v3.5.1 | 2026-02-26 | Claude 命令兼容：新增 `/product-toolkit:work`（workflow 别名），修复子命令提示缺失问题 |
 | v3.5.0 | 2026-02-26 | Ralph Bridge：新增长任务桥接命令（start/resume/status/finalize）、.ptk/state/bridge 映射状态、verify 三段式验收编排 |
 | v3.4.0 | 2026-02-26 | strict 默认开启、blocked reason code 标准化、auto-test 需求反馈回写、team file/tmux 统一运行时、spec->quality 双审查 gate、max_fix_loops 终态阻断 |

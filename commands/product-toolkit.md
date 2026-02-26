@@ -1,9 +1,9 @@
 ---
 name: product-toolkit
-description: 通用产品经理工具集 - v3.5.0（strict 默认 + team runtime + ralph bridge + feedback 回写）
+description: 通用产品经理工具集 - v3.5.2（strict 默认 + team runtime + ralph bridge + feedback 回写）
 ---
 
-# Product Toolkit v3.5.0
+# Product Toolkit v3.5.2
 
 [PRODUCT TOOLKIT ACTIVATED]
 

@@ -3,7 +3,7 @@ name: product-toolkit
 description: Product toolkit for PM workflows (think/user-story/prd/test-case/workflow etc.) with think vNext hard-switch rules.
 ---
 
-# Product Toolkit v3.5.0
+# Product Toolkit v3.5.2
 
 提供产品经理工作流工具集：需求澄清、用户故事、PRD、测试用例、技术方案与发布清单。
 

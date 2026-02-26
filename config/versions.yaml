@@ -1,9 +1,20 @@
 # Product Toolkit Version Configuration
 
-current_version: "3.5.1"
+current_version: "3.5.2"
 
 # Version history
 versions:
+  - version: "3.5.2"
+    date: "2026-02-26"
+    status: "released"
+    features:
+      - name: Claude 版本展示与命令提示修正
+        type: patch
+        description: 统一插件与文档版本到 3.5.2，确保 /product-toolkit:work 可见且版本显示一致
+    owner: "PM"
+    changes:
+      - description: 升级 plugin/marketplace 版本号并同步入口文档版本标识
+        breaking: false
   - version: "3.5.1"
     date: "2026-02-26"
     status: "released"
