@@ -311,6 +311,61 @@ python3 scripts/migrate_memory_v3.py --rollback .ptk/backups/<backup_dir>
 
 verify 阶段固定顺序：`auto-test -> review_gate evaluate -> team_report`。
 
+### OMX / OMC 桥接开发（推荐）
+
+#### 1) 运行时选择策略
+
+- `--runtime omx`：强制走 OMX 状态目录（`.omx/state`）
+- `--runtime omc`：强制走 OMC 状态目录（`.omc/state`）
+- `--runtime auto`：自动选择（默认优先 `omx`，找不到再用 `omc`）
+
+可用环境变量覆盖 auto 优先级：
+
+```bash
+export PTK_BRIDGE_RUNTIME_PREFERENCE=omc   # 或 omx
+```
+
+#### 2) 常用桥接开发命令（以 v3.5.0 为例）
+
+```bash
+# 启动桥接会话（自动选择 omx/omc）
+./scripts/ralph_bridge.sh start \
+  --team rb-dev \
+  --runtime auto \
+  --team-runtime file \
+  --task "v3.5.0 ralph bridge dev"
+
+# 推进阶段（重复执行，直到进入 terminal）
+./scripts/ralph_bridge.sh resume \
+  --team rb-dev \
+  --runtime auto \
+  --version v3.5.0 \
+  --feature ralph-bridge \
+  --test-file docs/product/v3.5.0/qa/test-cases/ralph-bridge.md \
+  --manual-results docs/product/v3.5.0/qa/manual-results/v3.5.0-ralph-bridge-pass.json \
+  --no-frontend-start
+
+# 查看桥接状态
+./scripts/ralph_bridge.sh status --team rb-dev --runtime auto
+```
+
+#### 3) 强制切 runtime 调试
+
+```bash
+# 强制 OMX
+./scripts/ralph_bridge.sh start --team rb-omx --runtime omx --task "bridge on omx"
+
+# 强制 OMC
+./scripts/ralph_bridge.sh start --team rb-omc --runtime omc --task "bridge on omc"
+```
+
+#### 4) 关键排查点
+
+- 桥接状态：`.ptk/state/bridge/ralph-link.json`
+- Team 状态：`.ptk/state/team/<team>/manifest.json`
+- Review Gate：`.ptk/state/team/<team>/review-gates.json`
+- 若 `runtime=auto` 失败，先确认 `.omx/state` / `.omc/state` 目录存在
+
 ---
 
 ## 完整工作流
