@@ -1,6 +1,6 @@
 ---
 name: team
-description: N coordinated agents with file/tmux runtime, state machine resume, and spec->quality review gates
+description: N coordinated agents with file/tmux runtime, state machine resume, and spec-to-quality review gates
 ---
 
 # Team 多代理协作（v3.4.0）

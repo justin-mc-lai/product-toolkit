@@ -1,9 +1,9 @@
 ---
 name: product-toolkit
-description: 通用产品经理工具集 - v3.4.0（strict 默认 + team runtime + feedback 回写）
+description: 通用产品经理工具集 - v3.5.0（strict 默认 + team runtime + ralph bridge + feedback 回写）
 ---
 
-# Product Toolkit v3.4.0
+# Product Toolkit v3.5.0
 
 [PRODUCT TOOLKIT ACTIVATED]
 
@@ -31,6 +31,7 @@ description: 通用产品经理工具集 - v3.4.0（strict 默认 + team runtime
 | `/product-toolkit:test-progress` | 测试进度汇总 | `.ptk/state/test-progress.json` |
 | `/product-toolkit:workflow` | 全链路编排 + Gate | `docs/product/{version}/SUMMARY.md` |
 | `/product-toolkit:team` | 多代理协作 | `docs/product/{version}/` + `.ptk/state/team/` |
+| `/product-toolkit:ralph-bridge` | Ralph 长任务桥接（omx/omc + verify 闭环） | `.ptk/state/bridge/ralph-link.json` |
 | `/product-toolkit:remember` | 记忆写入 | `.ptk/memory/*.json` |
 | `/product-toolkit:recall` | 记忆检索 | `.ptk/memory/*.json` |
 | `/product-toolkit:gate` | strict gate 检查 | 终态 `Pass/Blocked` |
@@ -97,3 +98,28 @@ description: 通用产品经理工具集 - v3.4.0（strict 默认 + team runtime
 ```
 
 输出阶段历史、阻塞原因、终态结论（可审计）。
+
+---
+
+## M3：Ralph Bridge 命令契约（v3.5.0）
+
+```bash
+./scripts/ralph_bridge.sh start --team <name> --runtime omx|omc|auto --task "..."
+./scripts/ralph_bridge.sh resume --team <name> --version <v> --feature <feature> --test-file <path> [--manual-results <json>]
+./scripts/ralph_bridge.sh status --team <name>
+./scripts/ralph_bridge.sh finalize --team <name> --terminal-status Pass|Blocked|Cancelled
+```
+
+桥接状态目录：
+
+```text
+.ptk/state/bridge/
+├── ralph-link.json
+└── ralph-link.schema.json
+```
+
+verify 阶段固定编排：
+
+1. `auto_test.sh`（strict）
+2. `review_gate.sh evaluate`
+3. `team_report.sh --format both`

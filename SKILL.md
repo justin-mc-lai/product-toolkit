@@ -3,7 +3,7 @@ name: product-toolkit
 description: Product toolkit for PM workflows (think/user-story/prd/test-case/workflow etc.) with think vNext hard-switch rules.
 ---
 
-# Product Toolkit v3.4.0
+# Product Toolkit v3.5.0
 
 提供产品经理工作流工具集：需求澄清、用户故事、PRD、测试用例、技术方案与发布清单。
 
@@ -48,6 +48,7 @@ description: Product toolkit for PM workflows (think/user-story/prd/test-case/wo
 | **其他技能** | | |
 | `ptk gate` | `/product-toolkit:gate` | 门控检查 |
 | `ptk status` | `/product-toolkit:status` | 状态面板 |
+| `ptk ralph-bridge` | `/product-toolkit:ralph-bridge` | Ralph 长任务桥接 |
 | `ptk remember` | `/product-toolkit:remember` | 记忆知识 |
 | `ptk recall` | `/product-toolkit:recall` | 检索记忆 |
 | `ptk version` | `/product-toolkit:version` | 版本规划 |
@@ -87,6 +88,7 @@ description: Product toolkit for PM workflows (think/user-story/prd/test-case/wo
 | `/product-toolkit:release [版本]` | 发布/上线检查清单 | `/product-toolkit:release v1.0.0` |
 | `/product-toolkit:analyze [对象]` | 竞品分析 | `/product-toolkit:analyze 抖音` |
 | `/product-toolkit:team [功能]` | 多代理协作（file/tmux runtime） | `/product-toolkit:team 电商详情页` |
+| `/product-toolkit:ralph-bridge [功能]` | Ralph 长任务桥接（omx/omc + verify 闭环） | `/product-toolkit:ralph-bridge v3.5.0 ralph-bridge` |
 | `/product-toolkit:workflow [功能]` | 一键产品工作流 | `/product-toolkit:workflow 电商收藏功能` |
 | `/product-toolkit:test-progress [版本]` | 测试进度记录 | `/product-toolkit:test-progress v1.0.0` |
 | `/product-toolkit:auto-test -v 版本 -f 功能` | 自动化 Web 测试 | `/product-toolkit:auto-test v1.0.0 -f 电商收藏` |

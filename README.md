@@ -74,6 +74,7 @@ ls -la ~/.agents/skills/product-toolkit
 | 自动化测试编排 | 基于 agent-browser CLI（优先）/browser-use CLI，支持前端启动、工具优先级、blocked reason code 与失败记忆沉淀 |
 | 需求反馈回写 | auto-test 缺口自动回写到 `.ptk/state/requirement-feedback` + `docs/product/feedback` |
 | Team Runtime | 支持 file/tmux/auto 统一入口、状态机恢复、双审查 gate、团队报告 |
+| Ralph Bridge | 桥接 OMX/OMC 长任务与 PTK verify 闭环（auto-test + review-gate + report） |
 | 需求池 | MoSCoW / KANO / RICE 优先级管理 |
 | 用户画像 | 模板 + 用户旅程 |
 | 产品路线图 | 季度/月度规划 |
@@ -291,6 +292,27 @@ python3 scripts/migrate_memory_v3.py --rollback .ptk/backups/<backup_dir>
 
 ---
 
+## Ralph Bridge（v3.5.0）
+
+统一桥接 OMX/OMC 长任务与 PTK team/verify 验收：
+
+```bash
+./scripts/ralph_bridge.sh start --team <name> --runtime omx|omc|auto --task "..."
+./scripts/ralph_bridge.sh resume --team <name> --version <v> --feature <feature> --test-file <path> [--manual-results <json>]
+./scripts/ralph_bridge.sh status --team <name>
+./scripts/ralph_bridge.sh finalize --team <name> --terminal-status Pass|Blocked|Cancelled
+```
+
+桥接状态文件：
+
+```text
+.ptk/state/bridge/ralph-link.json
+```
+
+verify 阶段固定顺序：`auto-test -> review_gate evaluate -> team_report`。
+
+---
+
 ## 完整工作流
 
 ### 需求澄清 → 用户故事 → QA 用例
@@ -362,6 +384,20 @@ Team Lead 分解任务
 Product PM / UI Designer / QA Engineer / Tech Lead 并行
     ↓
 Team Lead 整合与验收
+```
+
+### Ralph 长任务桥接工作流
+
+```text
+/product-toolkit:ralph-bridge [功能]
+    ↓
+start/resume/status/finalize
+    ↓
+team-runtime phase 驱动
+    ↓
+verify: auto-test -> review-gate -> team-report
+    ↓
+terminal: Pass / Blocked / Cancelled
 ```
 
 ---
@@ -531,6 +567,7 @@ docs/product/{version}/
 
 | 版本 | 日期 | 变更 |
 |---|---|---|
+| v3.5.0 | 2026-02-26 | Ralph Bridge：新增长任务桥接命令（start/resume/status/finalize）、.ptk/state/bridge 映射状态、verify 三段式验收编排 |
 | v3.4.0 | 2026-02-26 | strict 默认开启、blocked reason code 标准化、auto-test 需求反馈回写、team file/tmux 统一运行时、spec->quality 双审查 gate、max_fix_loops 终态阻断 |
 | v3.3.0 | 2026-02-26 | Product Toolkit 平台化文档基线（PRD/用户故事/测试用例） |
 | v3.2.2 | 2026-02-25 | 自动化测试增强：支持启动前端项目、按优先级选择 agent-browser/browser-use、保存测试记忆避免重复踩坑 |

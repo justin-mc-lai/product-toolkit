@@ -1,0 +1,77 @@
+{
+  "SMK-US351-01": {
+    "status": "passed",
+    "note": "manual acceptance passed",
+    "evidence": "docs/product/v3.5.0/qa/manual-results/evidence/SMK-US351-01.md"
+  },
+  "TC-US351-02": {
+    "status": "passed",
+    "note": "manual acceptance passed",
+    "evidence": "docs/product/v3.5.0/qa/manual-results/evidence/TC-US351-02.md"
+  },
+  "TC-US351-03": {
+    "status": "passed",
+    "note": "manual acceptance passed",
+    "evidence": "docs/product/v3.5.0/qa/manual-results/evidence/TC-US351-03.md"
+  },
+  "SMK-US352-01": {
+    "status": "passed",
+    "note": "manual acceptance passed",
+    "evidence": "docs/product/v3.5.0/qa/manual-results/evidence/SMK-US352-01.md"
+  },
+  "TC-US352-02": {
+    "status": "passed",
+    "note": "manual acceptance passed",
+    "evidence": "docs/product/v3.5.0/qa/manual-results/evidence/TC-US352-02.md"
+  },
+  "TC-US352-03": {
+    "status": "passed",
+    "note": "manual acceptance passed",
+    "evidence": "docs/product/v3.5.0/qa/manual-results/evidence/TC-US352-03.md"
+  },
+  "SMK-US353-01": {
+    "status": "passed",
+    "note": "manual acceptance passed",
+    "evidence": "docs/product/v3.5.0/qa/manual-results/evidence/SMK-US353-01.md"
+  },
+  "TC-US353-02": {
+    "status": "passed",
+    "note": "manual acceptance passed",
+    "evidence": "docs/product/v3.5.0/qa/manual-results/evidence/TC-US353-02.md"
+  },
+  "TC-US353-03": {
+    "status": "passed",
+    "note": "manual acceptance passed",
+    "evidence": "docs/product/v3.5.0/qa/manual-results/evidence/TC-US353-03.md"
+  },
+  "TC-US353-04": {
+    "status": "passed",
+    "note": "manual acceptance passed",
+    "evidence": "docs/product/v3.5.0/qa/manual-results/evidence/TC-US353-04.md"
+  },
+  "SMK-US354-01": {
+    "status": "passed",
+    "note": "manual acceptance passed",
+    "evidence": "docs/product/v3.5.0/qa/manual-results/evidence/SMK-US354-01.md"
+  },
+  "TC-US354-02": {
+    "status": "passed",
+    "note": "manual acceptance passed",
+    "evidence": "docs/product/v3.5.0/qa/manual-results/evidence/TC-US354-02.md"
+  },
+  "TC-US354-03": {
+    "status": "passed",
+    "note": "manual acceptance passed",
+    "evidence": "docs/product/v3.5.0/qa/manual-results/evidence/TC-US354-03.md"
+  },
+  "SMK-US355-01": {
+    "status": "passed",
+    "note": "manual acceptance passed",
+    "evidence": "docs/product/v3.5.0/qa/manual-results/evidence/SMK-US355-01.md"
+  },
+  "TC-US355-02": {
+    "status": "passed",
+    "note": "manual acceptance passed",
+    "evidence": "docs/product/v3.5.0/qa/manual-results/evidence/TC-US355-02.md"
+  }
+}

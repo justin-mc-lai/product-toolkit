@@ -1,9 +1,22 @@
 # Product Toolkit Version Configuration
 
-current_version: "3.4.0"
+current_version: "3.5.0"
 
 # Version history
 versions:
+  - version: "3.5.0"
+    date: "2026-02-26"
+    status: "released"
+    features:
+      - name: Ralph Bridge 长任务桥接
+        type: feature
+        description: 打通 OMX/OMC 长任务控制面与 PTK 需求-测试验收闭环
+    owner: "PM"
+    changes:
+      - description: 新增 v3.5.0 的 PRD/用户故事/测试用例文档基线，定义 ralph-bridge 契约
+        breaking: false
+      - description: 实现 scripts/ralph_bridge.sh 与 bridge 状态 schema，完成 verify 三段式编排并通过验收
+        breaking: false
   - version: "3.4.0"
     date: "2026-02-26"
     status: "released"

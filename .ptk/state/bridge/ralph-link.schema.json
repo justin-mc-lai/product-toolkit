@@ -1,0 +1,183 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Ralph Bridge Link Schema",
+  "description": "Bridge state linking PTK team runtime with OMX/OMC Ralph runtime",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "bridge_session_id",
+    "runtime_requested",
+    "runtime_effective",
+    "status",
+    "terminal_status",
+    "team",
+    "ralph",
+    "mapping",
+    "review_gate",
+    "created_at",
+    "updated_at",
+    "history"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0" },
+    "bridge_session_id": { "type": "string", "minLength": 1 },
+    "runtime_requested": { "type": "string", "enum": ["auto", "omx", "omc"] },
+    "runtime_effective": { "type": "string", "enum": ["omx", "omc"] },
+    "status": { "type": "string", "enum": ["active", "terminal"] },
+    "terminal_status": { "type": "string", "enum": ["Unknown", "Pass", "Blocked", "Cancelled"] },
+    "last_reason_codes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "team": {
+      "type": "object",
+      "required": [
+        "team_name",
+        "status",
+        "current_phase",
+        "terminal_status",
+        "fix_loop_count",
+        "max_fix_loops",
+        "manifest_file",
+        "review_file"
+      ],
+      "properties": {
+        "team_name": { "type": "string", "minLength": 1 },
+        "status": { "type": "string" },
+        "current_phase": {
+          "type": "string",
+          "enum": ["team-plan", "team-prd", "team-exec", "team-verify", "team-fix", "terminal"]
+        },
+        "terminal_status": { "type": "string", "enum": ["Unknown", "Pass", "Blocked", "Cancelled"] },
+        "fix_loop_count": { "type": "integer", "minimum": 0 },
+        "max_fix_loops": { "type": "integer", "minimum": 1 },
+        "manifest_file": { "type": "string" },
+        "review_file": { "type": "string" }
+      }
+    },
+    "ralph": {
+      "type": "object",
+      "required": [
+        "runtime",
+        "session_id",
+        "state_file",
+        "found",
+        "active",
+        "phase",
+        "iteration",
+        "max_iterations",
+        "completed_at"
+      ],
+      "properties": {
+        "runtime": { "type": "string", "enum": ["omx", "omc"] },
+        "session_id": { "type": "string" },
+        "state_file": { "type": "string" },
+        "found": { "type": "boolean" },
+        "active": { "type": "boolean" },
+        "phase": {
+          "type": "string",
+          "enum": ["", "executing", "verifying", "fixing", "complete", "failed", "cancelled"]
+        },
+        "iteration": { "type": ["integer", "null"], "minimum": 0 },
+        "max_iterations": { "type": ["integer", "null"], "minimum": 0 },
+        "completed_at": { "type": "string" }
+      }
+    },
+    "mapping": {
+      "type": "object",
+      "required": ["team_phase", "mapped_ralph_phase"],
+      "properties": {
+        "team_phase": {
+          "type": "string",
+          "enum": ["team-plan", "team-prd", "team-exec", "team-verify", "team-fix", "terminal"]
+        },
+        "mapped_ralph_phase": {
+          "type": "string",
+          "enum": ["executing", "verifying", "fixing", "complete", "failed", "cancelled"]
+        }
+      }
+    },
+    "review_gate": {
+      "type": "object",
+      "required": ["evaluation_status", "reason_codes"],
+      "properties": {
+        "evaluation_status": { "type": "string", "enum": ["Pass", "Blocked"] },
+        "reason_codes": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "required": ["verified_at", "auto_test", "review_gate", "team_report", "overall_status"],
+      "properties": {
+        "verified_at": { "type": "string", "format": "date-time" },
+        "overall_status": { "type": "string", "enum": ["Pass", "Blocked"] },
+        "auto_test": {
+          "type": "object",
+          "required": ["status", "exit_code", "session_file", "blocked_reason_codes", "log_file"],
+          "properties": {
+            "status": { "type": "string", "enum": ["passed", "failed", "blocked"] },
+            "exit_code": { "type": "integer" },
+            "session_file": { "type": "string" },
+            "blocked_reason_codes": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "log_file": { "type": "string" }
+          }
+        },
+        "review_gate": {
+          "type": "object",
+          "required": ["spec_status", "quality_status", "evaluation_status", "reason_codes", "critical_open", "high_open"],
+          "properties": {
+            "spec_status": { "type": "string", "enum": ["pass"] },
+            "quality_status": { "type": "string", "enum": ["pass", "blocked"] },
+            "evaluation_status": { "type": "string", "enum": ["Pass", "Blocked"] },
+            "reason_codes": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "critical_open": { "type": "integer", "minimum": 0 },
+            "high_open": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "team_report": {
+          "type": "object",
+          "required": ["json_report", "md_report"],
+          "properties": {
+            "json_report": { "type": "string" },
+            "md_report": { "type": "string" }
+          }
+        }
+      }
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["timestamp", "event", "note", "team_phase", "mapped_ralph_phase", "reason_codes"],
+        "properties": {
+          "timestamp": { "type": "string", "format": "date-time" },
+          "event": { "type": "string", "enum": ["start", "resume", "status", "finalize"] },
+          "note": { "type": "string" },
+          "team_phase": {
+            "type": "string",
+            "enum": ["team-plan", "team-prd", "team-exec", "team-verify", "team-fix", "terminal"]
+          },
+          "mapped_ralph_phase": {
+            "type": "string",
+            "enum": ["executing", "verifying", "fixing", "complete", "failed", "cancelled"]
+          },
+          "reason_codes": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}
