@@ -3,3 +3,8 @@
 *.swp
 *.tmp
 .omc/
+.ptk/evidence/
+.ptk/state/*.json
+.ptk/memory/*.json
+!.ptk/state/*.schema.json
+!.ptk/memory/*.schema.json

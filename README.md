@@ -71,6 +71,7 @@ ls -la ~/.agents/skills/product-toolkit
 | PRD | 完整结构 + 快速模板 |
 | 测试用例 | 从验收标准自动生成（含 Smoke/New/Regression） |
 | 测试进度 | 独立测试记录 + 失败追溯 + 演进自反馈 |
+| 自动化测试编排 | 基于 agent-browser CLI（优先）/browser-use CLI，支持前端启动、工具优先级与失败记忆沉淀 |
 | 需求池 | MoSCoW / KANO / RICE 优先级管理 |
 | 用户画像 | 模板 + 用户旅程 |
 | 产品路线图 | 季度/月度规划 |
@@ -93,6 +94,12 @@ ls -la ~/.agents/skills/product-toolkit
 
 # 生成测试用例（含可视化 Gate）
 /product-toolkit:test-case 社区点赞功能
+
+# 自动化测试（启动前端 + 浏览器工具优先级）
+/product-toolkit:auto-test v1.0.0 -f 社区点赞功能 --frontend-cmd "pnpm dev" --frontend-url http://127.0.0.1:5173
+
+# 自动识别前端启动命令（从 package.json 推断）
+/product-toolkit:auto-test v1.0.0 -f 社区点赞功能 --frontend-dir ./apps/web
 
 # 一键工作流
 /product-toolkit:workflow 社区点赞功能
@@ -340,6 +347,7 @@ docs/product/{version}/
 
 | 版本 | 日期 | 变更 |
 |---|---|---|
+| v3.2.2 | 2026-02-25 | 自动化测试增强：支持启动前端项目、按优先级选择 agent-browser/browser-use、保存测试记忆避免重复踩坑 |
 | v3.2.1 | 2026-02-25 | 扩展 ptk 关键词触发，支持中文关键词（自动测试/用户故事/冒烟/需求等） |
 | v3.2.0 | 2026-02-25 | 添加自动化测试 (auto-test) 子命令，支持 Web 端 agent-browser 自动化 |
 | v3.1.1 | 2026-02-25 | 添加 ptk 关键词触发机制（ptk think / ptk workflow 等） |

@@ -46,3 +46,9 @@ memory:
   vocabulary:
     enabled: true
     auto_learning: true
+
+  # Automated test pitfalls memory
+  test_learnings:
+    enabled: true
+    file: .ptk/memory/test-learnings.json
+    max_records: 300

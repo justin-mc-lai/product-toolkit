@@ -3,7 +3,7 @@ name: product-toolkit
 description: Product toolkit for PM workflows (think/user-story/prd/test-case/workflow etc.) with think vNext hard-switch rules.
 ---
 
-# Product Toolkit v3.2.1
+# Product Toolkit v3.2.2
 
 提供产品经理工作流工具集：需求澄清、用户故事、PRD、测试用例、技术方案与发布清单。
 
@@ -218,7 +218,8 @@ v3.1.0 新增状态跨会话持久化功能：
 ├── memory/
 │   ├── project-insights.json # 项目洞察（跨会话）
 │   ├── decisions.json         # 历史决策记录
-│   └── vocabulary.json       # 领域术语表
+│   ├── vocabulary.json       # 领域术语表
+│   └── test-learnings.json   # 自动化测试踩坑记忆
 └── cache/
     └── templates/           # 模板缓存
 ```
@@ -336,9 +337,10 @@ docs/product/{version}/
 
 ---
 
-**版本**: v3.2.1
+**版本**: v3.2.2
 
 **更新日志**:
+- v3.2.2: 自动化测试增强（支持启动前端、按优先级选择 agent-browser/browser-use、失败记忆沉淀防重复踩坑）
 - v3.1.0: 添加状态持久化系统 (.ptk/)、Soft-Gate门控、记忆系统、自动化测试
 - v3.0.1: 添加版本演进与测试回归系统（自动 patch+1、用户故事继承、测试进度跟踪、演进总结）
 - v3.0.1: 版本号修正，与 plugin.json 保持一致

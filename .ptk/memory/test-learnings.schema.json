@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Test Learnings Schema",
+  "description": "Persistent pitfalls memory for automated browser testing",
+  "type": "object",
+  "required": ["version", "pitfalls", "updated_at"],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "pitfalls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "feature",
+          "test_case",
+          "signature",
+          "suggestion",
+          "count",
+          "first_seen",
+          "last_seen"
+        ],
+        "properties": {
+          "feature": { "type": "string" },
+          "version": { "type": "string" },
+          "test_type": { "type": "string" },
+          "test_case": { "type": "string" },
+          "tool": { "type": "string" },
+          "signature": { "type": "string" },
+          "suggestion": { "type": "string" },
+          "snippet": { "type": "string" },
+          "count": { "type": "integer", "minimum": 1 },
+          "first_seen": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "last_seen": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  }
+}

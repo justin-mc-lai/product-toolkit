@@ -1,19 +1,41 @@
 # Product Toolkit Version Configuration
 
-current_version: "3.0.0"
+current_version: "3.2.2"
 
 # Version history
 versions:
-  - version: "3.0.0"
-    date: "2026-02-24"
-    status: "planning"
+  - version: "3.2.2"
+    date: "2026-02-25"
+    status: "released"
     features:
-      - name: 一键产品完善工作流
-        type: new
-        description: 智能路由自动调用子命令
+      - name: 自动化测试增强
+        type: improvement
+        description: 支持前端启动、外部工具优先级选择与测试踩坑记忆沉淀
     owner: "PM"
     changes:
-      - description: 新增 workflow 子命令
+      - description: 重构 scripts/auto_test.sh，修复进度写入逻辑并增强可配置性
+        breaking: false
+  - version: "3.2.1"
+    date: "2026-02-25"
+    status: "released"
+    features:
+      - name: ptk 中文关键词触发
+        type: feature
+        description: 支持自动测试/用户故事/冒烟/需求等中文触发
+    owner: "PM"
+    changes:
+      - description: 扩展关键词触发机制
+        breaking: false
+  - version: "3.2.0"
+    date: "2026-02-25"
+    status: "released"
+    features:
+      - name: 自动化测试子命令
+        type: feature
+        description: 添加 auto-test，支持 Web 浏览器自动化
+    owner: "PM"
+    changes:
+      - description: 引入 auto-test 子命令
         breaking: false
 
 # Semantic versioning rules
