@@ -1,37 +1,380 @@
 # Product Toolkit
 
-> 通用产品经理工具集 - 集成在 Claude Code / Codex 中使用
+> 通用产品经理工具集（Claude Code / Codex）
 
-## 🚨 Hard Switch（2026-02-25）
+## 项目整体说明（覆盖全局）
 
-`/product-toolkit:think` 已执行 **think vNext 规则先行硬切换**：
+Product Toolkit 是一个“从需求到可交付证据”的产品协作框架，覆盖：
 
-- 旧版固定题库语义退场（不再按固定题号/固定轮次驱动）
-- 启用：批量交互、上下文动态追问、冲突检测、每轮自动摘要、未决问题清单（ledger）
-- 下游 `user-story / prd / test-case / workflow` 按新契约消费输出
-- 本次切换仅覆盖规则与文档契约，不包含行为引擎实现细节
+| 能力层 | 目标 | 典型命令/产物 |
+|---|---|---|
+| 需求定义层 | 明确问题与范围 | `think` / `user-story` / `prd` / `test-case` |
+| 工作流编排层 | 一键生成标准产物链 | `workflow`（`work` 别名） |
+| 架构治理层 | 统一架构设计与职责边界 | `architecture/*.md` + `gate` |
+| 执行协作层 | 驱动 OMC/OMX 长任务闭环 | `team` / `ralph-bridge` / `auto-test` / `next-step-prompts.md` |
+| 交付治理层 | 用证据判定 Done/Blocked | `gate` + `boundaries.md` + `terminal.json` |
+| 记忆与追踪层 | 复用历史决策与上下文 | `remember` / `recall` / `.ptk/` 状态文件 |
+
+默认推荐路线（v3.6.0）是：  
+`workflow → 产物链（PRD/US/QA）→ execution 模板 → OMC/OMX 执行 → gate 证据校验`  
+即：优先“物料驱动 + 证据闭环”，兼容路径再使用桥接能力。
+
+---
+
+## v3.6.1 热修重点（当前推荐）
+
+1. 默认主入口：`/product-toolkit:workflow`（`/product-toolkit:work` 别名）
+2. 核心产物链：`think → user-story → prd → test-case`
+3. 不新增用户命令，降低使用心智
+4. workflow 完成后输出 OMC/OMX 下一步固定提示词（可直接执行）
+5. 新增架构治理产物：`system-context / responsibility-boundaries / api-contracts / nfr-budgets / adr-index`
+6. 证据闭环：`boundaries.md + terminal.json`
+7. 证据加固：`raw-command-log.jsonl + evidence-manifest.json + gate-consistency-report.json`
+8. 可执行 gate 校验：
+   - `scripts/validate_terminal_artifacts.py`
+   - `scripts/check_terminal_artifacts.sh`
+9. workflow 终态默认自动收口：`scripts/workflow_gate_autorun.sh`
+10. OMC/OMX 是可选执行器，非入侵 PTK 生命周期规划
+11. `ralph-bridge` 保留为兼容路径（非默认主路径），并已对齐 v3.6.1 evidence-first 终态要求
+
+v3.6.1 热修说明：`docs/product/v3.6.1/SUMMARY.md`  
+v3.6.0 文档索引（3.6.1 延续）：`docs/product/v3.6.0/README.md`
+
+---
+
+## 全量能力地图（主路径 + 扩展）
+
+| 模块 | 典型命令 | 说明 |
+|---|---|---|
+| 证据闭环主路径 | `workflow` / `work` / `gate` | v3.6.0 默认入口与交付判定 |
+| 需求到测试产物 | `think` / `user-story` / `prd` / `test-case` | 标准 PRD/US/QA 产物链 |
+| 架构治理产物 | `architecture/*.md` | 系统边界、职责边界、接口契约、NFR、ADR |
+| 长任务执行 | `team` / `ralph-bridge` / `auto-test` | OMC/OMX 自迭代执行与验证 |
+| 产品分析与策略 | `analyze` / `brainstorm` / `design` / `jtbd` / `kano` / `moscow` | 需求分析、方案发散、优先级 |
+| 规划与发布 | `version` / `roadmap` / `release` / `test-progress` / `evolution-summary` | 版本推进、发布与演进复盘 |
+| 技术与设计细化 | `wireframe` / `ui-spec` / `api-design` / `data-dictionary` | UI/接口/数据模型配套产物 |
+| 记忆与状态 | `remember` / `recall` / `save` / `resume` / `status` | 会话持久化与知识复用 |
+
+说明：README 以 v3.6.0 默认路径为主；完整命令契约见 `commands/product-toolkit.md` 与 `SKILL.md`。
+
+---
+
+## 现有功能模块盘点（代码级视角）
+
+以下盘点基于当前仓库 `skills/`、`scripts/`、`.ptk/` 与 `docs/product/` 的实际结构：
+
+| 模块域 | 代表命令 / 脚本 | 关键状态/产物落点 | 当前能力 |
+|---|---|---|---|
+| 需求思考与产物链 | `think` / `user-story` / `prd` / `test-case` | `docs/product/{version}/prd|user-story|qa/test-cases` | 从需求到 AC→TC 的标准化产物生成 |
+| 工作流编排与交付判定 | `workflow` / `work` / `gate` / `workflow_gate_autorun.sh` | `execution/boundaries.md` + `execution/terminal.json` + 一致性/manifest 报告 | evidence-first 终态收口（Pass/Blocked） |
+| 架构治理 | `architecture/*.md` + `check_gate_consistency.py` | `architecture/system-context|responsibility|api-contracts|nfr|adr` | 架构边界、契约漂移、NFR 预算纳入 gate |
+| 多代理执行运行时 | `team_runtime.sh` / `review_gate.sh` / `team_report.sh` | `.ptk/state/team/<team>/manifest.json`、`review-gates.json`、`reports/*` | file/tmux runtime、spec→quality 双审查、fix loop 控制 |
+| Ralph 兼容桥接 | `ralph_bridge.sh` | `.ptk/state/bridge/<team>/ralph-link.json` | 把 OMX/OMC 长任务状态映射回 PTK 生命周期 |
+| 自动测试与反馈回写 | `auto_test.sh` / `feedback_from_test.py` | `.ptk/state/test-sessions/*.json`、`test-progress.json`、`requirement-feedback/*.json` | start-record-stop-consolidate 生命周期、阻塞原因归因、反馈注入下一轮 |
+| 记忆系统 | `remember` / `recall` / `migrate_memory_v3.py` | `.ptk/memory/*.json` + schema | 洞察/决策/术语/测试踩坑记忆的跨会话复用 |
+| 状态持久化 | `save` / `resume` / `status` | `.ptk/state/*.json`（含 schema） | 会话恢复、阶段追踪、门控上下文保留 |
+| 产品规划扩展能力 | `version` / `roadmap` / `release` / `evolution-summary` | `docs/product/{version}/...` | 版本规划、发布检查、演进复盘 |
+| 方法论与分析工具 | `analyze` / `brainstorm` / `design` / `jtbd` / `kano` / `moscow` / `persona` | `docs/product/*` 对应输出目录 | 需求分析、方案发散、优先级与用户画像支持 |
+
+---
+
+## 一图看懂 v3.6.0 完整执行工作流
+
+```mermaid
+flowchart LR
+    A[需求输入] --> B[think vNext]
+    B --> C[user-story]
+    C --> D[prd]
+    D --> E[test-case]
+    E --> F[execution 模板\nboundaries + terminal + prompts]
+    F --> G[OMX/OMC 长任务自迭代]
+    G --> H[terminal.json]
+    H --> I[gate 证据校验]
+    I --> J{终态}
+    J -->|Pass| K[可交付]
+    J -->|Blocked| L[修复后重跑]
+    J -->|Cancelled| M[中止归档]
+```
+
+---
+
+## 快速开始（推荐）
+
+### A. 一键主路径
+
+```bash
+/product-toolkit:workflow 社区点赞功能
+```
+
+### B. 分步主路径
+
+```bash
+/product-toolkit:think 社区点赞功能
+/product-toolkit:user-story 社区点赞功能
+/product-toolkit:prd 社区点赞功能
+/product-toolkit:test-case 社区点赞功能
+```
+
+---
+
+## 10 分钟上手演示（copy & run）
+
+```bash
+# 1) 进入仓库
+cd /你的路径/product-toolkit
+
+# 2) 跑一键 workflow（示例功能）
+/product-toolkit:workflow 社区点赞功能
+
+# 3) 快速确认 v3.6.0 关键产物
+ls -la docs/product/v3.6.0/prd/
+ls -la docs/product/v3.6.0/user-story/
+ls -la docs/product/v3.6.0/qa/test-cases/
+ls -la docs/product/v3.6.0/architecture/
+ls -la docs/product/v3.6.0/execution/
+
+# 4) 执行终态校验（release=Pass, blocked=Blocked）
+./scripts/check_terminal_artifacts.sh --version v3.6.0
+
+# 5) 证据加固（可选但推荐）
+python3 scripts/check_gate_consistency.py --version v3.6.0 \
+  --terminal docs/product/v3.6.0/execution/terminal.release-sample.json \
+  --output docs/product/v3.6.0/execution/gate-consistency.release-sample.json
+
+python3 scripts/build_evidence_manifest.py \
+  --terminal docs/product/v3.6.0/execution/terminal.release-sample.json \
+  --output docs/product/v3.6.0/execution/evidence-manifest.release-sample.json
+```
+
+完成标准：
+
+- 能看到 PRD / User Story / Test Cases / Execution 模板文件
+- `check_terminal_artifacts.sh` 输出 PASS
+
+失败时如何排查（3步）：
+
+1. **先看 reason codes（定位方向）**
+   ```bash
+   python3 scripts/validate_terminal_artifacts.py \
+     --version v3.6.0 \
+     --terminal docs/product/v3.6.0/execution/terminal.release-sample.json \
+     --pretty
+   ```
+2. **再看文件是否缺失（定位路径问题）**
+   ```bash
+   ls -la docs/product/v3.6.0/execution/
+   ```
+   重点检查：`boundaries.md`、`terminal.json`、`next-step-prompts.md`、`architecture/*.md`
+3. **最后看证据引用是否失效（定位内容问题）**
+   - 打开 `terminal.release-sample.json` / `terminal.blocked-sample.json`
+   - 核对 `traceability[].evidence_refs` 与 `evidence.*` 路径是否真实存在
+
+常见 reason code 对照表（原因 → 修复动作）：
+
+| reason_code | 常见原因 | 建议修复动作 |
+|---|---|---|
+| `boundaries_missing` | 缺少 `execution/boundaries.md` | 补齐边界模板并确认 In/Out Scope、Done、Blocked 条件 |
+| `boundaries_schema_invalid` | boundaries 关键章节缺失 | 补齐章节：In Scope / Out of Scope / Done / Blocked / 输出产物 |
+| `terminal_artifact_missing` | 缺少 `execution/terminal.json` 或指定终态文件 | 先生成终态文件，再执行 gate 校验 |
+| `terminal_schema_invalid` | terminal 结构不合法（字段缺失/类型错误） | 按 `execution/terminal.json` 模板对齐字段与类型 |
+| `terminal_status_invalid` | `terminal.status` 非 `Pass/Blocked/Cancelled` | 修正为合法终态值 |
+| `blocking_open_question_exists` | 仍有 blocking 未决项未关闭 | 在 next_round 中关闭/降级该问题，再重跑校验 |
+| `ac_tc_mapping_gap` | 存在 AC 未映射 TC（如 `tc_ids` 为空） | 补齐 AC→TC 映射并更新 traceability |
+| `terminal_evidence_missing` | evidence 引用路径不存在 | 修正或补齐被引用的报告/日志/证据文件 |
+| `evidence_ref_path_style_inconsistent` | 证据路径风格不一致 | 统一为仓库相对路径（推荐 `docs/...` 或项目根相对路径） |
+| `arch_artifact_missing` | 缺少 architecture 关键文档 | 补齐 `architecture/system-context/responsibility/contracts/nfr/adr` |
+| `ownership_boundary_unclear` | 职责边界未确认或越权 | 更新 `responsibility-boundaries.md` 并在 terminal 回填确认 |
+| `api_contract_drift` | 存在未解决契约漂移 | 在 `api-contracts.md` 标记修复/接受，并补证据 |
+| `nfr_budget_unproven` | 关键 NFR 无法证明达标 | 在 `nfr-budgets.md` 补齐测量证据或降级为 Blocked |
+| `evidence_integrity_missing` | terminal 缺少证据加固元信息 | 补齐 `evidence_integrity` 字段 |
+| `raw_command_log_missing` | 未提供 raw command log | 用 `run_command_with_evidence.py` 生成 jsonl 原始执行记录 |
+| `raw_command_log_invalid` | raw command log 行格式不合法 | 每行必须含 `cmd/cwd/started_at/ended_at/exit_code` |
+| `evidence_sha256_manifest_missing` | 缺少 sha256 manifest | 运行 `build_evidence_manifest.py` 生成 |
+| `evidence_sha256_manifest_invalid` | manifest 结构错误或包含无效条目 | 修复 manifest schema 并重生 |
+| `evidence_sha256_manifest_incomplete` | manifest 未覆盖关键证据 | 重新生成并覆盖 terminal 引用路径 |
+| `evidence_sha256_manifest_mismatch` | 证据文件与哈希不一致 | 重新执行并固化证据，避免篡改风险 |
+| `gate_consistency_report_missing` | 缺少一致性报告 | 运行 `check_gate_consistency.py` 输出报告 |
+| `gate_consistency_report_invalid` | 一致性报告格式非法 | 修复 `status/conflicts` 结构 |
+| `gate_consistency_report_mismatch` | 报告与实时校验不一致 | 重新执行一致性校验并覆盖报告 |
+| `gate_consistency_conflict` | terminal 与架构文档结论冲突 | 对齐 terminal、api-contracts、nfr-budgets 后再判 Pass |
+
+---
+
+## v3.6.0 标准交付步骤（重点）
+
+### Step 1) 产物必须齐全
+
+至少应存在：
+
+- `docs/product/{version}/prd/{feature}.md`
+- `docs/product/{version}/user-story/{feature}.md`
+- `docs/product/{version}/qa/test-cases/{feature}.md`
+- `docs/product/{version}/architecture/system-context.md`
+- `docs/product/{version}/architecture/responsibility-boundaries.md`
+- `docs/product/{version}/architecture/api-contracts.md`
+- `docs/product/{version}/architecture/nfr-budgets.md`
+- `docs/product/{version}/architecture/adr-index.md`
+- `docs/product/{version}/execution/boundaries.md`
+- `docs/product/{version}/execution/terminal.json`
+- `docs/product/{version}/execution/raw-command-log.jsonl`
+- `docs/product/{version}/execution/evidence-manifest.json`
+- `docs/product/{version}/execution/gate-consistency-report.json`
+
+### Step 2) 使用固定下一步模板驱动 OMC/OMX
+
+从以下文件复制提示词执行：
+
+- `docs/product/{version}/execution/next-step-prompts.md`
+
+要求：
+
+- 以 `boundaries.md` 判定范围
+- 以 `architecture/*.md` 约束架构边界与职责
+- 以 `AC→TC→Evidence` 判定完成
+- 终态必须落盘 `terminal.json`
+
+### Step 3) 证据校验（交付前必须）
+
+```bash
+# v3.6.1 默认自动收口（推荐）
+./scripts/workflow_gate_autorun.sh \
+  --version v3.6.0 \
+  --terminal docs/product/v3.6.0/execution/terminal.release-sample.json
+
+# 快速回归：release 样例必须 Pass，blocked 样例必须 Blocked
+./scripts/check_terminal_artifacts.sh --version v3.6.0
+
+# 或按单文件精查
+python3 scripts/validate_terminal_artifacts.py \
+  --version v3.6.0 \
+  --terminal docs/product/v3.6.0/execution/terminal.release-sample.json \
+  --pretty
+
+# 一致性报告（terminal vs architecture）
+python3 scripts/check_gate_consistency.py \
+  --version v3.6.0 \
+  --terminal docs/product/v3.6.0/execution/terminal.release-sample.json \
+  --output docs/product/v3.6.0/execution/gate-consistency.release-sample.json
+
+# 证据哈希清单
+python3 scripts/build_evidence_manifest.py \
+  --terminal docs/product/v3.6.0/execution/terminal.release-sample.json \
+  --output docs/product/v3.6.0/execution/evidence-manifest.release-sample.json
+```
+
+### Step 4) Blocked 回归演练（建议每次发版前执行）
+
+- 演练清单：`docs/product/v3.6.0/execution/blocked-drill-checklist.md`
+- 演练样例：`docs/product/v3.6.0/execution/terminal.blocked-sample.json`
+- 演练结果：`docs/product/v3.6.0/execution/blocked-drill-result.md`
+
+---
+
+## 兼容路径（非默认）
+
+| 命令 | 用途 |
+|---|---|
+| `/product-toolkit:team` | 多代理协作运行时 |
+| `/product-toolkit:ralph-bridge` | OMX/OMC 长任务桥接（兼容保留） |
+| `/product-toolkit:auto-test` | 自动化测试执行（执行层） |
+| `/product-toolkit:gate` | strict 门控检查 |
+
+---
+
+## v3.6.0 关键目录
+
+```text
+docs/product/v3.6.0/
+├── README.md
+├── SUMMARY.md
+├── prd/workflow-evidence-first.md
+├── user-story/workflow-evidence-first.md
+├── qa/test-cases/workflow-evidence-first.md
+├── architecture/
+│   ├── README.md
+│   ├── system-context.md
+│   ├── responsibility-boundaries.md
+│   ├── api-contracts.md
+│   ├── nfr-budgets.md
+│   └── adr-index.md
+└── execution/
+    ├── boundaries.md
+    ├── terminal.json
+    ├── terminal.release-sample.json
+    ├── terminal.blocked-sample.json
+    ├── raw-command-log.release-sample.jsonl
+    ├── raw-command-log.blocked-sample.jsonl
+    ├── evidence-manifest.release-sample.json
+    ├── evidence-manifest.blocked-sample.json
+    ├── gate-consistency.release-sample.json
+    ├── gate-consistency.blocked-sample.json
+    ├── next-step-prompts.md
+    ├── gate-architecture-checklist.md
+    ├── blocked-drill-checklist.md
+    ├── blocked-drill-result.md/.json
+    ├── delivery-report.md
+    └── review-v3.6.0-fix-report.md
+```
+
+## 项目目录（全局）
+
+```text
+product-toolkit/
+├── commands/                 # 子命令入口说明
+├── skills/                   # 各能力 SKILL.md（workflow/gate/team/...）
+├── docs/product/             # 各版本产品文档与执行证据
+├── scripts/                  # 校验与辅助脚本
+└── .ptk/                     # 运行态/记忆/状态快照
+```
+
+---
+
+## 未来可探索迭代 TODO（文档规划，不代表版本变更）
+
+> 说明：本节是 backlog 建议清单，用于后续规划；不意味着当前版本号变更。
+
+### P0（优先补齐体验闭环）
+
+1. **统一全流程状态看板命令**  
+   将 think/workflow/team/bridge/auto-test/feedback 聚合为单入口（支持 `--json`）。
+2. **`status` 技能脚本化落地**  
+   把当前说明型状态面板变为可执行脚本，避免“有说明无实现”。
+3. **测试反馈镜像一致性校验**  
+   增加对 `.ptk/state/requirement-feedback` 与 `docs/product/*/feedback` 的一致性检查。
+4. **manual-results 交互辅助**  
+   为 manual/api 用例提供“待回填项清单 + 快速模板”减少 `manual_result_missing`。
+
+### P1（提升治理与自动化程度）
+
+5. **reason code 处置知识库**  
+   建立 reason code → 修复动作 → 验证命令的结构化索引（可机读）。
+6. **workflow/think 运行态落盘统一**  
+   统一 `think-progress` / `workflow-state` 的真实写入与恢复策略。
+7. **门控前置 CI 校验**  
+   在 CI 中默认执行 terminal/schema/consistency/manifest 检查，提前阻断不合格交付。
+8. **team 报告趋势化**  
+   增加 fix loop、blocked reason、phase 耗时的时间序列统计。
+
+### P2（增强智能化与可视化）
+
+9. **跨版本质量趋势看板**  
+   统计 Pass/Blocked、reason codes、覆盖率变化趋势。
+10. **记忆驱动的风险预测**  
+    基于 `test-learnings` signatures/playbooks 提前提示高风险变更点。
+11. **证据关系图谱**  
+    从 AC→TC→Evidence→Terminal 生成可视化依赖图。
+12. **通知与协作集成**  
+    支持 blocked 事件推送（如 webhook/IM）与责任人自动分发。
 
 ---
 
 ## 安装
 
-### Claude Code（本地仓库安装）
+### Claude Code
 
 ```bash
 claude plugin marketplace add /绝对路径/product-toolkit
 claude plugin install product-toolkit@product-toolkit-dev
-```
-
-示例：
-
-```bash
-claude plugin marketplace add /Users/apple/Developer/Personal/my_skill/product-toolkit
-claude plugin install product-toolkit@product-toolkit-dev
-```
-
-验证安装：
-
-```bash
 claude plugin list
 ```
 
@@ -43,623 +386,21 @@ mkdir -p ~/.agents/skills
 ln -s ~/.codex/product-toolkit ~/.agents/skills/product-toolkit
 ```
 
-验证安装：
-
-```bash
-ls -la ~/.agents/skills/product-toolkit
-```
-
-详细说明见 `.codex/INSTALL.md`。
-
 ---
 
-## 功能概览
+## 版本摘要
 
-| 功能 | 说明 |
-|---|---|
-| 状态持久化 | .ptk/ 目录跨会话保存 think/workflow/test 状态 |
-| 记忆系统 | remember/recall 项目洞察、决策、术语 |
-| 门控机制 | strict 默认开启（阻断优先），支持 --force 并强制记录风险 |
-| 状态面板 | /product-toolkit:status 显示阶段/门控/进度 |
-| 产品思考（think vNext） | 批量问答 + 动态追问 + 冲突检测 + 自动摘要 |
-| 发散思维 | 网状思维头脑风暴，多维分析 |
-| Design Thinking | 设计思维五阶段 |
-| JTBD | 用户任务理论，深入理解用户动机 |
-| 版本迭代 | 自动版本推进（默认 patch+1）+ 用户故事继承 |
-| UI 设计 | 草稿图、线框图、设计规范 |
-| 用户故事 | 标准验收标准模板（含权限与逆向流程）|
-| PRD | 完整结构 + 快速模板 |
-| 测试用例 | 从验收标准自动生成（含 Smoke/New/Regression） |
-| 测试进度 | 独立测试记录 + 失败追溯 + 演进自反馈 |
-| 自动化测试编排 | 基于 agent-browser CLI（优先）/browser-use CLI，支持前端启动、工具优先级、blocked reason code 与失败记忆沉淀 |
-| 需求反馈回写 | auto-test 缺口自动回写到 `.ptk/state/requirement-feedback` + `docs/product/feedback` |
-| Team Runtime | 支持 file/tmux/auto 统一入口、状态机恢复、双审查 gate、团队报告 |
-| Ralph Bridge | 桥接 OMX/OMC 长任务与 PTK verify 闭环（auto-test + review-gate + report） |
-| 需求池 | MoSCoW / KANO / RICE 优先级管理 |
-| 用户画像 | 模板 + 用户旅程 |
-| 产品路线图 | 季度/月度规划 |
-| 上线检查 | 上线前后检查清单 |
-| 竞品分析 | 功能矩阵 + SWOT |
-| 多代理协作 | Product PM + UI + QA + Tech Lead |
-| 一键工作流 | 场景路由自动编排完整产品包 |
-| 演进总结 | 版本需求变更 + 用户故事状态 + 测试覆盖 |
-
----
-
-## 快速开始
-
-```bash
-# 规则先行需求澄清
-/product-toolkit:think 我想做社区点赞功能
-
-# 从 think vNext 输出生成用户故事
-/product-toolkit:user-story 社区点赞功能
-
-# 生成测试用例（含可视化 Gate）
-/product-toolkit:test-case 社区点赞功能
-
-# 自动化测试（启动前端 + 浏览器工具优先级）
-/product-toolkit:auto-test v1.0.0 -f 社区点赞功能 --frontend-cmd "pnpm dev" --frontend-url http://127.0.0.1:5173
-
-# 自动识别前端启动命令（从 package.json 推断）
-/product-toolkit:auto-test v1.0.0 -f 社区点赞功能 --frontend-dir ./apps/web
-
-# 一键工作流
-/product-toolkit:workflow 社区点赞功能
-```
-
----
-
-## 自动化测试完整运行工作流（自迭代闭环）
-
-> 适用命令：`/product-toolkit:auto-test`（底层脚本：`scripts/auto_test.sh`）
-
-### 1) 运行命令（推荐）
-
-```bash
-# 严格模式：统一使用正式用例清单（禁止简化版 1:1 US→TC）
-# 已有前端服务时（例如 3000 被占用，改用 5173）
-/product-toolkit:auto-test v1.0.0 -f friend-match \
-  --test-file docs/product/v1.0.0/qa/test-cases/friend-match.md \
-  --tool agent-browser \
-  --frontend-url http://localhost:5173 \
-  --no-frontend-start \
-  -i 2
-```
-
-### 2) 生命周期（SimpleMem-Cross 思路）
-
-脚本执行固定遵循：
-
-1. **start**：创建 `session_id`，加载历史记忆（signatures/playbooks）
-2. **record**：解析测试计划，按 `US → TC` 顺序执行并记录事件流
-3. **stop**：汇总通过/失败/阻塞，计算覆盖率与缺口
-4. **consolidate**：更新记忆体与进度文件，生成复盘报告
-
-### 3) 运行图（Mermaid）
-
-```mermaid
-flowchart TD
-    A[Start: auto-test] --> B[Load test file + Build US→TC plan]
-    B --> C[Load memory: signatures/playbooks/sessions]
-    C --> D[Run case in order]
-    D --> E{Case passed?}
-    E -- Yes --> F[Record PASS evidence]
-    E -- No --> G[Classify signature]
-    G --> H{Playbook exists?}
-    H -- Yes --> I[Apply playbook + Retry once]
-    H -- No --> J[Record FAIL]
-    I --> K{Recovered?}
-    K -- Yes --> F
-    K -- No --> L{Repeat signature >= threshold?}
-    J --> L
-    L -- Yes --> M[Mark BLOCKED]
-    L -- No --> J
-    F --> N{More cases?}
-    M --> N
-    J --> N
-    N -- Yes --> D
-    N -- No --> O[Stop: coverage + gaps]
-    O --> P[Consolidate memory + progress]
-    P --> Q[Output session report]
-```
-
-### 4) 自迭代闭环产物
-
-```text
-.ptk/
-├── memory/test-learnings.json              # v2: signatures/playbooks/sessions
-├── state/test-progress.json                # 版本/功能聚合进度
-└── state/test-sessions/{session_id}.json   # 单次会话完整明细
-
-docs/product/{version}/
-├── test-progress.md
-└── qa/test-progress/{feature}-{session_id}.md/.json
-```
-
-### 5) 闭环保证机制
-
-- **失败模式沉淀**：自动归类 `signature`
-- **修复剧本复用**：命中 `playbook` 自动应用并重试
-- **重复坑拦截**：同 `signature` 达阈值触发 `Blocked`
-- **严格门禁**：`0 case`、声明数≠解析数、US 未完整覆盖均直接阻塞
-- **覆盖缺口反推**：输出 `missing_user_stories / missing_test_cases / unexecuted_test_cases / non_automatable_test_cases`
-- **下轮可继承**：下一轮先读历史记忆再执行，避免重复踩坑
-
-### 6) 覆盖 Manual / API 用例（新）
-
-```bash
-/product-toolkit:auto-test v1.0.0 -f friend-match \
-  --test-file docs/product/v1.0.0/qa/test-cases/friend-match.md \
-  --tool agent-browser \
-  --frontend-url http://localhost:5173 --no-frontend-start \
-  --api-base-url http://localhost:3001 \
-  --api-vars id=1,code=ABC123 \
-  --manual-results docs/product/v1.0.0/qa/manual-results/v1.0.0-friend-match.json
-```
-
-- `api` 用例：自动按 `method_hint + expectation_hint` 发请求并判定
-- `manual` 用例：读取 `--manual-results` 回填结果；未回填会严格标记 `blocked`
-- 每轮自动生成 manual 模板：`.ptk/evidence/{version}/{feature}/manual-results-template-{session_id}.json`
-- 报告新增“阻塞原因分布”：如 `manual_result_missing`、`api_transport_or_connectivity_failure`、`api_placeholders_unresolved`
-- case-plan 若仅含 API/Manual，用例执行会自动跳过 UI 服务可达性验证
-
-### 7) 对齐互联网标准 QA 流程（建议）
-
-1. **Test Planning / Monitoring / Control**（ISTQB）
-2. **Test Design + 文档标准化**（ISO/IEC/IEEE 29119-2 / 29119-3）
-3. **Implementation / Execution / Incident 报告**（ISTQB）
-4. **Verification 最低技术基线**（NIST SSDF + NISTIR 8397）
-5. **Web 安全专项测试**（OWASP WSTG）
-
-可在每次版本回归中执行：`计划 -> 设计 -> 执行 -> 缺陷分级 -> 回归 -> 退出准则`，并将产物统一落盘到 `.ptk/` 与 `docs/product/{version}/qa/`。
-
-详细落地清单见：`docs/qa-standards-playbook.md`
-
----
-
-## 需求反馈回写（v3.4.0）
-
-auto-test 在 consolidate 后自动检测触发条件：
-
-- `missing_user_stories`
-- `missing_test_cases`
-- `repeat_guard_triggered > 0`
-
-满足任一条件时，自动生成：
-
-```text
-.ptk/state/requirement-feedback/{version}-{feature}.json
-docs/product/{version}/feedback/{feature}.json
-docs/product/{version}/feedback/{feature}.md
-docs/product/feedback/{version}-{feature}.json
-docs/product/feedback/{version}-{feature}.md
-```
-
-下一轮 `think/workflow` 需优先读取 feedback，并将其中 open-questions 注入输入。
-
----
-
-## 统一记忆信封（v3.4.0）
-
-`remember/recall` 与 test memory 对齐统一元数据字段：
-
-- `memory_id`
-- `type`
-- `source_session_id`
-- `source`
-- `evidence_ref`
-- `confidence`
-- `tags`
-- `created_at`
-- `updated_at`
-
-迁移脚本：
-
-```bash
-python3 scripts/migrate_memory_v3.py --dry-run
-python3 scripts/migrate_memory_v3.py
-python3 scripts/migrate_memory_v3.py --rollback .ptk/backups/<backup_dir>
-```
-
----
-
-## Team Runtime（file/tmux 兼容）
-
-统一命令入口：
-
-```bash
-./scripts/team_runtime.sh start --team <name> --runtime file|tmux|auto --task "..."
-./scripts/team_runtime.sh status --team <name>
-./scripts/team_runtime.sh resume --team <name>
-./scripts/team_runtime.sh shutdown --team <name> --terminal-status Pass|Blocked|Cancelled
-```
-
-双审查 gate（spec -> quality）：
-
-```bash
-./scripts/review_gate.sh --team <name> init
-./scripts/review_gate.sh --team <name> spec --status pass
-./scripts/review_gate.sh --team <name> quality --status pass
-./scripts/review_gate.sh --team <name> evaluate --critical-open 0 --high-open 0
-```
-
-团队报告：
-
-```bash
-./scripts/team_report.sh --team <name> --format both
-```
-
----
-
-## Ralph Bridge（v3.5.0）
-
-统一桥接 OMX/OMC 长任务与 PTK team/verify 验收：
-
-```bash
-./scripts/ralph_bridge.sh start --team <name> --runtime omx|omc|auto --task "..."
-./scripts/ralph_bridge.sh resume --team <name> --version <v> --feature <feature> --test-file <path> [--manual-results <json>]
-./scripts/ralph_bridge.sh status --team <name>
-./scripts/ralph_bridge.sh finalize --team <name> --terminal-status Pass|Blocked|Cancelled
-```
-
-桥接状态文件：
-
-```text
-.ptk/state/bridge/<team>/ralph-link.json
-# 兼容快照（最近一次写入）：
-.ptk/state/bridge/ralph-link.json
-```
-
-verify 阶段固定顺序：`auto-test -> review_gate evaluate -> team_report`。
-
-### OMX / OMC 桥接开发（推荐）
-
-#### 1) 运行时选择策略
-
-- `--runtime omx`：强制走 OMX 状态目录（`.omx/state`）
-- `--runtime omc`：强制走 OMC 状态目录（`.omc/state`）
-- `--runtime auto`：自动选择（默认优先 `omx`，找不到再用 `omc`）
-
-可用环境变量覆盖 auto 优先级：
-
-```bash
-export PTK_BRIDGE_RUNTIME_PREFERENCE=omc   # 或 omx
-```
-
-#### 2) 常用桥接开发命令（以 v3.5.0 为例）
-
-```bash
-# 启动桥接会话（自动选择 omx/omc）
-./scripts/ralph_bridge.sh start \
-  --team rb-dev \
-  --runtime auto \
-  --team-runtime file \
-  --task "v3.5.0 ralph bridge dev"
-
-# 推进阶段（重复执行，直到进入 terminal）
-./scripts/ralph_bridge.sh resume \
-  --team rb-dev \
-  --runtime auto \
-  --version v3.5.0 \
-  --feature ralph-bridge \
-  --test-file docs/product/v3.5.0/qa/test-cases/ralph-bridge.md \
-  --manual-results docs/product/v3.5.0/qa/manual-results/v3.5.0-ralph-bridge-pass.json \
-  --no-frontend-start
-
-# 查看桥接状态
-./scripts/ralph_bridge.sh status --team rb-dev --runtime auto
-```
-
-#### 3) 强制切 runtime 调试
-
-```bash
-# 强制 OMX
-./scripts/ralph_bridge.sh start --team rb-omx --runtime omx --task "bridge on omx"
-
-# 强制 OMC
-./scripts/ralph_bridge.sh start --team rb-omc --runtime omc --task "bridge on omc"
-```
-
-#### 4) 关键排查点
-
-- 桥接状态：`.ptk/state/bridge/<team>/ralph-link.json`
-- Team 状态：`.ptk/state/team/<team>/manifest.json`
-- Review Gate：`.ptk/state/team/<team>/review-gates.json`
-- 若 `runtime=auto` 失败，先确认 `.omx/state` / `.omc/state` 目录存在
-
----
-
-## 完整工作流
-
-### 需求澄清 → 用户故事 → QA 用例
-
-```text
-/product-toolkit:think [功能描述]
-    ↓
-批量问答 + 动态追问 + 冲突检测 + 每轮自动摘要 + 未决问题 ledger
-    ↓
-/product-toolkit:user-story [功能]
-    ↓
-/product-toolkit:test-case [功能]
-```
-
-### 完整版本迭代工作流
-
-```text
-/product-toolkit:work [功能]      # workflow 别名（推荐给 Claude 快捷输入）
-    ↓
-/product-toolkit:workflow [功能]  # 等价执行
-    ↓
-/product-toolkit:design [功能] (可选)
-    ↓
-/product-toolkit:jtbd [功能] (可选)
-    ↓
-/product-toolkit:think [功能]
-    ↓
-/product-toolkit:version [功能]
-    ↓
-/product-toolkit:user-story [功能]
-    ↓
-/product-toolkit:prd [功能]
-    ↓
-/product-toolkit:api-design [功能]
-    ↓
-/product-toolkit:data-dictionary [功能]
-    ↓
-/product-toolkit:test-case [功能]
-    ↓
-/product-toolkit:release [版本]
-    ↓
-/product-toolkit:test-progress [版本]    # 测试进度记录
-    ↓
-/product-toolkit:evolution-summary [版本] # 演进总结
-```
-
-### 版本演进工作流（自动版本推进 + 测试自反馈）
-
-```text
-# 默认：自动 patch+1 热修复
-/product-toolkit:version 电商收藏
-    ↓
-自动 patch+1 (如 v1.0.0 → v1.0.1)
-用户故事自动继承 [INHERITED]
-    ↓
-/product-toolkit:test-progress v1.0.1
-    ↓
-记录冒烟/回归测试结果
-失败追溯到用户故事 → 需求
-    ↓
-/product-toolkit:evolution-summary v1.0.1
-    ↓
-生成版本演进总结
-```
-
-### 多代理团队协作工作流
-
-```text
-/product-toolkit:team [功能]
-    ↓
-Team Lead 分解任务
-    ↓
-Product PM / UI Designer / QA Engineer / Tech Lead 并行
-    ↓
-Team Lead 整合与验收
-```
-
-### Ralph 长任务桥接工作流
-
-```text
-/product-toolkit:ralph-bridge [功能]
-    ↓
-start/resume/status/finalize
-    ↓
-team-runtime phase 驱动
-    ↓
-verify: auto-test -> review-gate -> team-report
-    ↓
-terminal: Pass / Blocked / Cancelled
-```
-
----
-
-## 版本演进规则（摘要）
-
-> 详细规则以 `skills/version/SKILL.md` 与 `config/version-strategy.yaml` 为准。
-
-### 版本号推进
-
-| 用法 | 推进方式 | 示例 |
-|------|----------|------|
-| 无参数 | 自动 patch+1 | v1.0.0 → v1.0.1 |
-| `--bump=minor` | minor+1 | v1.0.0 → v1.1.0 |
-| `--bump=major` | major+1 | v1.0.0 → v2.0.0 |
-| `--version=x.y.z` | 手动指定 | 任意版本 |
-
-### 用户故事状态标识
-
-| 标识 | 含义 |
-|------|------|
-| `[NEW]` | 当前版本新增 |
-| `[INHERITED]` | 从上一版本继承（默认）|
-| `[MODIFIED]` | 继承后有修改 |
-| `[DEPRECATED]` | 当前版本废弃 |
-| `[COMPLETED]` | 已完成，可回归 |
-
-### 测试用例标识
-
-| 标识 | 含义 |
-|------|------|
-| `[SMOKE]` | 冒烟测试 |
-| `[REGRESSION]` | 回归测试 |
-| `[NEW]` | 新功能测试 |
-| `[FIX]` | 修复验证 |
-
----
-
-## think vNext 入口契约（摘要）
-
-> 详细规则以 `skills/think/SKILL.md` 与 `references/socratic-questioning.md` 为准。
-
-### 1) 交互机制
-
-- 批量提问（每轮一批）
-- 动态追问触发：缺失信息 / 上下文冲突 / 高风险未证实 / 边界未闭环
-- 每轮必须产出自动摘要
-- 按收敛条件结束，不按固定题号或固定轮次结束
-
-### 2) 冲突检测（最小分类）
-
-- 语义冲突（Semantic）
-- 边界冲突（Boundary）
-- 目标冲突（Goal）
-- 约束冲突（Constraint）
-
-每个冲突需记录：`type`、`severity`、`evidence`、`action`、`status`。
-
-### 3) 每轮自动摘要（必填）
-
-- Confirmed Facts
-- Assumptions
-- Conflicts Detected
-- Open Questions（Delta）
-- Next-round Objectives
-- Convergence Check
-
-### 4) Open Questions Ledger 与 Blocked 语义
-
-- 未决问题需包含 `id/reason/priority/blocking/owner/close_criteria/status`
-- 若存在 `blocking=true` 且未关闭的未决项，`workflow` 结论必须为 `Blocked`
-- 非阻塞未决项可继续，但必须显式记录风险
-
----
-
-## 多平台可视化测试交付门槛（Web / mobile-app / mini-program）
-
-当测试对象是可视化 UI 时，`/product-toolkit:test-case` 产出必须满足：
-
-1. **Web**：`agent-browser` / `browser-use`；从登录起点执行；保留关键截图；Console 无未处理阻断错误；关键 API 成功。
-2. **mobile-app**：模拟器/真机关键路径；保留截图/录屏；检查崩溃与关键日志；关键 API 成功。
-3. **mini-program**：开发者工具/真机关键路径；保留截图；检查 console/请求日志；关键 API 成功。
-4. 输出 AC→TC 覆盖矩阵，覆盖用户故事全部验收标准。
-5. 凭据仅可由用户提供并脱敏记录，不得在仓库写入明文账号密码。
-
-> 任一项不满足：测试结论必须标记为 `Blocked`（不可交付）。
-
----
-
-## Breaking Change + Cutover Checklist
-
-上线 hard switch 前，至少确认：
-
-- [ ] `.omx/plans/open-questions.md` 已完成 think vNext 条目关闭或分级 triage
-- [ ] 入口文档三件套已统一：`SKILL.md` / `commands/product-toolkit.md` / `README.md`
-- [ ] 已删除旧版固定题库口径（仅保留“已退场”声明）
-- [ ] 已明确 `Blocked` 判定（阻塞未决项不可通过）
-- [ ] 已同步 think → user-story/prd/test-case/workflow 的入口映射语义
-- [ ] 版本历史已标记 breaking change
-
----
-
-## 一致性验证清单（关键词 / 章节）
-
-### 必须出现
-
-- `think vNext`
-- `动态追问`
-- `冲突检测`
-- `每轮自动摘要`
-- `未决问题` / `open questions ledger`
-- `Hard Switch` / `Breaking Change`
-- `Blocked`
-
-### 必须具备章节
-
-- Hard Switch 声明
-- think vNext 入口契约
-- 可视化测试交付门槛
-- Cutover Checklist
-- 一致性验证清单
-
-### 推荐检索命令
-
-```bash
-rg -n "think vNext|动态追问|冲突检测|每轮自动摘要|未决问题|Hard Switch|Breaking Change|Blocked" \
-  product-toolkit/SKILL.md product-toolkit/commands/product-toolkit.md product-toolkit/README.md
-
-rg -n "<legacy-fixed-round-pattern>|<legacy-question-id-pattern>|<legacy-compat-pattern>" \
-  product-toolkit/SKILL.md product-toolkit/commands/product-toolkit.md product-toolkit/README.md
-```
-
----
-
-## 输出目录
-
-独立模式（单命令调用）：
-
-```text
-docs/product/
-├── prd/{feature}.md
-├── test-cases/{feature}.md
-├── personas/{name}.md
-├── roadmap.md
-├── release/v{version}.md
-└── competitors/{name}.md
-```
-
-工作流模式（`/product-toolkit:workflow`）：
-
-```text
-docs/product/{version}/
-├── SUMMARY.md
-├── prd/{feature}.md
-├── user-story/{feature}.md
-├── design/wireframe/{feature}.md
-├── design/spec/{feature}.md
-├── qa/test-cases/{feature}.md
-├── tech/api/{feature}.md
-├── tech/data-model/{feature}.md
-└── release/v{version}.md
-```
-
----
-
-## 版本历史
-
-| 版本 | 日期 | 变更 |
+| 版本 | 日期 | 重点 |
 |---|---|---|
-| v3.5.2 | 2026-02-26 | 版本一致性修正：统一 Claude 插件/入口文档版本标识，并强化 `/product-toolkit:work` 可见性 |
-| v3.5.1 | 2026-02-26 | Claude 命令兼容：新增 `/product-toolkit:work`（workflow 别名），修复子命令提示缺失问题 |
-| v3.5.0 | 2026-02-26 | Ralph Bridge：新增长任务桥接命令（start/resume/status/finalize）、.ptk/state/bridge 映射状态、verify 三段式验收编排 |
-| v3.4.0 | 2026-02-26 | strict 默认开启、blocked reason code 标准化、auto-test 需求反馈回写、team file/tmux 统一运行时、spec->quality 双审查 gate、max_fix_loops 终态阻断 |
-| v3.3.0 | 2026-02-26 | Product Toolkit 平台化文档基线（PRD/用户故事/测试用例） |
-| v3.2.2 | 2026-02-25 | 自动化测试增强：支持启动前端项目、按优先级选择 agent-browser/browser-use、保存测试记忆避免重复踩坑 |
-| v3.2.1 | 2026-02-25 | 扩展 ptk 关键词触发，支持中文关键词（自动测试/用户故事/冒烟/需求等） |
-| v3.2.0 | 2026-02-25 | 添加自动化测试 (auto-test) 子命令，支持 Web 端 agent-browser 自动化 |
-| v3.1.1 | 2026-02-25 | 添加 ptk 关键词触发机制（ptk think / ptk workflow 等） |
-| v3.1.0 | 2026-02-25 | 添加状态持久化系统(.ptk/)、门控机制、记忆系统(remember/recall)、自动化测试(status面板) |
-| v3.0.1 | 2026-02-25 | 添加版本演进与测试回归系统（自动 patch+1、用户故事继承、测试进度跟踪、演进总结）|
-| v3.0.0 | 2026-02-24 | 添加一键工作流、版本化输出配置、平台模板与版本配置 |
-| v2.6.0 | 2026-02-19 | 添加 Claude Team 多代理协作 |
-| v2.5.0 | 2026-02-19 | 添加 UI 设计（草稿图、线框图、UI 规范） |
-| v2.4.0 | 2026-02-19 | 添加版本迭代、Design Thinking、JTBD、价值主张画布 |
-| v2.3.0 | 2026-02-19 | 添加 Sprint 规划、KPI 指标、用户故事地图 |
-| v2.2.0 | 2026-02-19 | 产品思考 → 用户故事 → QA 用例完整工作流 |
-| v2.1.0 | 2026-02-14 | 添加产品思考和发散思维功能 |
-| v2.0.0 | 2026-02-14 | 完整功能集 |
+| v3.6.0 | 2026-02-27 | workflow 主路径聚焦 PRD/US/QA；evidence-first；终态可执行校验 |
+| v3.5.x | 2026-02-26 | team runtime / ralph bridge / strict feedback 闭环 |
+| v3.4.x | 2026-02-26 | strict 默认、反馈回写、双审查 gate |
 
 ---
 
-## 参考文档
+## 参考
 
-- `references/socratic-questioning.md`
-- `references/acceptance-criteria.md`
-- `references/user-story-mapping.md`
-- `references/user-story-inheritance.md` (新增)
-- `references/team-collaboration.md`
-- `references/team-roles.md`
-- `config/version-strategy.yaml` (版本策略配置)
-
----
-
-*规则先行。一次切换。无旧流程兼容层。*
+- `SKILL.md`
+- `commands/product-toolkit.md`
+- `skills/workflow/SKILL.md`
+- `skills/gate/SKILL.md`
