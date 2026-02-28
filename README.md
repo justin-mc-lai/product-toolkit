@@ -39,6 +39,7 @@ Product Toolkit 是一个“从需求到可交付证据”的产品协作框架�
 
 v3.6.1 热修说明：`docs/product/v3.6.1/SUMMARY.md`  
 v3.6.0 文档索引（3.6.1 延续）：`docs/product/v3.6.0/README.md`
+v3.7.0 文档草案（CLI + Scope Guard）：`docs/product/v3.7.0/README.md`
 
 ---
 
@@ -392,6 +393,7 @@ ln -s ~/.codex/product-toolkit ~/.agents/skills/product-toolkit
 
 | 版本 | 日期 | 重点 |
 |---|---|---|
+| v3.7.0 (Draft) | 2026-02-28 | CLI 统一入口、Scope Guard、双模式报告（文档契约） |
 | v3.6.0 | 2026-02-27 | workflow 主路径聚焦 PRD/US/QA；evidence-first；终态可执行校验 |
 | v3.5.x | 2026-02-26 | team runtime / ralph bridge / strict feedback 闭环 |
 | v3.4.x | 2026-02-26 | strict 默认、反馈回写、双审查 gate |

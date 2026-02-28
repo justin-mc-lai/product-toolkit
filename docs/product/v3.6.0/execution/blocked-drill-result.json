@@ -1,0 +1,66 @@
+{
+  "executed_at": "2026-02-27T03:05:52Z",
+  "sample_file": "docs/product/v3.6.0/execution/terminal.blocked-sample.json",
+  "preparation": {
+    "docs/product/v3.6.0/execution/boundaries.md": true,
+    "docs/product/v3.6.0/execution/terminal.json": true,
+    "docs/product/v3.6.0/execution/terminal.blocked-sample.json": true,
+    "docs/product/v3.6.0/architecture/system-context.md": true,
+    "docs/product/v3.6.0/architecture/responsibility-boundaries.md": true,
+    "docs/product/v3.6.0/architecture/api-contracts.md": true,
+    "docs/product/v3.6.0/architecture/nfr-budgets.md": true,
+    "docs/product/v3.6.0/architecture/adr-index.md": true,
+    "docs/product/v3.6.0/qa/test-cases/workflow-evidence-first.md": true
+  },
+  "scenarios": {
+    "A_blocking_open_question": true,
+    "B_missing_evidence_ref": true,
+    "C_ac_tc_mapping_gap": true,
+    "D_ownership_boundary_unclear": true,
+    "E_api_contract_drift_open": true,
+    "F_nfr_budget_unproven": true,
+    "missing_evidence_refs": [
+      "docs/product/v3.6.0/execution/missing-terminal-proof.md"
+    ],
+    "ac_ids_with_empty_tc": [
+      "US3602"
+    ]
+  },
+  "execution_checks": {
+    "terminal_status": "Blocked",
+    "not_pass": true,
+    "reason_codes": [
+      "blocking_open_question_exists",
+      "ownership_boundary_unclear",
+      "api_contract_drift",
+      "nfr_budget_unproven",
+      "ac_tc_mapping_gap",
+      "terminal_evidence_missing"
+    ]
+  },
+  "terminal_checks": {
+    "status_blocked": true,
+    "reason_codes_non_empty": true,
+    "ac_blocked_gt_0": true,
+    "traceability_has_blocked": true,
+    "recommended_action_non_empty": true,
+    "blocked_ac_ids": [
+      "US3602",
+      "US3605",
+      "US3606",
+      "US3607"
+    ]
+  },
+  "archive_checks": {
+    "docs/product/v3.6.0/execution/terminal.blocked-sample.json": true,
+    "docs/product/v3.6.0/execution/delivery-report.md": true,
+    "docs/product/v3.6.0/execution/team-run-log.md": true
+  },
+  "exit_criteria": {
+    "至少 1 个阻塞条件被稳定识别": true,
+    "terminal 输出结构完整且可解析": true,
+    "reason codes 与阻塞事实一致": true,
+    "能给出下一轮修复建议": true
+  },
+  "overall": "PASS"
+}

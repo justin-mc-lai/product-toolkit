@@ -1,0 +1,34 @@
+{
+  "status": "Pass",
+  "conflicts": [],
+  "refs": {
+    "api_contracts": "docs/product/v3.6.0/architecture/api-contracts.md",
+    "nfr_budgets": "docs/product/v3.6.0/architecture/nfr-budgets.md"
+  },
+  "metrics": {
+    "terminal_status": "Blocked",
+    "terminal_reason_code_count": 6,
+    "blocking_open_question_count": 1,
+    "blocking_open_question_ids": [
+      "OQ-3602-B"
+    ],
+    "terminal_unresolved_api_drift_count": 1,
+    "terminal_unresolved_api_drift_ids": [
+      "DRIFT-001"
+    ],
+    "terminal_unproven_nfr_count": 2,
+    "terminal_unproven_nfr_items": [
+      "NFR-001:p95_latency",
+      "NFR-003:availability"
+    ],
+    "api_doc_known": false,
+    "api_doc_template": true,
+    "api_doc_open_drift_count": 0,
+    "nfr_doc_known": false,
+    "nfr_doc_template": true,
+    "nfr_doc_non_pass_count": 0,
+    "nfr_doc_non_pass_statuses": []
+  },
+  "checked_at": "2026-02-27T08:29:27.084004+00:00",
+  "terminal": "docs/product/v3.6.0/execution/terminal.blocked-sample.json"
+}

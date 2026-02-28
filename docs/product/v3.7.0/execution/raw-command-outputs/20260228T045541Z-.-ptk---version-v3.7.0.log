@@ -1,0 +1,6 @@
+PTK Status Board
+- team.known_teams: 0
+- gate.terminal_status: Pass
+- bridge.known_bridges: 4
+- test.has_progress: True
+[intent-router] Intent routed "状态" -> status --board (confidence=0.95; candidates=status:0.95)

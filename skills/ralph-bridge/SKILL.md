@@ -1,11 +1,12 @@
 ---
 name: ralph-bridge
-description: Bridge OMX/OMC Ralph long-task runtime with PTK team/verify acceptance loop
+description: Bridge OMX/OMC long-task runtime with PTK evidence-first acceptance loop (compatibility path)
 ---
 
-# Ralph Bridge（v3.5.0）
+# Ralph Bridge（v3.6.1 兼容路径）
 
-统一桥接长任务控制流与 PTK 验收闭环。
+> 说明：`ralph-bridge` 保留用于兼容/高级场景。
+> v3.6.1 默认主路径仍是 `/product-toolkit:workflow`。
 
 ## 命令入口
 
@@ -16,34 +17,45 @@ description: Bridge OMX/OMC Ralph long-task runtime with PTK team/verify accepta
 ./scripts/ralph_bridge.sh finalize --team <name> --terminal-status Pass|Blocked|Cancelled
 ```
 
+## 必备输入（与 v3.6.x evidence-first 对齐）
+
+- `docs/product/{version}/prd/{feature}.md`
+- `docs/product/{version}/user-story/{feature}.md`
+- `docs/product/{version}/qa/test-cases/{feature}.md`
+- `docs/product/{version}/execution/boundaries.md`
+- `docs/product/{version}/execution/terminal.json`
+- `docs/product/{version}/architecture/system-context.md`
+- `docs/product/{version}/architecture/responsibility-boundaries.md`
+- `docs/product/{version}/architecture/api-contracts.md`
+- `docs/product/{version}/architecture/nfr-budgets.md`
+- `docs/product/{version}/architecture/adr-index.md`
+
 ## 关键行为
 
-1. 运行时解析：`auto` 按 `PTK_BRIDGE_RUNTIME_PREFERENCE` 或默认 `omx -> omc`
-2. 状态映射：
-   - `team-plan/prd/exec` -> `executing`
-   - `team-verify` -> `verifying`
-   - `team-fix` -> `fixing`
-   - `terminal(Pass/Blocked/Cancelled)` -> `complete/failed/cancelled`
-3. verify 阶段强制编排：
-   - `auto_test.sh`
-   - `review_gate.sh evaluate`
-   - `team_report.sh`
-4. bridge 状态落盘：`.ptk/state/bridge/<team>/ralph-link.json`（并同步 latest 快照到 `.ptk/state/bridge/ralph-link.json`）
+1. 运行时自动解析：`auto` 按 `PTK_BRIDGE_RUNTIME_PREFERENCE` 或默认 `omx -> omc`。
+2. verify 阶段强制编排：`auto_test.sh` + `review_gate.sh evaluate` + `team_report.sh`。
+3. bridge 状态落盘：`.ptk/state/bridge/<team>/ralph-link.json`（并同步 latest 快照）。
+4. 终态写入后，必须执行 v3.6.1 自动 Gate 收口：
 
-## 验收建议
+```bash
+./scripts/workflow_gate_autorun.sh \
+  --version <vX.Y.Z> \
+  --terminal docs/product/<vX.Y.Z>/execution/terminal.json
+```
+
+## 验收建议（v3.6.1）
 
 ```bash
 # 1) 启动
-./scripts/ralph_bridge.sh start --team rb-v350 --runtime auto --team-runtime file --task "v3.5.0 bridge"
+./scripts/ralph_bridge.sh start --team rb-v361 --runtime auto --team-runtime file --task "v3.6.1 bridge"
 
-# 2) 推进阶段（执行 3 次，第三次会触发 verify）
-./scripts/ralph_bridge.sh resume --team rb-v350 --version v3.5.0 --feature ralph-bridge \
-  --test-file docs/product/v3.5.0/qa/test-cases/ralph-bridge.md \
-  --manual-results docs/product/v3.5.0/qa/manual-results/v3.5.0-ralph-bridge-pass.json \
-  --no-frontend-start
+# 2) 推进阶段
+./scripts/ralph_bridge.sh resume --team rb-v361 --version v3.6.1 --feature workflow-evidence-first \
+  --test-file docs/product/v3.6.1/qa/test-cases/workflow-evidence-first.md
 
-# 3) 查看状态
-./scripts/ralph_bridge.sh status --team rb-v350
+# 3) 终态收口（Pass/Blocked/Cancelled）
+./scripts/ralph_bridge.sh finalize --team rb-v361 --terminal-status Pass
+./scripts/workflow_gate_autorun.sh --version v3.6.1 --terminal docs/product/v3.6.1/execution/terminal.json
 ```
 
-期望终态：`terminal_status=Pass`，并且 `verification.overall_status=Pass`。
+期望：`terminal.json` 与架构文档一致，且 evidence_integrity 三件套齐全。

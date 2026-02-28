@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-02-27T08:29:18.364627+00:00",
+  "terminal": "docs/product/v3.6.0/execution/terminal.release-sample.json",
+  "summary": {
+    "item_count": 18,
+    "missing_count": 0
+  },
+  "items": [
+    {
+      "path": "docs/product/v3.6.0/execution/delivery-report.md",
+      "sha256": "c25fea83d92bab0010080a8983c3ae2b9a0e8bc06d337132916d3ef133b86f93",
+      "size_bytes": 3475,
+      "mtime": "2026-02-27T04:56:25.333660+00:00"
+    },
+    {
+      "path": "docs/product/v3.6.0/SUMMARY.md",
+      "sha256": "4d6910e66a01cf6da2f903efd0fdf0c58023dbfb8602d47c12ccdbfff00e6ac9",
+      "size_bytes": 2752,
+      "mtime": "2026-02-27T04:52:42.977123+00:00"
+    },
+    {
+      "path": "docs/product/v3.6.0/execution/gate-architecture-checklist.md",
+      "sha256": "3d49b05a77278c0dd2e2995e650cf2eccf02e49faddba2f23e11e97a9d0d7495",
+      "size_bytes": 1531,
+      "mtime": "2026-02-27T04:50:08.182765+00:00"
+    },
+    {
+      "path": "docs/product/v3.6.0/execution/team-run-log.md",
+      "sha256": "b9767291c9c9a1f3dfc127abaa1f41abfa67bb383cd2b2f57d1ee40c28366182",
+      "size_bytes": 912,
+      "mtime": "2026-02-27T02:37:06.743371+00:00"
+    },
+    {
+      "path": "docs/product/v3.6.0/qa/test-cases/workflow-evidence-first.md",
+      "sha256": "b90805cfa9ba5ac212775a9b03f5ea4ae6eead7759a8ed081efec5481d62dc96",
+      "size_bytes": 4453,
+      "mtime": "2026-02-27T04:53:24.955228+00:00"
+    },
+    {
+      "path": "docs/product/v3.6.0/user-story/workflow-evidence-first.md",
+      "sha256": "6a833dc8abc11a6bc292a8b7e2b4e57c770f2d0537d60900d0a5b03a945815c9",
+      "size_bytes": 7627,
+      "mtime": "2026-02-27T04:53:02.977444+00:00"
+    },
+    {
+      "path": "docs/product/v3.6.0/prd/workflow-evidence-first.md",
+      "sha256": "94cf7369a763b89efa7de8af06181a3393ea168bac161ea84d11b4adfb2a2133",
+      "size_bytes": 5422,
+      "mtime": "2026-02-27T04:58:01.741914+00:00"
+    },
+    {
+      "path": "docs/product/v3.6.0/execution/next-step-prompts.md",
+      "sha256": "bd7c6454ee6e8a5663aa83d03eacc43570588491d43cf176b478fe4f37cac596",
+      "size_bytes": 3839,
+      "mtime": "2026-02-27T08:27:48.237296+00:00"
+    },
+    {
+      "path": "docs/product/v3.6.0/execution/boundaries.md",
+      "sha256": "10d722a4db65ad1629957754d2ac58eb894a6e1b35e38aad30054e74636f283f",
+      "size_bytes": 3308,
+      "mtime": "2026-02-27T07:29:18.353341+00:00"
+    },
+    {
+      "path": "docs/product/v3.6.0/architecture/responsibility-boundaries.md",
+      "sha256": "a5c09667be6ae1642f31a025608ac439bcea39b898536fb53313b7a0e4f6189b",
+      "size_bytes": 1515,
+      "mtime": "2026-02-27T04:49:33.461794+00:00"
+    },
+    {
+      "path": "docs/product/v3.6.0/execution/terminal.json",
+      "sha256": "acca66d4465debfa837bd5d7861f69d4a2ffaee59196a719653811a38eddb62b",
+      "size_bytes": 2458,
+      "mtime": "2026-02-27T07:28:08.618773+00:00"
+    },
+    {
+      "path": "docs/product/v3.6.0/execution/terminal.release-sample.json",
+      "sha256": "6786d18aef76fbc8e6191b327cf60c73ca1a2e9473d7686faa7cdc710c914b0a",
+      "size_bytes": 5072,
+      "mtime": "2026-02-27T07:28:08.619523+00:00"
+    },
+    {
+      "path": "docs/product/v3.6.0/architecture/system-context.md",
+      "sha256": "20455e061c9d371ff5e79218745b446d30551d4aeb6e7bfb8f662aaf1107d01c",
+      "size_bytes": 1035,
+      "mtime": "2026-02-27T04:49:20.422744+00:00"
+    },
+    {
+      "path": "docs/product/v3.6.0/architecture/api-contracts.md",
+      "sha256": "c1bf9c27c2e9a8529b068210a6b4263e043be56bc0a9225112765bb2955dd0c0",
+      "size_bytes": 862,
+      "mtime": "2026-02-27T04:49:42.396557+00:00"
+    },
+    {
+      "path": "docs/product/v3.6.0/architecture/nfr-budgets.md",
+      "sha256": "b860461d2385f6e21d4decfabfb6025774f3dd5609149987a0eab952c2392379",
+      "size_bytes": 882,
+      "mtime": "2026-02-27T04:49:50.962967+00:00"
+    },
+    {
+      "path": "docs/product/v3.6.0/architecture/README.md",
+      "sha256": "848a428f254bbd347d616e89b1a61ec3d77a3c8f5ce3598125e9d6d37f4d1653",
+      "size_bytes": 970,
+      "mtime": "2026-02-27T04:49:11.623767+00:00"
+    },
+    {
+      "path": "docs/product/v3.6.0/execution/raw-command-log.release-sample.jsonl",
+      "sha256": "df0b17fc1bd5f1b186ab6bb78d4def2b63f97933f918dc6a99a20e40905e9b07",
+      "size_bytes": 706,
+      "mtime": "2026-02-27T07:28:25.379128+00:00"
+    },
+    {
+      "path": "docs/product/v3.6.0/execution/gate-consistency.release-sample.json",
+      "sha256": "d4f3892e0fb401c8a9229979865649f9ee730ed3c6c05e1b2051f1d824b56320",
+      "size_bytes": 883,
+      "mtime": "2026-02-27T08:29:18.310066+00:00"
+    }
+  ],
+  "missing": []
+}

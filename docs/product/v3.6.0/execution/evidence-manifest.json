@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-02-27T08:31:42.926297+00:00",
+  "terminal": "docs/product/v3.6.0/execution/terminal.json",
+  "summary": {
+    "item_count": 1,
+    "missing_count": 7
+  },
+  "items": [
+    {
+      "path": "docs/product/v3.6.0/execution/terminal.json",
+      "sha256": "acca66d4465debfa837bd5d7861f69d4a2ffaee59196a719653811a38eddb62b",
+      "size_bytes": 2458,
+      "mtime": "2026-02-27T07:28:08.618773+00:00"
+    }
+  ],
+  "missing": [
+    "<report-path-1>",
+    "<report-path-2>",
+    "<log-path-1>",
+    "<screenshot-path-1>",
+    "docs/product/{version}/qa/test-progress/{feature}-<session-id>.md",
+    "docs/product/{version}/execution/raw-command-log.jsonl",
+    "docs/product/{version}/execution/gate-consistency-report.json"
+  ]
+}

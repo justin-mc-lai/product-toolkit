@@ -1,0 +1,33 @@
+{
+  "metric": "report_latency_ms",
+  "commands": {
+    "human": "ptk report --human run-worker2-e2e",
+    "machine": "ptk report --machine run-worker2-e2e"
+  },
+  "samples_ms": {
+    "human": [
+      61.51,
+      58.26,
+      57.33,
+      58.19,
+      57.94
+    ],
+    "machine": [
+      58.49,
+      62.45,
+      59.16,
+      57.51,
+      57.89
+    ]
+  },
+  "p95_ms": {
+    "human": 61.51,
+    "machine": 62.45
+  },
+  "targets_ms": {
+    "human": 3000,
+    "machine": 5000
+  },
+  "pass": true,
+  "generated_at": "2026-02-28T03:41:04Z"
+}

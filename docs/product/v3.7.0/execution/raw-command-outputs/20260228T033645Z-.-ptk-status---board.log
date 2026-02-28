@@ -1,0 +1,5 @@
+PTK Status Board
+- team.known_teams: 0
+- gate.terminal_status: Pass
+- bridge.known_bridges: 4
+- test.has_progress: True

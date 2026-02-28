@@ -1,0 +1,430 @@
+{
+  "feature": "ptk-cli-scope-guard",
+  "version": "v3.7.0",
+  "acceptance_criteria": [
+    {
+      "id": "US3701-AC01",
+      "scope": "core",
+      "description": "`ptk status` 可聚合 team/gate/bridge/test 状态"
+    },
+    {
+      "id": "US3701-AC02",
+      "scope": "core",
+      "description": "`ptk run workflow` 等价于直接调用 workflow skill"
+    },
+    {
+      "id": "US3701-AC03",
+      "scope": "core",
+      "description": "未知子命令返回可用命令列表"
+    },
+    {
+      "id": "US3701-AC04",
+      "scope": "core",
+      "description": "`ptk help` 显示完整命令索引"
+    },
+    {
+      "id": "US3701-AC05",
+      "scope": "core",
+      "description": "CLI 响应时间 < 1s"
+    },
+    {
+      "id": "US3701-AC06",
+      "scope": "core",
+      "description": "CLI 不记录明文凭据"
+    },
+    {
+      "id": "US3701-AC07",
+      "scope": "core",
+      "description": "现有脚本保持可用"
+    },
+    {
+      "id": "US3702-AC01",
+      "scope": "core",
+      "description": "执行前自动解析 user-story.md 中的 AC"
+    },
+    {
+      "id": "US3702-AC02",
+      "scope": "enhancement",
+      "description": "输出 ac_scope.json 包含 core_scope 和 enhancement_scope"
+    },
+    {
+      "id": "US3702-AC03",
+      "scope": "core",
+      "description": "user-story.md 缺失时提示补充"
+    },
+    {
+      "id": "US3702-AC04",
+      "scope": "core",
+      "description": "AC 解析结果可查看"
+    },
+    {
+      "id": "US3702-AC05",
+      "scope": "core",
+      "description": "解析时间 < 2s"
+    },
+    {
+      "id": "US3702-AC06",
+      "scope": "core",
+      "description": "解析过程不泄露敏感信息"
+    },
+    {
+      "id": "US3702-AC07",
+      "scope": "core",
+      "description": "可手动编辑 ac_scope.json 覆盖解析结果"
+    },
+    {
+      "id": "US3703-AC01",
+      "scope": "core",
+      "description": "LLM 实现超出 AC 范围时自动标记"
+    },
+    {
+      "id": "US3703-AC02",
+      "scope": "core",
+      "description": "区分 low/medium/high 风险溢出"
+    },
+    {
+      "id": "US3703-AC03",
+      "scope": "core",
+      "description": "无法判断范围时默认标记为 pending"
+    },
+    {
+      "id": "US3703-AC04",
+      "scope": "core",
+      "description": "偏差记录写入 scope-deviation.json"
+    },
+    {
+      "id": "US3703-AC05",
+      "scope": "core",
+      "description": "监控不影响执行性能"
+    },
+    {
+      "id": "US3703-AC06",
+      "scope": "core",
+      "description": "偏差记录不包含敏感数据"
+    },
+    {
+      "id": "US3703-AC07",
+      "scope": "core",
+      "description": "可手动标记 false positive"
+    },
+    {
+      "id": "US3704-AC01",
+      "scope": "enhancement",
+      "description": "检测到优化建议时输出确认选项"
+    },
+    {
+      "id": "US3704-AC02",
+      "scope": "core",
+      "description": "提供 A/B/C 选择而非开放式问题"
+    },
+    {
+      "id": "US3704-AC03",
+      "scope": "core",
+      "description": "用户未确认时默认暂停执行"
+    },
+    {
+      "id": "US3704-AC04",
+      "scope": "core",
+      "description": "确认后状态自动流转"
+    },
+    {
+      "id": "US3704-AC05",
+      "scope": "core",
+      "description": "确认流程不影响正常执行"
+    },
+    {
+      "id": "US3704-AC06",
+      "scope": "core",
+      "description": "确认记录可追溯"
+    },
+    {
+      "id": "US3704-AC07",
+      "scope": "core",
+      "description": "可撤销已确认的决定"
+    },
+    {
+      "id": "US3705-AC01",
+      "scope": "core",
+      "description": "`ptk report --human` 输出 markdown 报告"
+    },
+    {
+      "id": "US3705-AC02",
+      "scope": "core",
+      "description": "报告包含执行结果、产物清单、待确认事项"
+    },
+    {
+      "id": "US3705-AC03",
+      "scope": "core",
+      "description": "无 run_id 时使用 latest"
+    },
+    {
+      "id": "US3705-AC04",
+      "scope": "core",
+      "description": "报告可读性评分 > 4/5"
+    },
+    {
+      "id": "US3705-AC05",
+      "scope": "core",
+      "description": "报告生成时间 < 3s"
+    },
+    {
+      "id": "US3705-AC06",
+      "scope": "core",
+      "description": "报告中不包含敏感信息"
+    },
+    {
+      "id": "US3705-AC07",
+      "scope": "core",
+      "description": "可自定义报告模板"
+    },
+    {
+      "id": "US3706-AC01",
+      "scope": "core",
+      "description": "`ptk report --machine` 输出 JSON 报告"
+    },
+    {
+      "id": "US3706-AC02",
+      "scope": "core",
+      "description": "包含 events、llm_prompts、token_usage、tool_calls"
+    },
+    {
+      "id": "US3706-AC03",
+      "scope": "core",
+      "description": "数据损坏时提示并提供修复建议"
+    },
+    {
+      "id": "US3706-AC04",
+      "scope": "core",
+      "description": "JSON 符合 schema 规范"
+    },
+    {
+      "id": "US3706-AC05",
+      "scope": "core",
+      "description": "报告生成时间 < 5s"
+    },
+    {
+      "id": "US3706-AC06",
+      "scope": "core",
+      "description": "敏感字段可配置脱敏"
+    },
+    {
+      "id": "US3706-AC07",
+      "scope": "core",
+      "description": "可导出历史 run 的完整报告"
+    },
+    {
+      "id": "US3707-AC01",
+      "scope": "core",
+      "description": "`--mode normal` 标准执行生成基础报告"
+    },
+    {
+      "id": "US3707-AC02",
+      "scope": "core",
+      "description": "`--mode debug` 输出事件流可 tail"
+    },
+    {
+      "id": "US3707-AC03",
+      "scope": "core",
+      "description": "未知模式时提示可用模式列表"
+    },
+    {
+      "id": "US3707-AC04",
+      "scope": "core",
+      "description": "模式切换即时生效"
+    },
+    {
+      "id": "US3707-AC05",
+      "scope": "core",
+      "description": "dry-run 跳过实际执行"
+    },
+    {
+      "id": "US3707-AC06",
+      "scope": "core",
+      "description": "replay 模式需确认权限"
+    },
+    {
+      "id": "US3707-AC07",
+      "scope": "core",
+      "description": "可中断并切换模式"
+    },
+    {
+      "id": "US3708-AC01",
+      "scope": "core",
+      "description": "偏差记录自动写入 .ptk/memory/scope/"
+    },
+    {
+      "id": "US3708-AC02",
+      "scope": "core",
+      "description": "确认状态包含时间、选择、后续动作"
+    },
+    {
+      "id": "US3708-AC03",
+      "scope": "core",
+      "description": "写入失败时警告并提供手动修复"
+    },
+    {
+      "id": "US3708-AC04",
+      "scope": "core",
+      "description": "可通过 `ptk recall` 查询"
+    },
+    {
+      "id": "US3708-AC05",
+      "scope": "core",
+      "description": "写入不影响执行性能"
+    },
+    {
+      "id": "US3708-AC06",
+      "scope": "core",
+      "description": "记录不包含敏感数据"
+    },
+    {
+      "id": "US3708-AC07",
+      "scope": "core",
+      "description": "可手动编辑记录"
+    },
+    {
+      "id": "US3709-AC01",
+      "scope": "core",
+      "description": "`ptk 看看` 映射到 `ptk status --board`"
+    },
+    {
+      "id": "US3709-AC02",
+      "scope": "core",
+      "description": "置信度 < 0.45 时返回候选列表"
+    },
+    {
+      "id": "US3709-AC03",
+      "scope": "core",
+      "description": "无法解析时提示可用命令"
+    },
+    {
+      "id": "US3709-AC04",
+      "scope": "core",
+      "description": "候选命令按置信度排序"
+    },
+    {
+      "id": "US3709-AC05",
+      "scope": "core",
+      "description": "路由决策 < 500ms"
+    },
+    {
+      "id": "US3709-AC06",
+      "scope": "core",
+      "description": "路由日志可选关闭"
+    },
+    {
+      "id": "US3709-AC07",
+      "scope": "core",
+      "description": "可禁用意图路由"
+    },
+    {
+      "id": "US3710-AC01",
+      "scope": "core",
+      "description": "`ptk doctor` 检测环境依赖"
+    },
+    {
+      "id": "US3710-AC02",
+      "scope": "core",
+      "description": "输出 PASS/WARN/FAIL 级别"
+    },
+    {
+      "id": "US3710-AC03",
+      "scope": "core",
+      "description": "无法诊断时明确标记为 UNKNOWN"
+    },
+    {
+      "id": "US3710-AC04",
+      "scope": "core",
+      "description": "FAIL 时提供修复建议"
+    },
+    {
+      "id": "US3710-AC05",
+      "scope": "core",
+      "description": "完整诊断 < 10s"
+    },
+    {
+      "id": "US3710-AC06",
+      "scope": "core",
+      "description": "诊断日志可配置"
+    },
+    {
+      "id": "US3710-AC07",
+      "scope": "core",
+      "description": "可跳过非关键检查项"
+    }
+  ],
+  "core_scope": [
+    "US3701-AC01",
+    "US3701-AC02",
+    "US3701-AC03",
+    "US3701-AC04",
+    "US3701-AC05",
+    "US3701-AC06",
+    "US3701-AC07",
+    "US3702-AC01",
+    "US3702-AC03",
+    "US3702-AC04",
+    "US3702-AC05",
+    "US3702-AC06",
+    "US3702-AC07",
+    "US3703-AC01",
+    "US3703-AC02",
+    "US3703-AC03",
+    "US3703-AC04",
+    "US3703-AC05",
+    "US3703-AC06",
+    "US3703-AC07",
+    "US3704-AC02",
+    "US3704-AC03",
+    "US3704-AC04",
+    "US3704-AC05",
+    "US3704-AC06",
+    "US3704-AC07",
+    "US3705-AC01",
+    "US3705-AC02",
+    "US3705-AC03",
+    "US3705-AC04",
+    "US3705-AC05",
+    "US3705-AC06",
+    "US3705-AC07",
+    "US3706-AC01",
+    "US3706-AC02",
+    "US3706-AC03",
+    "US3706-AC04",
+    "US3706-AC05",
+    "US3706-AC06",
+    "US3706-AC07",
+    "US3707-AC01",
+    "US3707-AC02",
+    "US3707-AC03",
+    "US3707-AC04",
+    "US3707-AC05",
+    "US3707-AC06",
+    "US3707-AC07",
+    "US3708-AC01",
+    "US3708-AC02",
+    "US3708-AC03",
+    "US3708-AC04",
+    "US3708-AC05",
+    "US3708-AC06",
+    "US3708-AC07",
+    "US3709-AC01",
+    "US3709-AC02",
+    "US3709-AC03",
+    "US3709-AC04",
+    "US3709-AC05",
+    "US3709-AC06",
+    "US3709-AC07",
+    "US3710-AC01",
+    "US3710-AC02",
+    "US3710-AC03",
+    "US3710-AC04",
+    "US3710-AC05",
+    "US3710-AC06",
+    "US3710-AC07"
+  ],
+  "enhancement_scope": [
+    "US3702-AC02",
+    "US3704-AC01"
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "schema_version": "3.6.0",
+  "version": "v3.6.0",
+  "feature": "workflow-evidence-first",
+  "generated_by": "/product-toolkit:workflow + $team 3:executor",
+  "source_artifacts": {
+    "prd": "docs/product/v3.6.0/prd/workflow-evidence-first.md",
+    "user_story": "docs/product/v3.6.0/user-story/workflow-evidence-first.md",
+    "test_cases": "docs/product/v3.6.0/qa/test-cases/workflow-evidence-first.md",
+    "boundaries": "docs/product/v3.6.0/execution/boundaries.md",
+    "architecture_system_context": "docs/product/v3.6.0/architecture/system-context.md",
+    "architecture_responsibility": "docs/product/v3.6.0/architecture/responsibility-boundaries.md",
+    "architecture_contracts": "docs/product/v3.6.0/architecture/api-contracts.md",
+    "architecture_nfr": "docs/product/v3.6.0/architecture/nfr-budgets.md",
+    "architecture_adr": "docs/product/v3.6.0/architecture/adr-index.md"
+  },
+  "runtime": {
+    "engine": "omx",
+    "mode": "team",
+    "session_id": "product-toolkit-v3-6-0-1-docs",
+    "started_at": "2026-02-27T02:26:18Z",
+    "ended_at": "2026-02-27T02:31:00Z"
+  },
+  "terminal": {
+    "status": "Pass",
+    "reason_codes": [],
+    "summary": "v3.6.0 evidence-first 文档契约已交付，workflow 主路径与兼容路径边界已落盘。"
+  },
+  "acceptance": {
+    "ac_total": 7,
+    "ac_passed": 7,
+    "ac_failed": 0,
+    "ac_blocked": 0,
+    "coverage_percent": 100,
+    "blocking_open_questions": 0,
+    "critical_open": 0,
+    "high_open": 0
+  },
+  "architecture_governance": {
+    "ownership_boundaries_confirmed": true,
+    "api_contract_drift": [],
+    "nfr_budget_unproven": []
+  },
+  "traceability": [
+    {
+      "ac_id": "US3601",
+      "tc_ids": [
+        "TC-3601"
+      ],
+      "result": "Pass",
+      "owner": "ptk",
+      "evidence_refs": [
+        "docs/product/v3.6.0/qa/test-cases/workflow-evidence-first.md",
+        "docs/product/v3.6.0/user-story/workflow-evidence-first.md"
+      ]
+    },
+    {
+      "ac_id": "US3602",
+      "tc_ids": [
+        "TC-3602"
+      ],
+      "result": "Pass",
+      "owner": "ptk",
+      "evidence_refs": [
+        "docs/product/v3.6.0/prd/workflow-evidence-first.md",
+        "docs/product/v3.6.0/SUMMARY.md"
+      ]
+    },
+    {
+      "ac_id": "US3603",
+      "tc_ids": [
+        "TC-3603"
+      ],
+      "result": "Pass",
+      "owner": "omx",
+      "evidence_refs": [
+        "docs/product/v3.6.0/execution/next-step-prompts.md"
+      ]
+    },
+    {
+      "ac_id": "US3604",
+      "tc_ids": [
+        "TC-3604"
+      ],
+      "result": "Pass",
+      "owner": "ptk",
+      "evidence_refs": [
+        "docs/product/v3.6.0/execution/boundaries.md",
+        "docs/product/v3.6.0/architecture/responsibility-boundaries.md"
+      ]
+    },
+    {
+      "ac_id": "US3605",
+      "tc_ids": [
+        "TC-3605"
+      ],
+      "result": "Pass",
+      "owner": "qa",
+      "evidence_refs": [
+        "docs/product/v3.6.0/execution/terminal.json",
+        "docs/product/v3.6.0/execution/terminal.release-sample.json"
+      ]
+    },
+    {
+      "ac_id": "US3606",
+      "tc_ids": [
+        "TC-3606"
+      ],
+      "result": "Pass",
+      "owner": "ptk",
+      "evidence_refs": [
+        "docs/product/v3.6.0/execution/delivery-report.md",
+        "docs/product/v3.6.0/SUMMARY.md",
+        "docs/product/v3.6.0/architecture/system-context.md",
+        "docs/product/v3.6.0/architecture/api-contracts.md",
+        "docs/product/v3.6.0/architecture/nfr-budgets.md"
+      ]
+    },
+    {
+      "ac_id": "US3607",
+      "tc_ids": [
+        "TC-3607"
+      ],
+      "result": "Pass",
+      "owner": "architect",
+      "evidence_refs": [
+        "docs/product/v3.6.0/architecture/README.md",
+        "docs/product/v3.6.0/architecture/responsibility-boundaries.md",
+        "docs/product/v3.6.0/execution/gate-architecture-checklist.md"
+      ]
+    }
+  ],
+  "evidence": {
+    "reports": [
+      "docs/product/v3.6.0/execution/delivery-report.md",
+      "docs/product/v3.6.0/SUMMARY.md",
+      "docs/product/v3.6.0/execution/gate-architecture-checklist.md"
+    ],
+    "logs": [
+      "docs/product/v3.6.0/execution/team-run-log.md"
+    ],
+    "screenshots": []
+  },
+  "next_round": {
+    "new_open_questions": [
+      {
+        "id": "OQ-3602",
+        "question": "旧版 docs/product/{version} 无 execution 目录时是否由 workflow 自动补齐"
+      }
+    ],
+    "feedback_refs": [
+      "docs/product/v3.6.0/user-story/workflow-evidence-first.md"
+    ],
+    "recommended_action": "进入 v3.6.0 实施阶段，持续执行 gate 对 boundaries/terminal 的强校验。"
+  },
+  "audit": {
+    "reviewed_by": "ptk-release-lead",
+    "reviewed_at": "2026-02-27T02:31:30Z",
+    "note": "started_at 基于 team 任务创建时间；ended_at 基于 shutdown 完成时间窗口。"
+  },
+  "evidence_integrity": {
+    "raw_command_log": "docs/product/v3.6.0/execution/raw-command-log.release-sample.jsonl",
+    "sha256_manifest": "docs/product/v3.6.0/execution/evidence-manifest.release-sample.json",
+    "gate_consistency_report": "docs/product/v3.6.0/execution/gate-consistency.release-sample.json"
+  }
+}

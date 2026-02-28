@@ -1,0 +1,150 @@
+[workflow-gate] check consistency
+{
+  "status": "Pass",
+  "conflicts": [],
+  "refs": {
+    "api_contracts": "docs/product/v3.7.0/architecture/api-contracts.md",
+    "nfr_budgets": "docs/product/v3.7.0/architecture/nfr-budgets.md"
+  },
+  "metrics": {
+    "terminal_status": "Pass",
+    "terminal_reason_code_count": 0,
+    "blocking_open_question_count": 0,
+    "blocking_open_question_ids": [],
+    "terminal_unresolved_api_drift_count": 0,
+    "terminal_unresolved_api_drift_ids": [],
+    "terminal_unproven_nfr_count": 0,
+    "terminal_unproven_nfr_items": [],
+    "api_doc_known": true,
+    "api_doc_template": false,
+    "api_doc_open_drift_count": 0,
+    "nfr_doc_known": true,
+    "nfr_doc_template": false,
+    "nfr_doc_non_pass_count": 0,
+    "nfr_doc_non_pass_statuses": []
+  },
+  "checked_at": "2026-02-28T03:39:36.083129+00:00",
+  "terminal": "docs/product/v3.7.0/execution/terminal.json"
+}
+[workflow-gate] build evidence manifest
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-02-28T03:39:36.121857+00:00",
+  "terminal": "docs/product/v3.7.0/execution/terminal.json",
+  "summary": {
+    "item_count": 8,
+    "missing_count": 0
+  },
+  "items": [
+    {
+      "path": "docs/product/v3.7.0/SUMMARY.md",
+      "sha256": "de34f87247bd8f6c0084fdcbaee6905abb22587eeba70e52809002a7c5423c6d",
+      "size_bytes": 784,
+      "mtime": "2026-02-28T03:37:12.378372+00:00"
+    },
+    {
+      "path": "docs/product/v3.7.0/execution/summary.md",
+      "sha256": "492714a902e2d544d8b11a5bf93a5a8d6aba8bb25acd18abdfac75982179ec59",
+      "size_bytes": 554,
+      "mtime": "2026-02-28T03:39:35.877649+00:00"
+    },
+    {
+      "path": "docs/product/v3.7.0/execution/summary.json",
+      "sha256": "889770b841de52a4fccb639ae1e1886c27bf8f80f5ab0b1b0c6c1bf41e1d3c18",
+      "size_bytes": 2034,
+      "mtime": "2026-02-28T03:39:35.877518+00:00"
+    },
+    {
+      "path": "docs/product/v3.7.0/execution/raw-command-log.jsonl",
+      "sha256": "667800a7bbda7c41e49eae2f96c0f81babc9311431bc71a12a93b68c83dfd4d8",
+      "size_bytes": 6187,
+      "mtime": "2026-02-28T03:39:35.937423+00:00"
+    },
+    {
+      "path": ".ptk/memory/scope/deviations.json",
+      "sha256": "263403bbe9370be7cc7339f5452c0e38d3ae232616232e17c65a1db0379b10ab",
+      "size_bytes": 2994,
+      "mtime": "2026-02-28T03:39:35.821608+00:00"
+    },
+    {
+      "path": ".ptk/memory/scope/confirmations.json",
+      "sha256": "36ed3b46c57baba82afa071859873006ca51eec53a2f5292b7ba24f37a505999",
+      "size_bytes": 3540,
+      "mtime": "2026-02-28T03:39:35.821775+00:00"
+    },
+    {
+      "path": "docs/product/v3.7.0/execution/gate-consistency-report.json",
+      "sha256": "75c2e5285d9e308fd08af4f4be4b11564d9f769a411b7c30a52efed39a668307",
+      "size_bytes": 868,
+      "mtime": "2026-02-28T03:39:36.083801+00:00"
+    },
+    {
+      "path": "docs/product/v3.7.0/execution/terminal.json",
+      "sha256": "4ab300a95f809b2bcfd3db4fe1127b3c699486f488a11cc02d7d5f84ae826b92",
+      "size_bytes": 3342,
+      "mtime": "2026-02-28T03:38:23.531433+00:00"
+    }
+  ],
+  "missing": []
+}
+[workflow-gate] validate terminal artifacts
+{
+  "status": "Pass",
+  "reason_codes": [],
+  "details": {
+    "version": "v3.7.0",
+    "terminal_path": "docs/product/v3.7.0/execution/terminal.json",
+    "boundaries_path": "docs/product/v3.7.0/execution/boundaries.md",
+    "boundaries_exists": true,
+    "boundaries_missing_markers": [],
+    "architecture_base_path": "docs/product/v3.7.0/architecture",
+    "architecture_required_files": [
+      "system-context.md",
+      "responsibility-boundaries.md",
+      "api-contracts.md",
+      "nfr-budgets.md",
+      "adr-index.md"
+    ],
+    "missing_architecture_artifacts": [],
+    "terminal_exists": true,
+    "terminal_status": "Pass",
+    "evidence_ref_count": 9,
+    "gate_consistency": {
+      "status": "Pass",
+      "conflicts": [],
+      "refs": {
+        "api_contracts": "docs/product/v3.7.0/architecture/api-contracts.md",
+        "nfr_budgets": "docs/product/v3.7.0/architecture/nfr-budgets.md"
+      },
+      "metrics": {
+        "terminal_status": "Pass",
+        "terminal_reason_code_count": 0,
+        "blocking_open_question_count": 0,
+        "blocking_open_question_ids": [],
+        "terminal_unresolved_api_drift_count": 0,
+        "terminal_unresolved_api_drift_ids": [],
+        "terminal_unproven_nfr_count": 0,
+        "terminal_unproven_nfr_items": [],
+        "api_doc_known": true,
+        "api_doc_template": false,
+        "api_doc_open_drift_count": 0,
+        "nfr_doc_known": true,
+        "nfr_doc_template": false,
+        "nfr_doc_non_pass_count": 0,
+        "nfr_doc_non_pass_statuses": []
+      }
+    },
+    "evidence_integrity_exists": true,
+    "raw_command_log_path": "docs/product/v3.7.0/execution/raw-command-log.jsonl",
+    "raw_command_log": {
+      "exists": true,
+      "entry_count": 12,
+      "invalid_lines": [],
+      "errors": [],
+      "valid": true
+    },
+    "gate_consistency_report_path": "docs/product/v3.7.0/execution/gate-consistency-report.json",
+    "sha256_manifest_path": "docs/product/v3.7.0/execution/evidence-manifest.json",
+    "sha256_manifest_required_ref_count": 8
+  }
+}

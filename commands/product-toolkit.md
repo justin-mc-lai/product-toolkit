@@ -125,3 +125,14 @@ verify 阶段固定编排：
 1. `auto_test.sh`（strict）
 2. `review_gate.sh evaluate`
 3. `team_report.sh --format both`
+
+---
+
+## v3.7.0 文档补充（Draft）
+
+- 版本索引：`docs/product/v3.7.0/README.md`
+- PRD：`docs/product/v3.7.0/prd/ptk-cli-scope-guard.md`
+- User Story：`docs/product/v3.7.0/user-story/ptk-cli-scope-guard.md`
+- Test Cases：`docs/product/v3.7.0/qa/test-cases/ptk-cli-scope-guard.md`
+- Execution：`docs/product/v3.7.0/execution/boundaries.md`、`terminal.json`、`next-step-prompts.md`
+- Architecture：`docs/product/v3.7.0/architecture/*.md`

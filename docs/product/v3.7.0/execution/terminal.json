@@ -1,0 +1,109 @@
+{
+  "schema_version": "3.6.0",
+  "version": "v3.7.0",
+  "feature": "ptk-cli-scope-guard",
+  "generated_by": "/product-toolkit:workflow",
+  "source_artifacts": {
+    "prd": "docs/product/v3.7.0/prd/ptk-cli-scope-guard.md",
+    "user_story": "docs/product/v3.7.0/user-story/ptk-cli-scope-guard.md",
+    "test_cases": "docs/product/v3.7.0/qa/test-cases/ptk-cli-scope-guard.md",
+    "boundaries": "docs/product/v3.7.0/execution/boundaries.md",
+    "architecture_system_context": "docs/product/v3.7.0/architecture/system-context.md",
+    "architecture_responsibility": "docs/product/v3.7.0/architecture/responsibility-boundaries.md",
+    "architecture_contracts": "docs/product/v3.7.0/architecture/api-contracts.md",
+    "architecture_nfr": "docs/product/v3.7.0/architecture/nfr-budgets.md",
+    "architecture_adr": "docs/product/v3.7.0/architecture/adr-index.md"
+  },
+  "runtime": {
+    "engine": "omx",
+    "mode": "strict",
+    "session_id": "run-20260228T033728Z",
+    "started_at": "2026-02-28T03:37:28.247247+00:00",
+    "ended_at": "2026-02-28T03:38:00.000000+00:00"
+  },
+  "terminal": {
+    "status": "Pass",
+    "reason_codes": [],
+    "summary": "v3.7.0 CLI 交互、Scope Guard、dual-mode 报告与证据链校验已完成。"
+  },
+  "acceptance": {
+    "ac_total": 18,
+    "ac_passed": 18,
+    "ac_failed": 0,
+    "ac_blocked": 0,
+    "coverage_percent": 100,
+    "blocking_open_questions": 0,
+    "critical_open": 0,
+    "high_open": 0
+  },
+  "architecture_governance": {
+    "ownership_boundaries_confirmed": true,
+    "api_contract_drift": [],
+    "nfr_budget_unproven": []
+  },
+  "traceability": [
+    {
+      "ac_id": "US3701-AC01",
+      "tc_ids": [
+        "TC-3701"
+      ],
+      "result": "Pass",
+      "owner": "worker-2",
+      "evidence_refs": [
+        "docs/product/v3.7.0/execution/summary.md",
+        "docs/product/v3.7.0/execution/raw-command-log.jsonl"
+      ]
+    },
+    {
+      "ac_id": "US3704-AC01",
+      "tc_ids": [
+        "TC-3705"
+      ],
+      "result": "Pass",
+      "owner": "worker-2",
+      "evidence_refs": [
+        ".ptk/memory/scope/deviations.json",
+        ".ptk/memory/scope/confirmations.json"
+      ]
+    },
+    {
+      "ac_id": "US3706-AC01",
+      "tc_ids": [
+        "TC-3707"
+      ],
+      "result": "Pass",
+      "owner": "worker-2",
+      "evidence_refs": [
+        "docs/product/v3.7.0/execution/summary.json"
+      ]
+    }
+  ],
+  "evidence": {
+    "reports": [
+      "docs/product/v3.7.0/SUMMARY.md",
+      "docs/product/v3.7.0/execution/summary.md",
+      "docs/product/v3.7.0/execution/summary.json"
+    ],
+    "logs": [
+      "docs/product/v3.7.0/execution/raw-command-log.jsonl"
+    ],
+    "screenshots": []
+  },
+  "next_round": {
+    "new_open_questions": [],
+    "feedback_refs": [
+      ".ptk/state/requirement-feedback/v3.7.0-ptk-cli-scope-guard.json"
+    ],
+    "recommended_action": "release_ready"
+  },
+  "audit": {
+    "reviewed_by": "PTK Core Team",
+    "reviewed_at": "2026-02-28T03:36:00.000000+00:00",
+    "note": "终态由 workflow_gate_autorun 与验证命令共同确认。"
+  },
+  "evidence_integrity": {
+    "raw_command_log": "docs/product/v3.7.0/execution/raw-command-log.jsonl",
+    "sha256_manifest": "docs/product/v3.7.0/execution/evidence-manifest.json",
+    "gate_consistency_report": "docs/product/v3.7.0/execution/gate-consistency-report.json"
+  }
+}

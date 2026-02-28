@@ -1,0 +1,11 @@
+{
+  "metric": "redaction_scan",
+  "artifacts": [
+    "docs/product/v3.7.0/execution/summary.md",
+    "docs/product/v3.7.0/execution/summary.json"
+  ],
+  "sensitive_hits": [],
+  "leak_count": 0,
+  "pass": true,
+  "generated_at": "2026-02-28T03:41:04Z"
+}

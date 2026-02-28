@@ -1,0 +1,8 @@
+{
+  "run_id": "run-worker3-debug-20260228T045432Z",
+  "status": "completed",
+  "reason": "debug_event_stream_enabled"
+}
+[debug-event] {"event": "run_started", "run_id": "run-worker3-debug-20260228T045432Z", "mode": "debug", "workflow_route": "workflow", "ts": "2026-02-28T04:54:34.630767+00:00"}
+[debug-event] {"event": "debug_mode_enabled", "run_id": "run-worker3-debug-20260228T045432Z", "ts": "2026-02-28T04:54:34.630951+00:00"}
+[debug-event] {"event": "run_completed_debug", "run_id": "run-worker3-debug-20260228T045432Z", "ts": "2026-02-28T04:54:34.630954+00:00"}

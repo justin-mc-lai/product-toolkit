@@ -1,0 +1,91 @@
+{
+  "run_id": "run-worker2-v370-strict",
+  "workflow": "workflow",
+  "workflow_input": "workflow",
+  "mode": "strict",
+  "status": "completed",
+  "reason": "",
+  "events": [
+    {
+      "event": "run_started",
+      "run_id": "run-worker2-v370-strict",
+      "mode": "strict",
+      "workflow_route": "workflow",
+      "ts": "2026-02-28T04:54:21.019839+00:00"
+    },
+    {
+      "event": "scope_guard_checked",
+      "run_id": "run-worker2-v370-strict",
+      "deviation_count": 1,
+      "pending_confirmation_count": 0,
+      "ts": "2026-02-28T04:54:21.022035+00:00"
+    },
+    {
+      "event": "run_completed",
+      "run_id": "run-worker2-v370-strict",
+      "ts": "2026-02-28T04:54:21.022039+00:00"
+    }
+  ],
+  "llm_prompts": [
+    "Parse AC and bind scope for strict mode."
+  ],
+  "token_usage": {
+    "prompt_tokens": 128,
+    "completion_tokens": 96
+  },
+  "tool_calls": [
+    {
+      "name": "router.dispatch",
+      "args": {
+        "input": "workflow",
+        "route": "workflow",
+        "handler": "skills/workflow/SKILL.md"
+      }
+    },
+    {
+      "name": "scope_guard.parse_ac",
+      "args": {
+        "user_story": "/Users/apple/Developer/Personal/my_skill/product-toolkit/docs/product/v3.7.0/user-story/ptk-cli-scope-guard.md"
+      }
+    },
+    {
+      "name": "scope_guard.record",
+      "args": {
+        "deviations": 1
+      }
+    }
+  ],
+  "artifacts": {
+    "events": ".ptk/runs/run-worker2-v370-strict/events.jsonl",
+    "ac_scope": "docs/product/v3.7.0/execution/ac_scope.json",
+    "scope_deviations": ".ptk/memory/scope/deviations.json",
+    "scope_confirmations": ".ptk/memory/scope/confirmations.json",
+    "replay_source_run": null
+  },
+  "deviations": [
+    {
+      "id": "DEV-run-worker2-v370-strict-1",
+      "run_id": "run-worker2-v370-strict",
+      "proposal": "rewrite execution engine internals",
+      "type": "out-of-scope",
+      "risk": "high",
+      "created_at": "2026-02-28T04:54:21.021545+00:00"
+    }
+  ],
+  "confirmations": [
+    {
+      "id": "CONF-run-worker2-v370-strict-1",
+      "run_id": "run-worker2-v370-strict",
+      "deviation_id": "DEV-run-worker2-v370-strict-1",
+      "status": "confirmed",
+      "decision": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "created_at": "2026-02-28T04:54:21.021549+00:00"
+    }
+  ],
+  "generated_at": "2026-02-28T04:56:12.519640+00:00"
+}

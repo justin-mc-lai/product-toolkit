@@ -1,0 +1,54 @@
+{
+  "overall": "PASS",
+  "checks": [
+    {
+      "name": "user_story_exists",
+      "status": "PASS",
+      "detail": "docs/product/v3.7.0/user-story/ptk-cli-scope-guard.md",
+      "recommendation": ""
+    },
+    {
+      "name": "ac_scope_schema",
+      "status": "PASS",
+      "detail": "docs/product/v3.7.0/execution/ac_scope.json",
+      "recommendation": ""
+    },
+    {
+      "name": "summary_human_redaction",
+      "status": "PASS",
+      "detail": "docs/product/v3.7.0/execution/summary.md",
+      "recommendation": ""
+    },
+    {
+      "name": "summary_machine_schema",
+      "status": "PASS",
+      "detail": "docs/product/v3.7.0/execution/summary.json",
+      "recommendation": ""
+    },
+    {
+      "name": "terminal_schema",
+      "status": "PASS",
+      "detail": "docs/product/v3.7.0/execution/terminal.json",
+      "recommendation": ""
+    },
+    {
+      "name": "events_integrity",
+      "status": "PASS",
+      "detail": "run run-worker3-replay-20260228T045432Z events=3",
+      "recommendation": ""
+    },
+    {
+      "name": "machine_events_integrity",
+      "status": "PASS",
+      "detail": "summary events=3",
+      "recommendation": ""
+    },
+    {
+      "name": "scope_memory_exists",
+      "status": "PASS",
+      "detail": ".ptk/memory/scope",
+      "recommendation": ""
+    }
+  ],
+  "generated_at": "2026-02-28T04:54:35.925998+00:00"
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": "3.6.0",
+  "version": "vX.Y.Z",
+  "feature": "<feature-name>",
+  "generated_by": "/product-toolkit:workflow",
+  "source_artifacts": {
+    "prd": "docs/product/{version}/prd/{feature}.md",
+    "user_story": "docs/product/{version}/user-story/{feature}.md",
+    "test_cases": "docs/product/{version}/qa/test-cases/{feature}.md",
+    "boundaries": "docs/product/{version}/execution/boundaries.md",
+    "architecture_system_context": "docs/product/{version}/architecture/system-context.md",
+    "architecture_responsibility": "docs/product/{version}/architecture/responsibility-boundaries.md",
+    "architecture_contracts": "docs/product/{version}/architecture/api-contracts.md",
+    "architecture_nfr": "docs/product/{version}/architecture/nfr-budgets.md",
+    "architecture_adr": "docs/product/{version}/architecture/adr-index.md"
+  },
+  "runtime": {
+    "engine": "omx",
+    "mode": "team",
+    "session_id": "<session-id>",
+    "started_at": "2026-02-27T00:00:00Z",
+    "ended_at": "2026-02-27T00:30:00Z"
+  },
+  "terminal": {
+    "status": "Pass",
+    "reason_codes": [],
+    "summary": "<one-line summary>"
+  },
+  "acceptance": {
+    "ac_total": 0,
+    "ac_passed": 0,
+    "ac_failed": 0,
+    "ac_blocked": 0,
+    "coverage_percent": 0,
+    "blocking_open_questions": 0,
+    "critical_open": 0,
+    "high_open": 0
+  },
+  "architecture_governance": {
+    "ownership_boundaries_confirmed": true,
+    "api_contract_drift": [],
+    "nfr_budget_unproven": []
+  },
+  "traceability": [
+    {
+      "ac_id": "US001-AC01",
+      "tc_ids": [
+        "TC-001"
+      ],
+      "result": "Pass",
+      "owner": "omx",
+      "evidence_refs": [
+        "docs/product/{version}/qa/test-progress/{feature}-<session-id>.md"
+      ]
+    }
+  ],
+  "evidence": {
+    "reports": [
+      "<report-path-1>",
+      "<report-path-2>"
+    ],
+    "logs": [
+      "<log-path-1>"
+    ],
+    "screenshots": [
+      "<screenshot-path-1>"
+    ]
+  },
+  "next_round": {
+    "new_open_questions": [],
+    "feedback_refs": [],
+    "recommended_action": "none"
+  },
+  "audit": {
+    "reviewed_by": "<pm-or-qa>",
+    "reviewed_at": "2026-02-27T00:35:00Z",
+    "note": "<optional>"
+  },
+  "evidence_integrity": {
+    "raw_command_log": "docs/product/{version}/execution/raw-command-log.jsonl",
+    "sha256_manifest": "docs/product/{version}/execution/evidence-manifest.json",
+    "gate_consistency_report": "docs/product/{version}/execution/gate-consistency-report.json"
+  }
+}

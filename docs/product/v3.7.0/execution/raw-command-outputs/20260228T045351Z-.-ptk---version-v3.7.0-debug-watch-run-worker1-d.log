@@ -1,0 +1,4 @@
+{"event": "run_started", "run_id": "run-worker1-debug-20260228T045350Z", "mode": "debug", "workflow_route": "workflow", "ts": "2026-02-28T04:53:51.798795+00:00"}
+{"event": "debug_mode_enabled", "run_id": "run-worker1-debug-20260228T045350Z", "ts": "2026-02-28T04:53:51.798974+00:00"}
+{"event": "run_completed_debug", "run_id": "run-worker1-debug-20260228T045350Z", "ts": "2026-02-28T04:53:51.798976+00:00"}
+# debug watch tail mode (tail=5)

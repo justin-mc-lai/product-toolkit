@@ -1,0 +1,21 @@
+# PTK Human Summary
+
+- Run ID: `run-20260228T033646Z`
+- Workflow: `workflow`
+- Mode: `strict`
+- Status: **completed**
+
+## Artifacts
+- events: `.ptk/runs/run-20260228T033646Z/events.jsonl`
+- ac_scope: `docs/product/v3.7.0/execution/ac_scope.json`
+- scope_deviations: `.ptk/memory/scope/deviations.json`
+- scope_confirmations: `.ptk/memory/scope/confirmations.json`
+
+## Pending Confirmations
+- none
+
+## Next Step Suggestions
+- [A] Continue with test-case generation (Recommended)
+- [B] Run gate consistency checks
+- [C] Review scope deviations
+- [D] Other

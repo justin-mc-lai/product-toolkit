@@ -9,6 +9,10 @@
 .ptk/state/*.json
 .ptk/state/**/*.json
 .ptk/memory/*.json
+.ptk/memory/scope/
+.ptk/runs/
+.ptk/backups/
+tmp_verify_results.json
 !.ptk/state/*.schema.json
 !.ptk/state/**/*.schema.json
 !.ptk/memory/*.schema.json

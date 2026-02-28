@@ -1,0 +1,3 @@
+usage: ptk [-h] [--version VERSION]
+           {status,run,debug,report,feedback,resume,doctor} ...
+ptk: error: argument command: invalid choice: '状态' (choose from 'status', 'run', 'debug', 'report', 'feedback', 'resume', 'doctor')

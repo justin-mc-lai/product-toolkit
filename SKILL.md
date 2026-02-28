@@ -3,7 +3,7 @@ name: product-toolkit
 description: Product toolkit for PM workflows (think/user-story/prd/test-case/workflow etc.) with think vNext hard-switch rules.
 ---
 
-# Product Toolkit v3.5.2
+# Product Toolkit v3.6.1
 
 提供产品经理工作流工具集：需求澄清、用户故事、PRD、测试用例、技术方案与发布清单。
 
@@ -15,6 +15,19 @@ description: Product toolkit for PM workflows (think/user-story/prd/test-case/wo
 2. 采用 `think vNext`：**批量交互 + 上下文动态追问 + 冲突检测 + 每轮自动摘要 + 未决问题清单（ledger）**。
 3. 下游 `user-story / prd / test-case / workflow` 按新契约消费输出。
 4. 本次仅定义**规则与文档契约**，不包含行为引擎实现。
+
+## ✅ v3.6.1 主路径声明（2026-02-27）
+
+1. 默认入口保持：`/product-toolkit:workflow`（`/product-toolkit:work` 别名）。
+2. workflow 核心产物链聚焦：`think → user-story → prd → test-case`。
+3. 不新增用户操作命令。
+4. workflow 完成后提供 OMC/OMX 下一步固定提示词模板（见 `docs/product/v3.6.0/execution/next-step-prompts.md`）。
+5. 新增架构治理产物：`docs/product/{version}/architecture/*.md`（system-context / responsibility / contracts / nfr / adr）。
+6. 新增证据加固产物：`raw-command-log.jsonl`、`evidence-manifest.json`、`gate-consistency-report.json`。
+7. workflow 在终态写入后默认执行 `scripts/workflow_gate_autorun.sh` 自动收口（先一致性、再 manifest、最后 terminal 校验）。
+8. gate 可使用 `scripts/validate_terminal_artifacts.py`（或 `scripts/check_terminal_artifacts.sh`）执行终态证据强校验（含架构治理项与一致性校验）。
+9. OMC/OMX 为可选执行器，非入侵 PTK 生命周期规划职责。
+10. `ralph-bridge` 保留为兼容/高级路径，不再作为默认主入口。
 
 ---
 
@@ -49,7 +62,7 @@ description: Product toolkit for PM workflows (think/user-story/prd/test-case/wo
 | **其他技能** | | |
 | `ptk gate` | `/product-toolkit:gate` | 门控检查 |
 | `ptk status` | `/product-toolkit:status` | 状态面板 |
-| `ptk ralph-bridge` | `/product-toolkit:ralph-bridge` | Ralph 长任务桥接 |
+| `ptk ralph-bridge` | `/product-toolkit:ralph-bridge` | Ralph 长任务桥接（兼容路径） |
 | `ptk remember` | `/product-toolkit:remember` | 记忆知识 |
 | `ptk recall` | `/product-toolkit:recall` | 检索记忆 |
 | `ptk version` | `/product-toolkit:version` | 版本规划 |
@@ -89,7 +102,7 @@ description: Product toolkit for PM workflows (think/user-story/prd/test-case/wo
 | `/product-toolkit:release [版本]` | 发布/上线检查清单 | `/product-toolkit:release v1.0.0` |
 | `/product-toolkit:analyze [对象]` | 竞品分析 | `/product-toolkit:analyze 抖音` |
 | `/product-toolkit:team [功能]` | 多代理协作（file/tmux runtime） | `/product-toolkit:team 电商详情页` |
-| `/product-toolkit:ralph-bridge [功能]` | Ralph 长任务桥接（omx/omc + verify 闭环） | `/product-toolkit:ralph-bridge v3.5.0 ralph-bridge` |
+| `/product-toolkit:ralph-bridge [功能]` | Ralph 长任务桥接（兼容/高级路径） | `/product-toolkit:ralph-bridge v3.6.1 workflow-evidence-first` |
 | `/product-toolkit:work [功能]` | workflow 别名（兼容 Claude 输入习惯） | `/product-toolkit:work 电商收藏功能` |
 | `/product-toolkit:workflow [功能]` | 一键产品工作流 | `/product-toolkit:workflow 电商收藏功能` |
 | `/product-toolkit:test-progress [版本]` | 测试进度记录 | `/product-toolkit:test-progress v1.0.0` |
@@ -366,6 +379,9 @@ docs/product/{version}/
 ├── design/wireframe/{feature}.md
 ├── design/spec/{feature}.md
 ├── qa/test-cases/{feature}.md
+├── execution/boundaries.md
+├── execution/terminal.json
+├── execution/next-step-prompts.md
 ├── tech/api/{feature}.md
 ├── tech/data-model/{feature}.md
 └── release/v{version}.md
@@ -383,9 +399,13 @@ docs/product/{version}/
 
 ---
 
-**版本**: v3.4.0
+**版本**: v3.6.0
 
 **更新日志**:
+- v3.6.0: workflow 主路径聚焦 PRD/US/QA、OMC/OMX 下一步固定提示词模板、boundaries/terminal 证据闭环模板、bridge 降级为兼容路径
+- v3.5.2: 版本一致性修正（入口文档版本标识统一）
+- v3.5.1: 新增 `/product-toolkit:work`（workflow 别名）
+- v3.5.0: Ralph Bridge 长任务桥接（start/resume/status/finalize）
 - v3.4.0: strict 默认策略、测试反馈回写、team file/tmux 统一运行时、spec->quality 双审查 gate、max_fix_loops 终态阻断
 - v3.3.0: Product Toolkit 平台化文档基线（PRD/US/QA）
 - v3.2.2: 自动化测试增强（支持启动前端、按优先级选择 agent-browser/browser-use、失败记忆沉淀防重复踩坑）

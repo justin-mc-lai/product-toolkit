@@ -1,0 +1,61 @@
+{
+  "run_id": "run-worker2-v370-replay",
+  "workflow": "workflow",
+  "workflow_input": "workflow",
+  "mode": "replay",
+  "status": "completed",
+  "reason": "replay:run-worker2-v370-debug",
+  "events": [
+    {
+      "event": "run_started",
+      "run_id": "run-worker2-v370-replay",
+      "mode": "replay",
+      "workflow_route": "workflow",
+      "ts": "2026-02-28T04:54:41.582737+00:00"
+    },
+    {
+      "event": "replay_loaded",
+      "run_id": "run-worker2-v370-replay",
+      "source_run_id": "run-worker2-v370-debug",
+      "source_event_count": 3,
+      "ts": "2026-02-28T04:54:41.583001+00:00"
+    },
+    {
+      "event": "replay_completed",
+      "run_id": "run-worker2-v370-replay",
+      "source_run_id": "run-worker2-v370-debug",
+      "ts": "2026-02-28T04:54:41.583005+00:00"
+    }
+  ],
+  "llm_prompts": [],
+  "token_usage": {
+    "prompt_tokens": 128,
+    "completion_tokens": 96
+  },
+  "tool_calls": [
+    {
+      "name": "router.dispatch",
+      "args": {
+        "input": "workflow",
+        "route": "workflow",
+        "handler": "skills/workflow/SKILL.md"
+      }
+    },
+    {
+      "name": "replay.load_state",
+      "args": {
+        "source_run_id": "run-worker2-v370-debug"
+      }
+    }
+  ],
+  "artifacts": {
+    "events": ".ptk/runs/run-worker2-v370-replay/events.jsonl",
+    "ac_scope": null,
+    "scope_deviations": ".ptk/memory/scope/deviations.json",
+    "scope_confirmations": ".ptk/memory/scope/confirmations.json",
+    "replay_source_run": "run-worker2-v370-debug"
+  },
+  "deviations": [],
+  "confirmations": [],
+  "generated_at": "2026-02-28T04:56:17.826406+00:00"
+}

@@ -1,0 +1,56 @@
+{
+  "run_id": "run-20260228T033646Z",
+  "workflow": "workflow",
+  "mode": "strict",
+  "status": "completed",
+  "events": [
+    {
+      "event": "run_started",
+      "run_id": "run-20260228T033646Z",
+      "mode": "strict",
+      "ts": "2026-02-28T03:36:46.284427+00:00"
+    },
+    {
+      "event": "scope_guard_checked",
+      "run_id": "run-20260228T033646Z",
+      "deviation_count": 0,
+      "pending_confirmation_count": 0,
+      "ts": "2026-02-28T03:36:46.286240+00:00"
+    },
+    {
+      "event": "run_completed",
+      "run_id": "run-20260228T033646Z",
+      "ts": "2026-02-28T03:36:46.286244+00:00"
+    }
+  ],
+  "llm_prompts": [
+    "Parse AC and bind scope for strict mode."
+  ],
+  "token_usage": {
+    "prompt_tokens": 128,
+    "completion_tokens": 96
+  },
+  "tool_calls": [
+    {
+      "name": "scope_guard.parse_ac",
+      "args": {
+        "user_story": "/Users/apple/Developer/Personal/my_skill/product-toolkit/docs/product/v3.7.0/user-story/ptk-cli-scope-guard.md"
+      }
+    },
+    {
+      "name": "scope_guard.record",
+      "args": {
+        "deviations": 0
+      }
+    }
+  ],
+  "artifacts": {
+    "events": ".ptk/runs/run-20260228T033646Z/events.jsonl",
+    "ac_scope": "docs/product/v3.7.0/execution/ac_scope.json",
+    "scope_deviations": ".ptk/memory/scope/deviations.json",
+    "scope_confirmations": ".ptk/memory/scope/confirmations.json"
+  },
+  "deviations": [],
+  "confirmations": [],
+  "generated_at": "2026-02-28T03:36:46.509047+00:00"
+}

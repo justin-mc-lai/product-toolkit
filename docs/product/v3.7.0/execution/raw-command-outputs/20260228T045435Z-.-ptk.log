@@ -1,0 +1,22 @@
+# PTK Human Summary
+
+- Run ID: `run-worker3-replay-20260228T045432Z`
+- Workflow: `workflow`
+- Mode: `replay`
+- Status: **completed**
+
+## Artifacts
+- events: `.ptk/runs/run-worker3-replay-20260228T045432Z/events.jsonl`
+- scope_deviations: `.ptk/memory/scope/deviations.json`
+- scope_confirmations: `.ptk/memory/scope/confirmations.json`
+- replay_source_run: `run-worker3-normal-20260228T045432Z`
+
+## Pending Confirmations
+- none
+
+## Next Step Suggestions
+- [A] Continue with test-case generation (Recommended)
+- [B] Run gate consistency checks
+- [C] Review scope deviations
+- [D] Other
+[intent-router] Intent routed "报告" -> report --human latest (confidence=0.95; candidates=report:0.95)

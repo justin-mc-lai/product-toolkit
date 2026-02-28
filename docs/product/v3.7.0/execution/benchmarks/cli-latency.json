@@ -1,0 +1,15 @@
+{
+  "metric": "cli_latency_ms",
+  "command": "ptk --version v3.7.0 status",
+  "samples_ms": [
+    61.44,
+    58.84,
+    55.96,
+    56.9,
+    57.94
+  ],
+  "p95_ms": 61.44,
+  "target_ms": 1000,
+  "pass": true,
+  "generated_at": "2026-02-28T03:41:03Z"
+}

@@ -1,0 +1,31 @@
+{
+  "overall": "PASS",
+  "checks": [
+    {
+      "name": "user_story_exists",
+      "status": "PASS",
+      "detail": "docs/product/v3.7.0/user-story/ptk-cli-scope-guard.md"
+    },
+    {
+      "name": "ac_scope_exists",
+      "status": "PASS",
+      "detail": "docs/product/v3.7.0/execution/ac_scope.json"
+    },
+    {
+      "name": "summary_human_exists",
+      "status": "PASS",
+      "detail": "docs/product/v3.7.0/execution/summary.md"
+    },
+    {
+      "name": "summary_machine_exists",
+      "status": "PASS",
+      "detail": "docs/product/v3.7.0/execution/summary.json"
+    },
+    {
+      "name": "scope_memory_exists",
+      "status": "PASS",
+      "detail": ".ptk/memory/scope"
+    }
+  ],
+  "generated_at": "2026-02-28T03:40:09.460646+00:00"
+}

@@ -1,0 +1,185 @@
+{
+  "schema_version": "3.6.0",
+  "version": "v3.6.0",
+  "feature": "workflow-evidence-first",
+  "generated_by": "/product-toolkit:workflow + $team 3:executor",
+  "source_artifacts": {
+    "prd": "docs/product/v3.6.0/prd/workflow-evidence-first.md",
+    "user_story": "docs/product/v3.6.0/user-story/workflow-evidence-first.md",
+    "test_cases": "docs/product/v3.6.0/qa/test-cases/workflow-evidence-first.md",
+    "boundaries": "docs/product/v3.6.0/execution/boundaries.md",
+    "architecture_system_context": "docs/product/v3.6.0/architecture/system-context.md",
+    "architecture_responsibility": "docs/product/v3.6.0/architecture/responsibility-boundaries.md",
+    "architecture_contracts": "docs/product/v3.6.0/architecture/api-contracts.md",
+    "architecture_nfr": "docs/product/v3.6.0/architecture/nfr-budgets.md",
+    "architecture_adr": "docs/product/v3.6.0/architecture/adr-index.md"
+  },
+  "runtime": {
+    "engine": "omx",
+    "mode": "team",
+    "session_id": "regression-drill-v3-6-0-blocked-001",
+    "started_at": "2026-02-27T03:00:00Z",
+    "ended_at": "2026-02-27T03:18:00Z"
+  },
+  "terminal": {
+    "status": "Blocked",
+    "reason_codes": [
+      "blocking_open_question_exists",
+      "terminal_evidence_missing",
+      "ac_tc_mapping_gap",
+      "ownership_boundary_unclear",
+      "api_contract_drift",
+      "nfr_budget_unproven"
+    ],
+    "summary": "回归演练命中阻塞条件：存在 blocking 未决项、终态证据缺失、AC→TC 映射缺口，以及架构边界/契约/NFR 未闭环。"
+  },
+  "drill_scenarios": {
+    "A": "保留 blocking=true 未决项（不关闭）",
+    "B": "引入缺失证据引用以触发 terminal_evidence_missing",
+    "C": "制造 AC→TC 映射缺口（空 tc_ids）",
+    "D": "ownership_boundaries_confirmed=false 触发 ownership_boundary_unclear",
+    "E": "保留高风险契约漂移为 open 触发 api_contract_drift",
+    "F": "关键 NFR 预算无证据触发 nfr_budget_unproven"
+  },
+  "acceptance": {
+    "ac_total": 7,
+    "ac_passed": 3,
+    "ac_failed": 0,
+    "ac_blocked": 4,
+    "coverage_percent": 43,
+    "blocking_open_questions": 1,
+    "critical_open": 0,
+    "high_open": 1
+  },
+  "architecture_governance": {
+    "ownership_boundaries_confirmed": false,
+    "api_contract_drift": [
+      {
+        "id": "DRIFT-001",
+        "severity": "high",
+        "status": "open",
+        "note": "新增字段未同步到消费方，契约不兼容。"
+      }
+    ],
+    "nfr_budget_unproven": [
+      "NFR-001:p95_latency",
+      "NFR-003:availability"
+    ]
+  },
+  "traceability": [
+    {
+      "ac_id": "US3601",
+      "tc_ids": [
+        "TC-3601"
+      ],
+      "result": "Pass",
+      "owner": "ptk",
+      "evidence_refs": [
+        "docs/product/v3.6.0/qa/test-cases/workflow-evidence-first.md",
+        "docs/product/v3.6.0/user-story/workflow-evidence-first.md"
+      ]
+    },
+    {
+      "ac_id": "US3603",
+      "tc_ids": [
+        "TC-3603"
+      ],
+      "result": "Pass",
+      "owner": "omc",
+      "evidence_refs": [
+        "docs/product/v3.6.0/execution/next-step-prompts.md"
+      ]
+    },
+    {
+      "ac_id": "US3604",
+      "tc_ids": [
+        "TC-3604"
+      ],
+      "result": "Pass",
+      "owner": "ptk",
+      "evidence_refs": [
+        "docs/product/v3.6.0/execution/boundaries.md",
+        "docs/product/v3.6.0/architecture/responsibility-boundaries.md"
+      ]
+    },
+    {
+      "ac_id": "US3602",
+      "tc_ids": [],
+      "result": "Blocked",
+      "owner": "qa",
+      "evidence_refs": [
+        "docs/product/v3.6.0/qa/test-cases/workflow-evidence-first.md"
+      ]
+    },
+    {
+      "ac_id": "US3605",
+      "tc_ids": [
+        "TC-3605"
+      ],
+      "result": "Blocked",
+      "owner": "qa",
+      "evidence_refs": [
+        "docs/product/v3.6.0/execution/terminal.json"
+      ]
+    },
+    {
+      "ac_id": "US3606",
+      "tc_ids": [
+        "TC-3606"
+      ],
+      "result": "Blocked",
+      "owner": "architect",
+      "evidence_refs": [
+        "docs/product/v3.6.0/execution/delivery-report.md",
+        "docs/product/v3.6.0/architecture/api-contracts.md",
+        "docs/product/v3.6.0/architecture/nfr-budgets.md"
+      ]
+    },
+    {
+      "ac_id": "US3607",
+      "tc_ids": [
+        "TC-3607"
+      ],
+      "result": "Blocked",
+      "owner": "architect",
+      "evidence_refs": [
+        "docs/product/v3.6.0/architecture/responsibility-boundaries.md",
+        "docs/product/v3.6.0/execution/gate-architecture-checklist.md"
+      ]
+    }
+  ],
+  "evidence": {
+    "reports": [
+      "docs/product/v3.6.0/execution/delivery-report.md",
+      "docs/product/v3.6.0/execution/missing-terminal-proof.md"
+    ],
+    "logs": [
+      "docs/product/v3.6.0/execution/team-run-log.md"
+    ],
+    "screenshots": []
+  },
+  "next_round": {
+    "new_open_questions": [
+      {
+        "id": "OQ-3602-B",
+        "question": "旧版 docs/product/{version} 缺 execution 目录时是否自动补齐并回写",
+        "blocking": true,
+        "status": "open"
+      }
+    ],
+    "feedback_refs": [
+      "docs/product/v3.6.0/prd/current-version-gap-analysis.md"
+    ],
+    "recommended_action": "先补齐 terminal 证据与 AC→TC 缺口，再重跑 workflow/gate。"
+  },
+  "audit": {
+    "reviewed_by": "ptk-qa-regression",
+    "reviewed_at": "2026-02-27T03:20:00Z",
+    "note": "本文件为 Blocked 回归演练样例，不代表正式发布结论。"
+  },
+  "evidence_integrity": {
+    "raw_command_log": "docs/product/v3.6.0/execution/raw-command-log.blocked-sample.jsonl",
+    "sha256_manifest": "docs/product/v3.6.0/execution/evidence-manifest.blocked-sample.json",
+    "gate_consistency_report": "docs/product/v3.6.0/execution/gate-consistency.blocked-sample.json"
+  }
+}

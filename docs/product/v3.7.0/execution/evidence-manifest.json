@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-02-28T05:00:55.100017+00:00",
+  "terminal": "docs/product/v3.7.0/execution/terminal.json",
+  "summary": {
+    "item_count": 8,
+    "missing_count": 0
+  },
+  "items": [
+    {
+      "path": "docs/product/v3.7.0/SUMMARY.md",
+      "sha256": "287f502785f6005464b66312a0655302bc10b887a93f33850e113bce70c5153e",
+      "size_bytes": 786,
+      "mtime": "2026-02-28T03:41:53.078046+00:00"
+    },
+    {
+      "path": "docs/product/v3.7.0/execution/summary.md",
+      "sha256": "207ae04f82a0e0b1dc20f2d444a71f071073e7e0bf6bc2138971dc6b39ef9840",
+      "size_bytes": 554,
+      "mtime": "2026-02-28T05:00:33.673822+00:00"
+    },
+    {
+      "path": "docs/product/v3.7.0/execution/summary.json",
+      "sha256": "1f549509fbb9ed377e2f977957a390d224a23976ff367e71fdd51d28e3795269",
+      "size_bytes": 2323,
+      "mtime": "2026-02-28T05:00:33.673685+00:00"
+    },
+    {
+      "path": "docs/product/v3.7.0/execution/raw-command-log.jsonl",
+      "sha256": "f8fa322f2d449d38ad4abf9f497db667d19da8e8ed3a48051f6bdb6e4b3a1aa1",
+      "size_bytes": 33425,
+      "mtime": "2026-02-28T04:58:21.803304+00:00"
+    },
+    {
+      "path": ".ptk/memory/scope/deviations.json",
+      "sha256": "be3ca8833ee5f9e783289cf58496d66d21c81dc679490c418c288a50d8bbb55a",
+      "size_bytes": 7680,
+      "mtime": "2026-02-28T05:00:33.621077+00:00"
+    },
+    {
+      "path": ".ptk/memory/scope/confirmations.json",
+      "sha256": "b2ab37419b859d348ecb6499d7981efc430fbdbe5434d49b36d30c3d84dab862",
+      "size_bytes": 9571,
+      "mtime": "2026-02-28T05:00:33.621362+00:00"
+    },
+    {
+      "path": "docs/product/v3.7.0/execution/gate-consistency-report.json",
+      "sha256": "b26dc41574dba5992679cb26d15bfbb38875e0404b84f8d729f28321558566dd",
+      "size_bytes": 868,
+      "mtime": "2026-02-28T05:00:55.053889+00:00"
+    },
+    {
+      "path": "docs/product/v3.7.0/execution/terminal.json",
+      "sha256": "4ab300a95f809b2bcfd3db4fe1127b3c699486f488a11cc02d7d5f84ae826b92",
+      "size_bytes": 3342,
+      "mtime": "2026-02-28T03:38:23.531433+00:00"
+    }
+  ],
+  "missing": []
+}

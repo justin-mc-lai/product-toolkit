@@ -1,0 +1,27 @@
+{
+  "status": "Pass",
+  "conflicts": [],
+  "refs": {
+    "api_contracts": "docs/product/v3.7.0/architecture/api-contracts.md",
+    "nfr_budgets": "docs/product/v3.7.0/architecture/nfr-budgets.md"
+  },
+  "metrics": {
+    "terminal_status": "Pass",
+    "terminal_reason_code_count": 0,
+    "blocking_open_question_count": 0,
+    "blocking_open_question_ids": [],
+    "terminal_unresolved_api_drift_count": 0,
+    "terminal_unresolved_api_drift_ids": [],
+    "terminal_unproven_nfr_count": 0,
+    "terminal_unproven_nfr_items": [],
+    "api_doc_known": true,
+    "api_doc_template": false,
+    "api_doc_open_drift_count": 0,
+    "nfr_doc_known": true,
+    "nfr_doc_template": false,
+    "nfr_doc_non_pass_count": 0,
+    "nfr_doc_non_pass_statuses": []
+  },
+  "checked_at": "2026-02-28T05:00:55.053198+00:00",
+  "terminal": "docs/product/v3.7.0/execution/terminal.json"
+}
