@@ -51,6 +51,8 @@ class TestPtkCli(unittest.TestCase):
         self.assertEqual(ptk_cli.resolve_workflow_route("workflow")["key"], "workflow")
         self.assertEqual(ptk_cli.resolve_workflow_route("team")["key"], "team")
         self.assertEqual(ptk_cli.resolve_workflow_route("auto_test")["key"], "auto-test")
+        self.assertEqual(ptk_cli.resolve_workflow_route("ralph_bridge")["key"], "ralph-bridge")
+        self.assertEqual(ptk_cli.resolve_workflow_route("bridge")["key"], "ralph-bridge")
         self.assertIsNone(ptk_cli.resolve_workflow_route("unknown"))
 
     def test_infer_intent_has_confidence_and_candidates(self) -> None:

@@ -33,6 +33,7 @@ WORKFLOW_ROUTES = {
     "workflow": {"command": "workflow", "handler": "skills/workflow/SKILL.md"},
     "team": {"command": "team", "handler": "skills/team/SKILL.md"},
     "auto-test": {"command": "auto-test", "handler": "skills/auto-test/SKILL.md"},
+    "ralph-bridge": {"command": "ralph-bridge", "handler": "skills/ralph-bridge/SKILL.md"},
 }
 WORKFLOW_ALIASES = {
     "workflow": "workflow",
@@ -40,6 +41,9 @@ WORKFLOW_ALIASES = {
     "auto-test": "auto-test",
     "autotest": "auto-test",
     "auto_test": "auto-test",
+    "ralph-bridge": "ralph-bridge",
+    "ralph_bridge": "ralph-bridge",
+    "bridge": "ralph-bridge",
 }
 KNOWN_COMMANDS = {"status", "run", "debug", "report", "feedback", "resume", "doctor", "help", "-h", "--help"}
 
@@ -712,6 +716,17 @@ def command_doctor(args: argparse.Namespace, ctx: Context) -> int:
     elif marketplace_version != expected_version:
         version_issues.append(f"marketplace.json={marketplace_version}")
 
+    terminal_payload = read_json(ctx.terminal_path, {})
+    if not isinstance(terminal_payload, dict):
+        version_issues.append("terminal.json=invalid")
+    else:
+        terminal_doc_version = str(terminal_payload.get("version", "")).strip()
+        terminal_schema_version = str(terminal_payload.get("schema_version", "")).strip()
+        if terminal_doc_version != expected_product_version:
+            version_issues.append(f"terminal.version={terminal_doc_version or 'missing'}")
+        if terminal_schema_version != expected_version:
+            version_issues.append(f"terminal.schema_version={terminal_schema_version or 'missing'}")
+
     if version_issues:
         add_check(
             "version_consistency",
@@ -723,7 +738,11 @@ def command_doctor(args: argparse.Namespace, ctx: Context) -> int:
         add_check(
             "version_consistency",
             "PASS",
-            f"cli={expected_version}, default_product={DEFAULT_VERSION}, plugin={expected_version}, marketplace={expected_version}",
+            (
+                f"cli={expected_version}, default_product={DEFAULT_VERSION}, "
+                f"plugin={expected_version}, marketplace={expected_version}, "
+                f"terminal.version={expected_product_version}, terminal.schema_version={expected_version}"
+            ),
         )
 
     user_story_rel = str(ctx.user_story_path.relative_to(ctx.root))
@@ -875,7 +894,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_status.set_defaults(func=command_status)
 
     p_run = sub.add_parser("run", help="Run workflow with mode switches")
-    p_run.add_argument("workflow", help="Workflow route (workflow/team/auto-test)")
+    p_run.add_argument("workflow", help="Workflow route (workflow/team/auto-test/ralph-bridge)")
     p_run.add_argument(
         "--mode",
         default="normal",

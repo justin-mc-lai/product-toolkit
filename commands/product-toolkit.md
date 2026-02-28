@@ -103,7 +103,7 @@ description: 通用产品经理工具集 - v3.7.0（CLI 统一入口 + Scope Gua
 
 ---
 
-## M3：Ralph Bridge 命令契约（v3.5.0）
+## M3：Ralph Bridge 命令契约（v3.7.0 兼容路径）
 
 ```bash
 ./scripts/ralph_bridge.sh start --team <name> --runtime omx|omc|auto --task "..."

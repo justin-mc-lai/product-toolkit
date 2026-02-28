@@ -1,5 +1,5 @@
 {
-  "schema_version": "3.6.0",
+  "schema_version": "3.7.0",
   "version": "v3.7.0",
   "feature": "ptk-cli-scope-guard",
   "generated_by": "/product-toolkit:workflow",

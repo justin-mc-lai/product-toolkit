@@ -60,7 +60,7 @@ class PtkCliTests(unittest.TestCase):
         self.assertIn("PTK Status Board", proc_with_version.stdout)
 
     def test_run_route_wrappers(self) -> None:
-        for route in ("team", "auto-test"):
+        for route in ("team", "auto-test", "ralph-bridge"):
             proc = run_ptk("--version", "v3.7.0", "run", route, "--mode", "dry-run")
             self.assertEqual(proc.returncode, 0, f"{route}: {proc.stderr}")
             payload = json.loads(proc.stdout)
