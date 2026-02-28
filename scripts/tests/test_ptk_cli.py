@@ -67,6 +67,15 @@ class PtkCliTests(unittest.TestCase):
             self.assertEqual(payload["status"], "completed")
             self.assertEqual(payload["reason"], "dry-run")
 
+    def test_run_id_is_unique_for_back_to_back_runs(self) -> None:
+        first = run_ptk("--version", "v3.7.0", "run", "workflow", "--mode", "dry-run")
+        second = run_ptk("--version", "v3.7.0", "run", "workflow", "--mode", "dry-run")
+        self.assertEqual(first.returncode, 0, first.stderr)
+        self.assertEqual(second.returncode, 0, second.stderr)
+        first_id = json.loads(first.stdout)["run_id"]
+        second_id = json.loads(second.stdout)["run_id"]
+        self.assertNotEqual(first_id, second_id)
+
     def test_debug_follow_mode(self) -> None:
         run_proc = run_ptk("--version", "v3.7.0", "run", "workflow", "--mode", "debug")
         self.assertEqual(run_proc.returncode, 0, run_proc.stderr)

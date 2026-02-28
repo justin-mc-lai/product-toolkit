@@ -3,7 +3,7 @@ name: product-toolkit
 description: Product toolkit for PM workflows (think/user-story/prd/test-case/workflow etc.) with think vNext hard-switch rules.
 ---
 
-# Product Toolkit v3.6.1
+# Product Toolkit v3.7.0
 
 提供产品经理工作流工具集：需求澄清、用户故事、PRD、测试用例、技术方案与发布清单。
 
@@ -16,7 +16,7 @@ description: Product toolkit for PM workflows (think/user-story/prd/test-case/wo
 3. 下游 `user-story / prd / test-case / workflow` 按新契约消费输出。
 4. 本次仅定义**规则与文档契约**，不包含行为引擎实现。
 
-## ✅ v3.6.1 主路径声明（2026-02-27）
+## ✅ v3.7.0 主路径声明（2026-02-28）
 
 1. 默认入口保持：`/product-toolkit:workflow`（`/product-toolkit:work` 别名）。
 2. workflow 核心产物链聚焦：`think → user-story → prd → test-case`。
@@ -102,7 +102,7 @@ description: Product toolkit for PM workflows (think/user-story/prd/test-case/wo
 | `/product-toolkit:release [版本]` | 发布/上线检查清单 | `/product-toolkit:release v1.0.0` |
 | `/product-toolkit:analyze [对象]` | 竞品分析 | `/product-toolkit:analyze 抖音` |
 | `/product-toolkit:team [功能]` | 多代理协作（file/tmux runtime） | `/product-toolkit:team 电商详情页` |
-| `/product-toolkit:ralph-bridge [功能]` | Ralph 长任务桥接（兼容/高级路径） | `/product-toolkit:ralph-bridge v3.6.1 workflow-evidence-first` |
+| `/product-toolkit:ralph-bridge [功能]` | Ralph 长任务桥接（兼容/高级路径） | `/product-toolkit:ralph-bridge v3.7.0 workflow-evidence-first` |
 | `/product-toolkit:work [功能]` | workflow 别名（兼容 Claude 输入习惯） | `/product-toolkit:work 电商收藏功能` |
 | `/product-toolkit:workflow [功能]` | 一键产品工作流 | `/product-toolkit:workflow 电商收藏功能` |
 | `/product-toolkit:test-progress [版本]` | 测试进度记录 | `/product-toolkit:test-progress v1.0.0` |
@@ -399,9 +399,10 @@ docs/product/{version}/
 
 ---
 
-**版本**: v3.6.0
+**版本**: v3.7.0
 
 **更新日志**:
+- v3.7.0: CLI 统一入口、Scope Guard 越界记录（deviations/confirmations）、dual-mode 报告（summary.md + summary.json）、证据三件套（raw-command-log/evidence-manifest/gate-consistency）
 - v3.6.0: workflow 主路径聚焦 PRD/US/QA、OMC/OMX 下一步固定提示词模板、boundaries/terminal 证据闭环模板、bridge 降级为兼容路径
 - v3.5.2: 版本一致性修正（入口文档版本标识统一）
 - v3.5.1: 新增 `/product-toolkit:work`（workflow 别名）

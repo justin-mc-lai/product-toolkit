@@ -1,9 +1,9 @@
 ---
 name: product-toolkit
-description: 通用产品经理工具集 - v3.5.2（strict 默认 + team runtime + ralph bridge + feedback 回写）
+description: 通用产品经理工具集 - v3.7.0（CLI 统一入口 + Scope Guard + dual-mode 报告 + evidence-first）
 ---
 
-# Product Toolkit v3.5.2
+# Product Toolkit v3.7.0
 
 [PRODUCT TOOLKIT ACTIVATED]
 
@@ -128,7 +128,7 @@ verify 阶段固定编排：
 
 ---
 
-## v3.7.0 文档补充（Draft）
+## v3.7.0 文档补充（Current）
 
 - 版本索引：`docs/product/v3.7.0/README.md`
 - PRD：`docs/product/v3.7.0/prd/ptk-cli-scope-guard.md`

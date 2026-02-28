@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import secrets
 import sys
 import time
 from dataclasses import dataclass
@@ -293,6 +294,20 @@ def load_run_state(ctx: Context, run_id: str) -> dict[str, Any]:
     return read_json(ctx.runs_dir / run_id / "state.json", {})
 
 
+def generate_run_id(runs_dir: Path) -> str:
+    """Generate a collision-resistant run id.
+
+    Format: run-YYYYMMDDTHHMMSSmmmZ-<hex4>
+    """
+    for _ in range(8):
+        now = datetime.now(timezone.utc)
+        millis = now.microsecond // 1000
+        candidate = now.strftime(f"run-%Y%m%dT%H%M%S{millis:03d}Z-{secrets.token_hex(2)}")
+        if not (runs_dir / candidate).exists():
+            return candidate
+    return f"run-{time.time_ns()}-{secrets.token_hex(4)}"
+
+
 def command_status(args: argparse.Namespace, ctx: Context) -> int:
     team_root = ctx.root / ".omx" / "state" / "team"
     team_count = len([p for p in team_root.glob("*") if p.is_dir()]) if team_root.exists() else 0
@@ -330,7 +345,7 @@ def command_run(args: argparse.Namespace, ctx: Context) -> int:
         print(f"Unsupported workflow route: {args.workflow}. Supported routes: {supported}", file=sys.stderr)
         return 2
 
-    run_id = args.run_id or datetime.now(timezone.utc).strftime("run-%Y%m%dT%H%M%SZ")
+    run_id = args.run_id or generate_run_id(ctx.runs_dir)
     run_dir = ctx.runs_dir / run_id
     run_dir.mkdir(parents=True, exist_ok=True)
     events_path = run_dir / "events.jsonl"
